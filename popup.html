@@ -2,8 +2,13 @@
 <html>
 <head>
   <title>Extension Popup</title>
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="odometer/odometer.css">
+  <link rel="stylesheet" href="maincontent/maincontent.css">
 </head>
+
+
 <body>
   <div class="header">
     <button class="logo" id="menuButton">
@@ -19,6 +24,12 @@
         <img src="icons/settings.png" alt="Settings" class="setting" />
       </button>
     </div>
+      <div id="loading-screen">
+        <div class="loading-bar-container">
+          <div id="loading-bar"></div>
+        </div>
+        <div id="loading-text">Starting...</div>
+      </div>
   </div>
 
   <div class="dropdown-menu" id="dropdownMenu">
@@ -55,46 +66,44 @@
     <div class="body1">
       <div class="popup-container">
         <div class="main-content">
-          <div class="date-container">
-            <small>Date: <span id="current-date"></span></small>
-          </div>
-          <div class="url-container">
-            <small>URL Scanned: <span id="current-url" class="url-text">Loading…</span></small>
-          </div>
-          <div class="plan-container">
-            <small>Plan: Free</small>
-          </div>
+          <div class="url-content">
+            <div class="date-container">
+              <small>Date: <span id="current-date"></span></small>
+            </div>
+            <div class="url-container">
+              <small>URL Scanned: <span id="current-url" class="url-text">Loading…</span></small>
+            </div>
+            <div class="plan-container">
+              <small>Plan: Free</small>
+            </div>
+          </div>  
 
-          <div class="score">
-            <h3><img src="icons/score.png" alt="score" />Score</h3>
-            <div id="score-value">--</div>
-          </div>
+          <div id="scoreFile"></div>
+ 
+          <div id="summaryReportFile"></div>
 
-          <div class="vulnerabilities-section">
-            <h4>List of vulnerabilities</h4>
-            <ul id="vulnerability-list"></ul>
-          </div>
+          <div id="passedChecks"></div>
+
+          <div id="vulnerability-list"></div>
+
+          <div id="suggestedFixes"></div>
 
           <div class="graph-section">
             <canvas id="graphCanvas" width="200" height="100"></canvas>
           </div>
         </div>
       </div>
-      <div class="footer">
-        <div class="button-wrapper">
-          <button id="scan-now">SCAN LATEST LINK</button>
-        </div>
-      </div>
     </div>
 
-    <div class="body2">
-      <div class="noise-content">
-        <button id="onoff2">
-          <img src="icons/onoff2.png" alt="Toggle" class="offon2" />
-        </button>
+    <div class="footer">
+      <div class="button-wrapper">
+        <button id="scan-now">SCAN LATEST LINK</button>
       </div>
     </div>
   </div>
   <script src="popup.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js">
+  </script>
 </body>
 </html>
