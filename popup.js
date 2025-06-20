@@ -1,13 +1,17 @@
 let lastScanResult = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-  showLoadingAndScan((done) => setTimeout(done, 0));
-
   const menuButton = document.getElementById("menuButton");
   const dropdownMenu = document.getElementById("dropdownMenu");
   const setting = document.getElementById("setting");
   const dropdownMenu2 = document.getElementById("dropdownMenu2");
+  const dropdownMenu3 = document.getElementById("dropdownMenu3");
   const appSetting = document.getElementById("appSetting");
+  const onoffBtn = document.getElementById("onoff");
+  const onoffBtn2 = document.getElementById("onoff2");
+  const offExtension = document.getElementById("offExtension");
+  const scanBtn = document.getElementById("scan-now");
+  const switchToggle = document.querySelector('.switch-toggle');
 
   menuButton?.addEventListener("click", () => {
     dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
@@ -17,6 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
     dropdownMenu2.style.display = dropdownMenu2.style.display === "block" ? "none" : "block";
   });
 
+  appSetting?.addEventListener("click", () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL("setting.html") });
+  });
+
+  switchToggle?.addEventListener('click', () => {
+    switchToggle.classList.toggle('off');
+  });
+
   document.addEventListener("click", (event) => {
     if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
       dropdownMenu.style.display = "none";
@@ -24,10 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!setting.contains(event.target) && !dropdownMenu2.contains(event.target)) {
       dropdownMenu2.style.display = "none";
     }
-  });
-
-  appSetting?.addEventListener("click", () => {
-    chrome.tabs.create({ url: chrome.runtime.getURL("setting.html") });
+    if (!onoffBtn.contains(event.target) && !dropdownMenu3.contains(event.target)) {
+      dropdownMenu3.style.display = "none";
+    }
   });
 
   const currentDate = document.getElementById("current-date");
@@ -39,9 +50,32 @@ document.addEventListener("DOMContentLoaded", () => {
     urlEl.innerText = tabs[0]?.url || "Unknown URL";
   });
 
-  const scanBtn = document.getElementById("scan-now");
-  const onoffBtn = document.getElementById("onoff");
-  const onoffBtn2 = document.getElementById("onoff2");
+  onoffBtn?.addEventListener("click", () => {
+    chrome.storage.local.get("realtimeEnabled", ({ realtimeEnabled }) => {
+      if (realtimeEnabled) {
+        dropdownMenu3.style.display = dropdownMenu3.style.display === "block" ? "none" : "block";
+      } else {
+        chrome.storage.local.set({ realtimeEnabled: true }, () => {
+          setOnOffUI(true);
+          showLoadingAndScan((done) => setTimeout(done, 0));
+        });
+      }
+    });
+  });
+
+  onoffBtn2?.addEventListener("click", () => {
+    chrome.storage.local.set({ realtimeEnabled: true }, () => {
+      setOnOffUI(true);
+      showLoadingAndScan((done) => setTimeout(done, 0));
+    });
+  });
+
+  offExtension?.addEventListener("click", () => {
+    chrome.storage.local.set({ realtimeEnabled: false }, () => {
+      setOnOffUI(false);
+      dropdownMenu3.style.display = "none";
+    });
+  });
 
   scanBtn?.addEventListener("click", () => {
     showLoadingAndScan((done) => {
@@ -64,29 +98,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
           lastScanResult = response;
           chrome.storage.local.set({ lastScanResult: response });
-          done(); // renderResults() will be called after HTML loads
+          done(); 
         });
       });
     });
   });
 
-  function toggleRealtime() {
-    chrome.storage.local.get("realtimeEnabled", ({ realtimeEnabled }) => {
-      const next = !realtimeEnabled;
-      chrome.storage.local.set({ realtimeEnabled: next }, () => {
-        setOnOffUI(next);
-        if (next) {
-          showLoadingAndScan((done) => setTimeout(done, 0));
-        }
-      });
-    });
-  }
-
-  onoffBtn?.addEventListener("click", toggleRealtime);
-  onoffBtn2?.addEventListener("click", toggleRealtime);
-
   chrome.storage.local.get({ realtimeEnabled: true }, ({ realtimeEnabled }) => {
     setOnOffUI(realtimeEnabled);
+
+    const bodyContainer = document.querySelector(".body-container");
+    const body2 = document.querySelector(".body2");
+    const loadingScreen = document.getElementById("loading-screen");
+
+    if (realtimeEnabled) {
+      showLoadingAndScan((done) => setTimeout(done, 0));
+    } else {
+      loadingScreen.style.display = "none";
+      bodyContainer.classList.remove("visible");
+      body2.style.display = "block";
+    }
   });
 
   chrome.storage.local.get("lastScanResult", ({ lastScanResult: stored }) => {
@@ -121,7 +152,6 @@ function setOnOffUI(enabled) {
   document.body.classList.toggle("mode-off", !enabled);
 }
 
-// Main loader with progress bar
 function showLoadingAndScan(scanFunction) {
   const loadingScreen = document.getElementById("loading-screen");
   const loadingBar = document.getElementById("loading-bar");
@@ -183,7 +213,6 @@ function showLoadingAndScan(scanFunction) {
   nextStage();
 }
 
-// Load HTML components
 function loadScoreHtml() {
   return fetch('maincontent/score.html')
     .then(res => res.text())
@@ -224,7 +253,6 @@ function loadVulnerabilitiesDetectedHtml() {
     });
 }
 
-// GLOBAL so it works anywhere
 function renderResults(response) {
   const vuList = document.getElementById("vulnerability-items");
   if (!vuList) {
@@ -266,7 +294,6 @@ function renderResults(response) {
   }
 }
 
-// Show popup to tab
 function showDetails(type) {
   if (!lastScanResult) return;
   const items = lastScanResult[type] || [];
