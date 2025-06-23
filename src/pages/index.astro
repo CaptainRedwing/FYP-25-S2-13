@@ -1,14 +1,10 @@
----
-// src/pages/index.astro
----
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>VulnEye – Browser Security Inspector</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css" />
-	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
-
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
   <body>
     <header class="navbar">
@@ -27,42 +23,158 @@
       <section class="hero">
         <h1>Client-Side Security, Simplified</h1>
         <p>Real-time in-browser vulnerability scanning with zero data leakage.</p>
-        <button disabled>Coming Soon</button>
+        <a href="https://github.com/ilovecoding77/FYP-25-S2-13" target="_blank" rel="noopener noreferrer" class="download-btn">
+          Download Extension
+        </a>
       </section>
 
-     <section id="features" class="features content-box">
-  <h2>Key Features</h2>
-  <ul>
-    <li>🔍 Detects XSS, CSRF, and header misconfigs</li>
-    <li>🧠 Suspicious site detection using ML</li>
-    <li>🔐 Fully privacy-first, no data leaves your browser</li>
-  </ul>
+      <section id="features" class="features content-box">
+        <h2>Key Features</h2>
+        <ul>
+          <li>🔍 Detects XSS, CSRF, and header misconfigs</li>
+          <li>🧠 Suspicious site detection using ML</li>
+          <li>🔐 Fully privacy-first, no data leaves your browser</li>
+        </ul>
+      </section>
+
+      <section id="faq" class="faq content-box">
+        <h2>FAQ</h2>
+        <p><strong>Is VulnEye free?</strong><br />Yes, a free tier will always be available.</p>
+        <p><strong>Does it work on all browsers?</strong><br />VulnEye is being designed for Chrome, Edge, and Firefox.</p>
+      </section>
+
+      <section id="pricing" class="pricing-section content-box">
+  <h2>Plans & Pricing</h2>
+
+  <div class="plan-cards-container">
+    <div class="plan-card">
+      <h3>Free</h3>
+      <p>$0/month</p>
+      <ul>
+        <li>Up to 3 users</li>
+        <li>Basic vulnerability scanning</li>
+        <li>Email support</li>
+      </ul>
+    </div>
+
+    <div class="plan-card pro">
+      <h3>Pro</h3>
+      <label for="userSlider">How many users?</label>
+      <input type="range" id="userSlider" min="1" max="21" value="1" />
+      <p id="userCount">1 user</p>
+      <p id="price">$7.99/month</p>
+      <p id="note" style="display: none;">For more than 20 users, please contact us for a quote</p>
+      <ul>
+        <li>Advanced scanning features</li>
+        <li>Machine learning threat detection</li>
+        <li>Priority support</li>
+      </ul>
+      <button id="subscribeBtn" class="download-btn">Subscribe Now</button>
+    </div>
+
+    <div class="plan-card">
+      <h3>Enterprise</h3>
+      <p>Contact us for pricing</p>
+      <ul>
+        <li>Custom security integrations</li>
+        <li>Dedicated account manager</li>
+        <li>24/7 enterprise support</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
-<section id="faq" class="faq content-box">
-  <h2>FAQ</h2>
-  <p><strong>Is VulnEye free?</strong><br />Yes, a free tier will always be available.</p>
-  <p><strong>Does it work on all browsers?</strong><br />VulnEye is being designed for Chrome, Edge, and Firefox.</p>
-</section>
 
-<section id="contact" class="contact content-box">
-  <h2>Contact</h2>
-  <p>Need help? Reach out at <a href="mailto:support@vulneye.app">support@vulneye.app</a></p>
-</section>
 
+      <section id="contact" class="contact content-box">
+        <h2>Contact</h2>
+        <p>Need help? Reach out at <a href="mailto:support@vulneye.app">support@vulneye.app</a></p>
+      </section>
     </main>
 
-	<section class="privacy">
-  <h2>Privacy Policy</h2>
-  <p>VulnEye does not collect, store, or transmit any user data.</p>
-  <p>All security scans are performed locally within your browser and no information ever leaves your device.</p>
-  <p>We do not use cookies, analytics, or third-party trackers on this site.</p>
-  <p>For any questions, contact <a href="mailto:support@vulneye.app">support@vulneye.app</a></p>
-</section>
-
+    <section class="privacy">
+      <h2>Privacy Policy</h2>
+      <p>VulnEye does not collect, store, or transmit any user data.</p>
+      <p>All security scans are performed locally within your browser and no information ever leaves your device.</p>
+      <p>We do not use cookies, analytics, or third-party trackers on this site.</p>
+      <p>For any questions, contact <a href="mailto:support@vulneye.app">support@vulneye.app</a></p>
+    </section>
 
     <footer>
       <p>© 2025 VulnEye – All rights reserved.</p>
     </footer>
+
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('userSlider') as HTMLInputElement | null;
+    const userCount = document.getElementById('userCount') as HTMLElement | null;
+    const price = document.getElementById('price') as HTMLElement | null;
+    const note = document.getElementById('note') as HTMLElement | null;
+    const subscribeBtn = document.getElementById('subscribeBtn') as HTMLButtonElement | null;
+
+    const stripeLinks: Record<string, string> = {
+      "1": "https://buy.stripe.com/test_cNi4gB3OLbBFdqc5Xrbsc00",
+      "2": "https://buy.stripe.com/test_7sY7sN3OLbBFeug1Hbbsc01",
+      "3": "https://buy.stripe.com/test_eVq00ldpl7lpeug71vbsc02",
+      "4": "https://buy.stripe.com/test_dRmbJ3ad9fRV99WgC5bsc03",
+      "5": "https://buy.stripe.com/test_fZu7sN5WTgVZeugdpTbsc04",
+      "6": "https://buy.stripe.com/test_dRmbJ34SP0X1ae099Dbsc05",
+      "7": "https://buy.stripe.com/test_fZu14p1GD8ptcm85Xrbsc06",
+      "8": "https://buy.stripe.com/test_4gM4gB5WT9tx99W3Pjbsc07",
+      "9": "https://buy.stripe.com/test_5kQ00l1GD9tx4TG1Hbbsc08",
+      "10": "https://buy.stripe.com/test_9B6dRbetpcFJ71O99Dbsc09",
+      "11": "https://buy.stripe.com/test_3cI7sNbhd2153PCadHbsc0a",
+      "12": "https://buy.stripe.com/test_9B6dRb70XbBFdqc0D7bsc0b",
+      "13": "https://buy.stripe.com/test_cNicN7fxt0X1bi4bhLbsc0c",
+      "14": "https://buy.stripe.com/test_28E9AVfxt0X13PC2Lfbsc0d",
+      "15": "https://buy.stripe.com/test_00w8wRad98ptcm83Pjbsc0e",
+      "16": "https://buy.stripe.com/test_9B6fZj8513591Hu4Tnbsc0f",
+      "17": "https://buy.stripe.com/test_28EfZjetpfRV3PC71vbsc0g",
+      "18": "https://buy.stripe.com/test_4gM00letp6hl71O5Xrbsc0h",
+      "19": "https://buy.stripe.com/test_cNicN73OLgVZ71O2Lfbsc0i",
+      "20": "https://buy.stripe.com/test_eVq9AVad98ptdqcadHbsc0j"
+    };
+
+    function updatePricing(value: number) {
+      if (!userCount || !price || !note || !subscribeBtn) return;
+
+      if (value === 21) {
+        userCount.textContent = "21+ users";
+        price.textContent = "";
+        note.style.display = "block";
+        subscribeBtn.style.display = "none";
+      } else {
+        note.style.display = "none";
+        userCount.textContent = `${value} user${value > 1 ? 's' : ''}`;
+
+        let perUserPrice = 0;
+        if (value <= 5) perUserPrice = 7.99;
+        else if (value <= 10) perUserPrice = 6.99;
+        else perUserPrice = 5.99;
+
+        const total = (value * perUserPrice).toFixed(2);
+        price.textContent = `$${total}/month`;
+
+        subscribeBtn.style.display = "inline-block";
+      }
+    }
+
+    if (slider && subscribeBtn) {
+      slider.addEventListener('input', (e: Event) => {
+        const target = e.target as HTMLInputElement;
+        const value = Number(target.value);
+        updatePricing(value);
+      });
+
+      subscribeBtn.addEventListener('click', () => {
+        const value = slider ? slider.value : "1";
+        const url = stripeLinks[value];
+        if (url) window.location.href = url;
+      });
+
+      updatePricing(Number(slider.value));
+    }
+  });
+</script>
   </body>
 </html>
