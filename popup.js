@@ -148,6 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
   chrome.storage.local.get("lastScanResult", ({ lastScanResult: stored }) => {
     if (stored) lastScanResult = stored;
   });
+
+  initConfigurationToggles();
+
 });
 
 function backButton() {
@@ -182,7 +185,7 @@ function setting_1() {
 
         setTimeout(() => {
           backButton();
-          switchToggle2();
+          initConfigurationToggles();
         }, 0);
       })
       .catch(err => {
@@ -270,6 +273,11 @@ function showLoadingAndScan(scanFunction) {
           ]).then(() => {
             if (lastScanResult) {
               renderResults(lastScanResult);
+
+              // Calculate Scores
+              const score = calculateScore(lastScanResult);
+              const el = document.querySelector("#score-value");
+              el.innerHTML = score;
             }
           });
         }, 500);
@@ -329,8 +337,32 @@ function loadSuggestionFixesHtml() {
 }
 
 function renderResults(response) {
+
+  const passedList = document.querySelector('.passedList');
+  if (passedList && response.csp?.length) {
+    // remove old CSP entry
+    const old = passedList.querySelector('.csp-item');
+    if (old) old.remove();
+
+    const { exists, method } = response.csp[0];
+    const li = document.createElement('li');
+    li.className = 'csp-item';
+
+    if (exists) {
+      li.innerHTML = `✓ CSP enforced via <strong>${method}</strong>`;
+    } else {
+      li.innerHTML = `✖ No CSP policy found`;
+    } 
+
+    passedList.appendChild(li);
+  }
+
+
   const vuList = document.getElementById("vulnerability-items");
-  if (!vuList) return;
+  if (!vuList) {
+    console.error("vulnerability-items not found");
+    return;
+  }
 
   vuList.innerHTML = "";
   let foundAny = false;
@@ -359,6 +391,42 @@ function renderResults(response) {
     foundAny = true;
   }
 
+  if (response.header?.length) {
+  const li = document.createElement("li");
+  li.textContent = "HTTP Header issues detected ";
+  const btn = document.createElement("button");
+  btn.innerHTML = `<span class="detail-text">Details</span> <img src="icons/chevron.png" class="arrow9-icon" alt=">" />`;
+  btn.className = "detail-btn";
+  btn.addEventListener("click", () => showDetails("header"));
+  li.appendChild(btn);
+  vuList.appendChild(li);
+  foundAny = true;
+  }
+
+  if (response.csrf?.length) {
+  const li = document.createElement("li");
+  li.textContent = "CSRF token issues detected ";
+  const btn = document.createElement("button");
+  btn.innerHTML = `<span class="detail-text">Details</span> <img src="icons/chevron.png" class="arrow9-icon" alt=">" />`;
+  btn.className = "detail-btn";
+  btn.addEventListener("click", () => showDetails("csrf"));
+  li.appendChild(btn);
+  vuList.appendChild(li);
+  foundAny = true;
+  }
+
+  if (response.trackers?.length) {
+  const li = document.createElement("li");
+  li.textContent = "Trackers detected ";
+  const btn = document.createElement("button");
+  btn.innerHTML = `<span class="detail-text">Details</span> <img src="icons/chevron.png" class="arrow9-icon" alt=">" />`;
+  btn.className = "detail-btn";
+  btn.addEventListener("click", () => showDetails("trackers"));
+  li.appendChild(btn);
+  vuList.appendChild(li);
+  foundAny = true;
+  }
+
   if (!foundAny) {
     const li = document.createElement("li");
     li.textContent = "No issues detected.";
@@ -377,4 +445,91 @@ function showDetails(type) {
       data: items
     });
   });
+}
+
+function calculateScore(results) {
+  let score = 100;
+  const severityPoints = { critical: 25, high: 15, medium: 10, low: 5 };
+  const typeWeights = { xss: 1.0, libraries: 1.3, header: 1.2, csrf: 1.3, csp: 1.0, trackers: 1.0 };
+
+  console.log("===== Vulnerability Score Breakdown =====");
+
+  for (const type in results) {
+    const issues = results[type];
+    if (!Array.isArray(issues)) continue;
+
+    issues.forEach(issue => {
+      let severity = (issue.severity || 'low').toLowerCase();
+
+      // Special handling as severity isn't directly included for CSP
+      if (!issue.severity && type === 'csp' && issue.exists === false) severity = 'low';
+
+      const points = severityPoints[severity] || 0;
+      const weight = typeWeights[type] || 1.0;
+      const deduction = points * weight;
+      score -= deduction;
+
+      console.log(`[${type.toUpperCase()}] ${severity.toUpperCase()} → -${deduction} points`);
+    });
+  }
+
+  const finalScore = Math.max(0, Math.round(score));
+  console.log(`Final Security Score: ${finalScore}`);
+  console.log("=========================================");
+
+  return finalScore;
+}
+
+function initConfigurationToggles() {
+
+  console.log("[Config] initConfigurationToggles() called");
+
+  const defaultSettings = {
+    js: true,
+    xss: true,
+    header: true,
+    csrf: true,
+    csp: true,
+    trackers: true
+  };
+
+  const toggleIds = {
+    js: "toggle-js",
+    xss: "toggle-xss",
+    header: "toggle-header",
+    csrf: "toggle-csrf",
+    csp: "toggle-csp",
+    trackers: "toggle-trackers"
+  };
+
+  chrome.storage.local.get({ scannersEnabled: defaultSettings }, ({ scannersEnabled }) => {
+    for (const [key, id] of Object.entries(toggleIds)) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+
+      if (scannersEnabled[key]) {
+        el.classList.remove("off");
+      } else {
+        el.classList.add("off");
+      }
+
+      // Toggle on click
+      el.onclick = () => el.classList.toggle("off");
+    }
+  });
+
+  const saveBtn = document.getElementById("save-btn");
+  if (saveBtn) {
+    saveBtn.onclick = () => {
+      const newSettings = {};
+      for (const [key, id] of Object.entries(toggleIds)) {
+        const el = document.getElementById(id);
+        newSettings[key] = !el?.classList.contains("off");
+      }
+
+      chrome.storage.local.set({ scannersEnabled: newSettings }, () => {
+        alert("Settings saved!");
+      });
+    };
+  }
 }
