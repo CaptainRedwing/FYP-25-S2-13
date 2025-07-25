@@ -20,6 +20,10 @@
       "run_at": "document_idle",
       "js": ["content/scanners/JSLibraryScanner.js",
               "content/scanners/XSSScanner.js",
+              "content/scanners/HeaderScanner.js",
+              "content/scanners/CSRFScanner.js",              
+              "content/scanners/CSPScanner.js",
+              "content/scanners/TrackerScanner.js",
               "content/content.js",
               "content/detail_modal.js"
             ]
@@ -29,7 +33,11 @@
   ], 
   "web_accessible_resources": [
     {
-      "resources": ["content/scanners/jsrepository.json"],
+      "resources": ["content/scanners/jsrepository.json",
+                    "content/scanners/xssRules.json",
+                    "content/scanners/trackers.json",
+                    "content/scanners/headerRules.json",
+                    "content/scanners/csrfRules.json"],
       "matches": ["<all_urls>"]
     }
   ]
