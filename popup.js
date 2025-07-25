@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const onoffBtn2 = document.getElementById("onoff2");
   const offExtension = document.getElementById("offExtension");
   const scanBtn = document.getElementById("scan-now");
-  const switchToggle = document.querySelector('.switch-toggle');
+  const switchToggle = document.querySelector(".switch-toggle");
+  const switchToggle2 = document.querySelector(".switch-toggle2");
 
   menuButton?.addEventListener("click", () => {
     dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
@@ -22,11 +23,35 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   appSetting?.addEventListener("click", () => {
-    chrome.tabs.create({ url: chrome.runtime.getURL("setting.html") });
+    dropdownMenu2.style.display = "none";
+
+    fetch(chrome.runtime.getURL("setting/mainSetting.html"))
+      .then(res => res.text())
+      .then(html => {
+        const body1 = document.querySelector(".body1");
+        const container = document.querySelector(".body-container");
+
+        if (body1) body1.style.display = "none";
+        document.getElementById("settingsWrapper")?.remove();
+
+        const settingsWrapper = document.createElement("div");
+        settingsWrapper.id = "settingsWrapper";
+        container.appendChild(settingsWrapper);
+        settingsWrapper.innerHTML = html;
+
+        setTimeout(() => {
+          backButton();
+          setting_1(); 
+        }, 0);
+      });
   });
 
-  switchToggle?.addEventListener('click', () => {
-    switchToggle.classList.toggle('off');
+  switchToggle?.addEventListener("click", () => {
+    switchToggle.classList.toggle("off");
+  });
+
+  switchToggle2?.addEventListener("click", () => {
+    switchToggle2.classList.toggle("off");
   });
 
   document.addEventListener("click", (event) => {
@@ -57,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         chrome.storage.local.set({ realtimeEnabled: true }, () => {
           setOnOffUI(true);
-          showLoadingAndScan((done) => setTimeout(done, 0));
+          showLoadingAndScan(done => setTimeout(done, 0));
         });
       }
     });
@@ -66,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
   onoffBtn2?.addEventListener("click", () => {
     chrome.storage.local.set({ realtimeEnabled: true }, () => {
       setOnOffUI(true);
-      showLoadingAndScan((done) => setTimeout(done, 0));
+      showLoadingAndScan(done => setTimeout(done, 0));
     });
   });
 
@@ -78,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   scanBtn?.addEventListener("click", () => {
-    showLoadingAndScan((done) => {
+    showLoadingAndScan(done => {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, { action: "runScan" }, (response) => {
           const vuList = document.getElementById("vulnerability-items");
@@ -98,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           lastScanResult = response;
           chrome.storage.local.set({ lastScanResult: response });
-          done(); 
+          done();
         });
       });
     });
@@ -112,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loadingScreen = document.getElementById("loading-screen");
 
     if (realtimeEnabled) {
-      showLoadingAndScan((done) => setTimeout(done, 0));
+      showLoadingAndScan(done => setTimeout(done, 0));
     } else {
       loadingScreen.style.display = "none";
       bodyContainer.classList.remove("visible");
@@ -121,11 +146,59 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   chrome.storage.local.get("lastScanResult", ({ lastScanResult: stored }) => {
-    if (stored) {
-      lastScanResult = stored;
-    }
+    if (stored) lastScanResult = stored;
   });
 });
+
+function backButton() {
+  const backButton = document.getElementById("backButton");
+  if (backButton) {
+    backButton.addEventListener("click", () => {
+      const wrapper = document.getElementById("settingsWrapper");
+      if (wrapper) wrapper.remove();
+
+      const body1 = document.querySelector(".body1");
+      if (body1) body1.style.display = "block";
+    });
+  }
+}
+
+function setting_1() {
+  const extensionConfiguration = document.getElementById("extensionConfiguration");
+  extensionConfiguration?.addEventListener("click", () => {
+    fetch(chrome.runtime.getURL("setting/extensionConfiguration/configuration.html"))
+      .then(res => res.text())
+      .then(html => {
+        const body1 = document.querySelector(".body1");
+        const container = document.querySelector(".body-container");
+
+        if (body1) body1.style.display = "none";
+        document.getElementById("settingsWrapper")?.remove();
+
+        const settingsWrapper = document.createElement("div");
+        settingsWrapper.id = "settingsWrapper";
+        container.appendChild(settingsWrapper);
+        settingsWrapper.innerHTML = html;
+
+        setTimeout(() => {
+          backButton();
+          switchToggle2();
+        }, 0);
+      })
+      .catch(err => {
+        console.error("Failed to load configuration.html", err);
+      });
+  });
+}
+
+function switchToggle2() {
+  const toggles = document.querySelectorAll(".switch-toggle2");
+  toggles.forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      toggle.classList.toggle("off");
+    });
+  });
+}
 
 function dateFormat(date) {
   const day = date.getDate();
@@ -140,13 +213,8 @@ function dateFormat(date) {
 function setOnOffUI(enabled) {
   const onoffBtn = document.getElementById("onoff");
   if (onoffBtn) {
-    if (enabled) {
-      onoffBtn.classList.remove("off");
-      onoffBtn.title = "Real-time scanning: ON";
-    } else {
-      onoffBtn.classList.add("off");
-      onoffBtn.title = "Real-time scanning: OFF";
-    }
+    onoffBtn.classList.toggle("off", !enabled);
+    onoffBtn.title = `Real-time scanning: ${enabled ? "ON" : "OFF"}`;
   }
   document.body.classList.toggle("mode-on", enabled);
   document.body.classList.toggle("mode-off", !enabled);
@@ -204,7 +272,6 @@ function showLoadingAndScan(scanFunction) {
               renderResults(lastScanResult);
             }
           });
-
         }, 500);
       }, 500);
     }
@@ -214,12 +281,12 @@ function showLoadingAndScan(scanFunction) {
 }
 
 function loadScoreHtml() {
-  return fetch('maincontent/score.html')
+  return fetch("maincontent/score.html")
     .then(res => res.text())
     .then(html => {
-      document.getElementById('scoreFile').innerHTML = html;
-      const script = document.createElement('script');
-      script.src = 'odometer/odometer.js';
+      document.getElementById("scoreFile").innerHTML = html;
+      const script = document.createElement("script");
+      script.src = "odometer/odometer.js";
       script.onload = () => {
         const el = document.querySelector("#score-value");
         new Odometer({ el });
@@ -230,35 +297,40 @@ function loadScoreHtml() {
 }
 
 function loadSummaryReportHtml() {
-  return fetch('maincontent/summaryreport.html')
+  return fetch("maincontent/summaryreport.html")
     .then(res => res.text())
     .then(html => {
-      document.getElementById('summaryReportFile').innerHTML = html;
+      document.getElementById("summaryReportFile").innerHTML = html;
     });
 }
 
 function loadPassedCheckHtml() {
-  return fetch('maincontent/passedcheck.html')
+  return fetch("maincontent/passedcheck.html")
     .then(res => res.text())
     .then(html => {
-      document.getElementById('passedChecks').innerHTML = html;
+      document.getElementById("passedChecks").innerHTML = html;
     });
 }
 
 function loadVulnerabilitiesDetectedHtml() {
-  return fetch('maincontent/vulnerabilitiesdetected.html')
+  return fetch("maincontent/vulnerabilitiesdetected.html")
     .then(res => res.text())
     .then(html => {
-      document.getElementById('vulnerability-list').innerHTML = html;
+      document.getElementById("vulnerability-list").innerHTML = html;
+    });
+}
+
+function loadSuggestionFixesHtml() {
+  return fetch("maincontent/suggestedfixes.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("suggestedFixes").innerHTML = html;
     });
 }
 
 function renderResults(response) {
   const vuList = document.getElementById("vulnerability-items");
-  if (!vuList) {
-    console.error("vulnerability-items not found");
-    return;
-  }
+  if (!vuList) return;
 
   vuList.innerHTML = "";
   let foundAny = false;
@@ -305,12 +377,4 @@ function showDetails(type) {
       data: items
     });
   });
-}
-
-function loadSuggestionFixesHtml() {
-  return fetch('maincontent/suggestedfixes.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('suggestedFixes').innerHTML = html;
-    });
 }
