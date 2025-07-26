@@ -309,6 +309,16 @@ function loadSummaryReportHtml() {
     .then(res => res.text())
     .then(html => {
       document.getElementById("summaryReportFile").innerHTML = html;
+
+      // Wait for the DOM to render injected HTML
+      requestAnimationFrame(() => {
+        // Extra check for Chart.js availability and canvas existence
+        if (typeof window.renderVulnChart === "function") {
+          window.renderVulnChart();
+        } else {
+          console.error("renderVulnChart is not defined or not loaded yet");
+        }
+      });
     });
 }
 

@@ -297,3 +297,28 @@
   margin-top: -10px;
   font-weight: 500;
 }
+
+.summaryReport {
+  text-align: center;
+}
+
+.vulnerabilitybreakdown {
+  font-size: 20px;
+  color: #88c0cc;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+
+.donutChart {
+  margin-top: -60px;  
+  margin-bottom: -50px;
+  display: flex;
+  justify-content: center; 
+}
+
+.chart-label {
+  margin-top: -10px;
+  font-size: 14px;
+  color: #88c0cc;
+}

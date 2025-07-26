@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Save button handler
-  const saveBtn = document.getElementById("save-btn");
+  const saveBtn = document.getElementById("saveBtn");
   if (!saveBtn) {
     console.error("[Config] Save button NOT found");
     return;
@@ -63,12 +63,5 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("[Config] Settings saved successfully!");
       alert("Settings saved!");
     });
-  });
-
-  // Back button
-  document.getElementById("backButton")?.addEventListener("click", () => {
-    console.log("[Config] Back button clicked");
-    document.getElementById("configurationPage").style.display = "none";
-    document.querySelector(".body-container")?.classList.add("visible");
   });
 });
