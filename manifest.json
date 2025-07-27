@@ -36,8 +36,10 @@
       "resources": ["content/scanners/jsrepository.json",
                     "content/scanners/xssRules.json",
                     "content/scanners/trackers.json",
-                    "content/scanners/headerRules.json",
-                    "content/scanners/csrfRules.json"],
+                    "content/scanners/headerRules.json",                   
+                    "content/scanners/csrfRules.json",
+                    "maincontent/chart.js"
+                  ],
       "matches": ["<all_urls>"]
     }
   ]
