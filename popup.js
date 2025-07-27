@@ -14,6 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const switchToggle = document.querySelector(".switch-toggle");
   const switchToggle2 = document.querySelector(".switch-toggle2");
 
+  const exportBtn = document.getElementById('export-pdf');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', exportReportAsPdf);
+  } else {
+    console.log('Export button not found!');
+  }
+
   menuButton?.addEventListener("click", () => {
     dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
   });

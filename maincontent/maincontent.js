@@ -51,7 +51,6 @@ window.renderVulnChart = function () {
   };
 
 
-
   new Chart(ctx, {
     type: 'doughnut',
     data: data,

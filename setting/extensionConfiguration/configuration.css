@@ -186,7 +186,7 @@
   margin-top: 20px;      
 }
 
-#saveBtn {
+#save-btn {
   background-color: #a1ccd6; 
   color: #ffffff;        
   font-weight: 500;
@@ -198,6 +198,6 @@
   transition: background-color 0.2s ease;
 }
 
-#saveBtn:hover {
+#save-btn:hover {
   background-color: #6fa7b2; 
 }

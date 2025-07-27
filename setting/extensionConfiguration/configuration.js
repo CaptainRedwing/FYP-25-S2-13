@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Save button handler
-  const saveBtn = document.getElementById("saveBtn");
+  const saveBtn = document.getElementById("save-btn");
   if (!saveBtn) {
     console.error("[Config] Save button NOT found");
     return;
