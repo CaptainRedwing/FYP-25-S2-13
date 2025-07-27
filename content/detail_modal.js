@@ -1,3 +1,147 @@
+// detail_modal.js
+
+//Styling for the modal
+function injectModalStyles() {
+  if (document.getElementById('vuln-modal-style')) return;
+
+  const style = document.createElement('style');
+  style.id = 'vuln-modal-style';
+  style.textContent = `
+    /* Modal backdrop */
+  #vuln-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Modal content box */
+  .vuln-modal-box {
+    background: #85BAC6;
+    color: #222;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-size: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    position: relative;
+  }
+
+  /* Modal header bar */
+  .vuln-modal-box h2 {
+    background: #1995AD;
+    color: white;
+    margin: -20px -20px 16px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+  }
+
+  /* Close button */
+  #close-vuln-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  /* Each vulnerability card */
+  .vuln-entry,
+  
+  .tracker-entry {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+  }
+
+  .vuln-entry ul li {
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 12px;
+  }
+
+  /* Entry title */
+  .vuln-entry h3 {
+  background: #e8eef4;
+  display: block;
+  padding: 8px;
+  margin: 0 0 8px;
+  border-radius: 4px 4px 0 0;
+  font-size: 16px;
+  }
+
+  /* Meta line (tag & severity) */
+  .vuln-entry .meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  /* Code snippet / detail block */
+  .vuln-entry code {
+    background: #f7f7f7;
+    display: block;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    font-family: monospace;
+  }
+
+  /* Suggestion box */
+  .vuln-entry .suggestion,
+  .tracker-entry .suggestion {
+    background: #f0f9f0;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: 13px;
+  }
+
+  /* References list */
+  .vuln-entry ul,
+  .tracker-entry ul {
+    margin: 8px 0 0 16px;
+    font-size: 13px;
+  }
+
+  /* Severity colors */
+  .severity-high {
+    color: red;
+    font-weight: bold;
+  }
+  .severity-medium,
+  .severity-moderate {
+    color: orange;
+    font-weight: bold;
+  }
+  .severity-low {
+    color: green;
+    font-weight: bold;
+  }
+
+  `;
+  document.head.appendChild(style);
+}
+
 // Escapes HTML special characters in a string to prevent injection.
 function escapeHtml(str = '') {
   return str
@@ -8,47 +152,26 @@ function escapeHtml(str = '') {
     .replace(/'/g, '&#39;');
 }
 
-/**
- * Renders a modal showing detailed scan results for the given type.
- * @param {'libraries'|'xss'|'header'|'trackers'|string} type 
- * @param {Array} items 
- */
+// The Modal
 function showSiteModal(type, items) {
-  // Remove any existing modal
+  injectModalStyles();  // <-- apply styling
+
+  // Remove any existing 
   const existing = document.getElementById('vuln-modal');
   if (existing) existing.remove();
 
-  console.log('>> showDetails received', type, items);
-
-  // Overlay backdrop 
+  // Overlay backdrop
   const modal = document.createElement('div');
   modal.id = 'vuln-modal';
-  Object.assign(modal.style, {
-    position: 'fixed', top: '0', left: '0',
-    width: '100vw', height: '100vh',
-    background: 'rgba(0,0,0,0.5)',
-    zIndex: '9999', display: 'flex',
-    justifyContent: 'center', alignItems: 'center'
-  });
 
   // Content box
   const box = document.createElement('div');
-  Object.assign(box.style, {
-    background: 'white', color: 'black',
-    maxWidth: '600px', width: '90%',
-    maxHeight: '80vh', overflowY: 'auto',
-    padding: '20px', borderRadius: '10px',
-    fontFamily: 'sans-serif', fontSize: '14px', position: 'relative'
-  });
+  box.className = 'vuln-modal-box';
 
   // Close button
   const closeBtn = document.createElement('button');
   closeBtn.id = 'close-vuln-modal';
   closeBtn.textContent = '✖';
-  Object.assign(closeBtn.style, {
-    position: 'absolute', top: '10px', right: '10px',
-    background: 'none', border: 'none', fontSize: '16px', cursor: 'pointer'
-  });
   closeBtn.onclick = () => modal.remove();
   box.appendChild(closeBtn);
 
@@ -56,8 +179,9 @@ function showSiteModal(type, items) {
   const header = document.createElement('h2');
   let titleText;
   switch (type) {
-    case 'libraries': titleText = 'JS Library Vulnerabilities'; break;
+    case 'libraries': titleText = 'JS Library Vulnerabilities';     break;
     case 'xss':       titleText = 'XSS Vulnerabilities';            break;
+    case 'csrf':      titleText = 'Missing CSRF Tokens';              break;
     case 'header':    titleText = 'Header Vulnerabilities';         break;
     case 'trackers':  titleText = 'Trackers Detected';              break;
     default:          titleText = 'Scan Results';
@@ -71,24 +195,33 @@ function showSiteModal(type, items) {
     none.textContent = 'No issues detected on this page.';
     box.appendChild(none);
 
-  // JS Library vulnerabilities
+  // JS Library 
   } else if (type === 'libraries') {
     items.forEach(i => {
       const entry = document.createElement('div');
-      entry.style.marginBottom = '12px';
+      entry.className = 'vuln-entry';
 
-      const title = document.createElement('div');
-      title.innerHTML = `<strong>${escapeHtml(i.library)} v${escapeHtml(i.version)}</strong>`;
-      entry.appendChild(title);
+      const h3 = document.createElement('h3');
+      h3.textContent = `${i.library} v${i.version}`;
+      entry.appendChild(h3);
 
       const sev = document.createElement('div');
-      sev.textContent = `Severity: ${i.severity.toUpperCase()}`;
+      sev.innerHTML = `<strong>Severity:</strong> <span class="severity-${i.severity.toLowerCase()}">${escapeHtml(i.severity.toUpperCase())}</span>`;
       entry.appendChild(sev);
 
       const ul = document.createElement('ul');
       i.identifiers.forEach((sum, idx) => {
         const li = document.createElement('li');
-        li.innerHTML = `<strong>${escapeHtml(sum)}</strong><br>Suggestion: ${escapeHtml(i.suggestions[idx])}`;
+
+          const txt = document.createElement('div');
+          txt.innerHTML = `<strong>${escapeHtml(sum)}</strong>`;
+          li.appendChild(txt);
+
+          const sugg = document.createElement('div');
+          sugg.className = 'suggestion';
+          sugg.innerHTML = `<strong>Suggestion:</strong> ${escapeHtml(i.suggestions[idx])}`;
+          li.appendChild(sugg);
+
         ul.appendChild(li);
       });
       entry.appendChild(ul);
@@ -96,193 +229,161 @@ function showSiteModal(type, items) {
       box.appendChild(entry);
     });
 
-  //  XSS 
+  // XSS
   } else if (type === 'xss') {
     items.forEach(i => {
       const entry = document.createElement('div');
-      entry.style.marginBottom = '12px';
+      entry.className = 'vuln-entry';
 
-      const fields = [
-        { label: 'Type:', value: i.type },
-        { label: 'Tag:', value: i.tag },
-        { label: 'Attribute:', value: i.attr },
-        { label: 'Href:', value: i.href },
-        { label: 'Value:', value: i.value }
-      ];
-      fields.forEach(f => {
-        if (f.value) {
-          const div = document.createElement('div');
-          div.innerHTML = `<strong>${f.label}</strong> ${escapeHtml(f.value)}`;
-          entry.appendChild(div);
-        }
-      });
+      const typeDiv = document.createElement('div');
+      typeDiv.innerHTML = `<strong>Type:</strong> ${escapeHtml(i.type)}`;
+      entry.appendChild(typeDiv);
+
+      const tagDiv = document.createElement('div');
+      tagDiv.innerHTML = `<strong>Tag:</strong> ${escapeHtml(i.tag)}`;
+      entry.appendChild(tagDiv);
 
       if (i.snippet) {
-        const snipLabel = document.createElement('div');
-        snipLabel.innerHTML = '<strong>Script Snippet:</strong>';
-        entry.appendChild(snipLabel);
-
-        const pre = document.createElement('pre');
-        Object.assign(pre.style, {
-          background: '#f4f4f4', padding: '8px',
-          borderRadius: '4px', whiteSpace: 'pre-wrap'
-        });
         const code = document.createElement('code');
         code.textContent = i.snippet;
-        pre.appendChild(code);
-        entry.appendChild(pre);
+        entry.appendChild(code);
+      }
+
+      const sev = document.createElement('div');
+      sev.innerHTML = `<strong>Severity:</strong> <span class="severity-${i.severity.toLowerCase()}">${escapeHtml(i.severity.toUpperCase())}</span>`;
+      entry.appendChild(sev);
+
+      const suggestDiv = document.createElement('div');
+      suggestDiv.className = 'suggestion';
+      suggestDiv.innerHTML = `<strong>Suggestion:</strong> ${escapeHtml(i.suggestion)}`;
+      entry.appendChild(suggestDiv);
+
+       if (i.references?.length) {
+        i.references.forEach(ref => {
+          const refDiv = document.createElement('div');
+          refDiv.innerHTML = `<strong>Reference:</strong> <a href="${ref}" target="_blank">${escapeHtml(ref)}</a>`;
+          entry.appendChild(refDiv);
+        });
+      }
+
+      box.appendChild(entry);
+    });
+
+  // HTTP Header
+  } else if (type === 'header') {
+    items.forEach(i => {
+      const entry = document.createElement('div');
+      entry.className = 'vuln-entry';
+
+      const htype = document.createElement('div');
+      htype.innerHTML = `<strong>Type:</strong> ${escapeHtml(i.type)}`;
+      entry.appendChild(htype);
+
+      if (i.detail) {
+        const detailDiv = document.createElement('div');
+        detailDiv.innerHTML = `<strong>Detail:</strong> ${escapeHtml(i.detail)}`;
+        entry.appendChild(detailDiv);
       }
 
       if (i.severity) {
         const sev = document.createElement('div');
-        sev.innerHTML = `<strong>Severity:</strong> ${escapeHtml(i.severity.toUpperCase())}`;
+        sev.innerHTML = `<strong>Severity:</strong> <span class="severity-${i.severity.toLowerCase()}">${escapeHtml(i.severity.toUpperCase())}</span>`;
         entry.appendChild(sev);
       }
 
-      if (i.references?.length) {
-        const refLabel = document.createElement('div');
-        refLabel.innerHTML = '<strong>References:</strong>';
-        entry.appendChild(refLabel);
-
-        const ulRefs = document.createElement('ul');
-        i.references.forEach(ref => {
-          const liRef = document.createElement('li');
-          liRef.textContent = ref;
-          ulRefs.appendChild(liRef);
-        });
-        entry.appendChild(ulRefs);
+      if (i.suggestion) {
+        const suggest = document.createElement('div');
+        suggest.className = 'suggestion';
+        suggest.innerHTML = `<strong>Suggestion:</strong> ${escapeHtml(i.suggestion)}`;
+        entry.appendChild(suggest);
       }
 
-      const suggestDiv = document.createElement('div');
-      suggestDiv.innerHTML = `<strong>Suggestion:</strong> ${escapeHtml(i.suggestion)}`;
-      entry.appendChild(suggestDiv);
+      if (i.reference) {
+        const refDiv = document.createElement('div');
+        const refText = escapeHtml(i.reference);
+        if (/^https?:\/\//i.test(i.reference)) {
+          refDiv.innerHTML = `<strong>Reference:</strong> <a href="${i.reference}" target="_blank">${refText}</a>`;
+        } else {
+          refDiv.innerHTML = `<strong>Reference:</strong> ${refText}`;
+        }
+        entry.appendChild(refDiv);
+      }
 
       box.appendChild(entry);
     });
 
-  // HTTP Header 
-  } else if (type === 'header') {
-  items.forEach(i => {
-    const entry = document.createElement('div');
-    entry.style.marginBottom = '12px';
-
-    const htype = document.createElement('div');
-    htype.innerHTML = `<strong>Issue Type:</strong> ${escapeHtml(i.type)}`;
-    entry.appendChild(htype);
-
-    if(i.detail){
-      const detailDiv = document.createElement('div');
-      detailDiv.innerHTML = `<strong>Detail:</strong> ${escapeHtml(i.detail)}`;
-      entry.appendChild(detailDiv);
-    }
-
-    if (i.severity) {
-      const sev = document.createElement('div');
-      sev.innerHTML = `<strong>Severity:</strong> ${escapeHtml(i.severity.toUpperCase())}`;
-      entry.appendChild(sev);
-    }
-
-    if (i.suggestion) {
-      const suggest = document.createElement('div');
-      suggest.innerHTML = `<strong>Suggestion:</strong> ${escapeHtml(i.suggestion)}`;
-      entry.appendChild(suggest);
-    }
-
-    if (i.reference) {
-      const refDiv = document.createElement('div');
-      const refText = escapeHtml(i.reference);
-      if (/^https?:\/\//i.test(i.reference)) {
-        refDiv.innerHTML = `<strong>Reference:</strong> <a href="${i.reference}" target="_blank">${refText}</a>`;
-      } else {
-        refDiv.innerHTML = `<strong>Reference:</strong> ${refText}`;
-      }
-      entry.appendChild(refDiv);
-    }
-
-    box.appendChild(entry);
-    });
-  
-  // CSRF 
+  // CSRF
   } else if (type === 'csrf') {
-  items.forEach(i => {
-    const entry = document.createElement('div');
-    entry.style.marginBottom = '12px';
+    items.forEach(i => {
+      const entry = document.createElement('div');
+      entry.className = 'vuln-entry';
 
-    const fields = [
-      { label: 'Type:', value: i.type },
-      { label: 'Tag:', value: i.tag },
-      { label: 'Detail:', value: i.detail },
-      { label: 'Severity:', value: i.severity },
-    ];
-
-    fields.forEach(f => {
-      if (f.value) {
+      ['type','tag','detail','severity'].forEach(field => {
+        if (!i[field]) return;
         const div = document.createElement('div');
-        div.innerHTML = `<strong>${f.label}</strong> ${escapeHtml(f.value)}`;
+        if (field === 'severity') {
+          div.innerHTML = `
+            <strong>Severity:</strong>
+            <span class="severity-${i.severity.toLowerCase()}">
+              ${escapeHtml(i.severity.toUpperCase())}
+            </span>
+          `;
+        } else {
+          const label = field.charAt(0).toUpperCase() + field.slice(1);
+          div.innerHTML = `<strong>${label}:</strong> ${escapeHtml(i[field])}`;
+        }
         entry.appendChild(div);
+      });
+
+      if (i.suggestion) {
+        const suggestDiv = document.createElement('div');
+        suggestDiv.className = 'suggestion';
+        suggestDiv.innerHTML = `<strong>Suggestion:</strong> ${escapeHtml(i.suggestion)}`;
+        entry.appendChild(suggestDiv);
       }
+
+      if (i.reference) {
+        const refDiv = document.createElement('div');
+        const refText = escapeHtml(i.reference);
+        refDiv.innerHTML = `<strong>Reference:</strong> ${/^https?:\/\//i.test(i.reference) ? `<a href="${i.reference}" target="_blank">${refText}</a>` : refText}`;
+        entry.appendChild(refDiv);
+      }
+
+      box.appendChild(entry);
     });
 
-    if (i.suggestion) {
-      const suggestDiv = document.createElement('div');
-      suggestDiv.innerHTML = `<strong>Suggestion:</strong> ${escapeHtml(i.suggestion)}`;
-      entry.appendChild(suggestDiv);
-    }
-
-    if (i.reference) {
-      const refDiv = document.createElement('div');
-      const refText = escapeHtml(i.reference);
-      // If the reference looks like a URL, make it a clickable link
-      if (/^https?:\/\//i.test(i.reference)) {
-        refDiv.innerHTML = `<strong>Reference:</strong> <a href="${i.reference}" target="_blank">${refText}</a>`;
-      } else {
-        refDiv.innerHTML = `<strong>Reference:</strong> ${refText}`;
-      }
-      entry.appendChild(refDiv);
-    }
-
-    box.appendChild(entry);
-    });
-  // Tracker findings
+  // Trackers
   } else if (type === 'trackers') {
     items.forEach(i => {
       const entry = document.createElement('div');
-      entry.classList.add('tracker-entry');
-      entry.style.marginBottom = '16px';
+      entry.className = 'tracker-entry';
 
       entry.innerHTML = `
-        <h3 class="tracker-name">${escapeHtml(i.tracker)}</h3>
-        <p><strong>Severity:</strong> 
-           <span class="severity-label severity-${i.severity}">
-             ${escapeHtml(i.severity.toUpperCase())}
-           </span>
-        </p>
-        <p><strong>URL:</strong> 
-           <a href="${i.url}" target="_blank">${escapeHtml(i.url)}</a>
-        </p>
-        <p><strong>Summary:</strong> ${escapeHtml(i.summary)}</p>
-        <p><strong>Suggestion:</strong> ${escapeHtml(i.suggestion)}</p>
-        <p><strong>References:</strong></p>
-        <ul class="tracker-references">
-          ${i.references.map(r => `<li><a href="${r}" target="_blank">${escapeHtml(r)}</a></li>`).join('')}
-        </ul>
+        <h3>${escapeHtml(i.tracker)}</h3>
+        <div class="meta">
+          <span><strong>Severity:</strong> <span class="severity-${i.severity.toLowerCase()}">${escapeHtml(i.severity.toUpperCase())}</span></span>
+        </div>
+        <div><strong>URL:</strong> <a href="${i.url}" target="_blank">${escapeHtml(i.url)}</a></div>
+        <div><strong>Summary:</strong> ${escapeHtml(i.summary)}</div>
+        <div class="suggestion"><strong>Suggestion:</strong> ${escapeHtml(i.suggestion)}</div>
+        <div><strong>References:</strong></div>
+        <ul>${i.references.map(r => `<li><a href="${r}" target="_blank">${escapeHtml(r)}</a></li>`).join('')}</ul>
       `;
       box.appendChild(entry);
     });
 
-  // Fallback 
+  // Fallback
   } else {
     const pre = document.createElement('pre');
     pre.textContent = JSON.stringify(items, null, 2);
     box.appendChild(pre);
   }
 
-  // Append and show
   modal.appendChild(box);
   document.body.appendChild(modal);
 }
 
-// Listen for popup requests to show the details modal
+// Listener to show the details modal
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.action === 'showDetails') {
     showSiteModal(msg.dataType, msg.data);
