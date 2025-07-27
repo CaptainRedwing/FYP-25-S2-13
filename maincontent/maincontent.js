@@ -26,22 +26,31 @@ window.renderVulnChart = function () {
   const centerText = {
     id: 'centerText',
     beforeDraw(chart) {
-      const { ctx, canvas } = chart;
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
+      const { ctx, chartArea } = chart;
+      const centerX = (chartArea.left + chartArea.right) / 2;
+      const centerY = (chartArea.top + chartArea.bottom) / 2;
+
       ctx.save();
-      ctx.scale(1.1, 0.9);
+
+      ctx.translate(centerX, centerY);
+      ctx.scale(1.1, 0.9); 
+      ctx.translate(-centerX, -centerY);
+
       ctx.font = 'bold 66px "Fira Sans Condensed", sans-serif';
-      ctx.textAlign = 'center';
       ctx.fillStyle = '#962E2A';
-      ctx.fillText('00', centerX -80, centerY - 25);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('00', centerX, centerY - 20);
 
       ctx.font = 'bold 24px "Fira Sans Condensed", sans-serif';
       ctx.fillStyle = '#384247';
-      ctx.fillText('issues found', centerX -78, centerY + 10);
+      ctx.fillText('issues found', centerX, centerY + 30);
+
       ctx.restore();
     }
   };
+
+
 
   new Chart(ctx, {
     type: 'doughnut',
