@@ -20,13 +20,13 @@ window.renderVulnChart = function () {
 		labels: ['Critical', 'High', 'Medium', 'Low'],
 		datasets: [{
 			data: severityCounts,
-			backgroundColor: ['#962E2A', '#E3867D', '#F7CA18', '#A1D6E2'],
+			backgroundColor: ['#611C19', '#962E2A', '#e3967d', '#A1D6E2'],
 			borderWidth: 0,
-			hoverBackgroundColor: ['#962E2A', '#E3867D', '#F7CA18', '#A1D6E2'],
+			hoverBackgroundColor: ['#611C19', '#962E2A', '#e3967d', '#A1D6E2'],
 			hoverBorderColor: [
-				'rgba(150, 46, 42, 0.71)', // Critical
-				'rgba(227, 134, 125, 0.71)', // High
-				'rgba(247, 202, 24, 0.71)', // Medium
+				'rgba(97, 28, 25, 0.71)', // Critical
+				'rgba(150, 46, 42, 0.71)', // High
+				'rgba(227, 134, 125, 0.71)', // Medium
 				'rgba(161, 214, 226, 0.71)' // Low
 			],
 			hoverBorderWidth: 6
@@ -50,7 +50,7 @@ window.renderVulnChart = function () {
 			ctx.fillStyle = '#962E2A';
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'middle';
-			// Show total issues found (sum of all severities)
+			
 			const totalIssues = severityCounts.reduce((a, b) => a + b, 0);
 			ctx.fillText(totalIssues.toString().padStart(2, '0'), centerX, centerY - 20);
 
@@ -63,26 +63,51 @@ window.renderVulnChart = function () {
 	};
 
 
-	new Chart(ctx, {
-		type: 'doughnut',
-		data: data,
-		options: {
-			cutout: '65%',
-			radius: '65%',
-			plugins: {
-				legend: { display: false },
-				tooltip: {
-					enabled: true,
-					callbacks: {
-						label: function (context) {
-							const label = context.label || '';
-							const value = context.parsed || 0;
-							return `${label}: ${value}`;
-						}
-					}
-				}
-			}
-		},
-		plugins: [centerText]
-	});
+  const chartInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: {
+      cutout: '65%',
+      radius: '65%',
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false } 
+      },
+
+      interaction: {
+        mode: 'nearest',
+        intersect: true
+      }
+    },
+    plugins: [centerText]
+  });
+
+  const labelText = document.querySelector('#chartLabel .label-text');
+  const colorBox = document.querySelector('#chartLabel .color-box');
+
+  canvas.addEventListener('mousemove', function (event) {
+    const points = chartInstance.getElementsAtEventForMode(
+      event,
+      'nearest',
+      { intersect: true },
+      true
+    );
+
+    if (points.length) {
+      const index = points[0].index;
+      const label = data.labels[index];
+      const value = data.datasets[0].data[index];
+      const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+      const percent = total ? Math.round((value / total) * 100) : 0;
+
+      labelText.style.color = '#384247';
+      labelText.textContent = `${label} ${percent}%`;
+
+      colorBox.style.backgroundColor = data.datasets[0].backgroundColor[index];
+    } else {
+      labelText.style.color = '#384247';
+      labelText.textContent = 'hover to see details';
+      colorBox.style.backgroundColor = 'transparent';
+    }
+  });
 };

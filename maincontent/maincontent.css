@@ -1,7 +1,7 @@
 .score {
   color: #E3867D;
   padding: 5px;
-  background-color: #ffffff;
+  background-color: #F1F1F2;
 }
 
 .score h3 span {
@@ -55,7 +55,7 @@
   color: #E3867D;
   padding: 5px;
   margin-top: 20px;
-  background-color: #ffffff;
+  background-color: #F1F1F2;
 }
 
 .summaryReport h3 span {
@@ -300,6 +300,7 @@
 
 .summaryReport {
   text-align: center;
+  background-color: #F1F1F2;
 }
 
 .vulnerabilitybreakdown {
@@ -312,13 +313,25 @@
 
 .donutChart {
   margin-top: -60px;  
-  margin-bottom: -50px;
+  margin-bottom: -75px;
   display: flex;
   justify-content: center; 
 }
 
 .chart-label {
-  margin-top: -10px;
+  margin-top: 20px;
   font-size: 14px;
-  color: #88c0cc;
+  color: #384247;           /* Always keep text color fixed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
 }
+
+.color-box {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background-color: transparent; /* Default: no color */
+}
+
