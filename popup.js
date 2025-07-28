@@ -279,40 +279,61 @@ function showLoadingAndScan(scanFunction) {
 						loadSuggestionFixesHtml()
 					]).then(() => {
 						if (lastScanResult) {
-							renderResults(lastScanResult);
+              renderResults(lastScanResult);
 
-							// Calculate Scores
-							const score = calculateScore(lastScanResult);
-							const el = document.querySelector("#score-value");
-							el.innerHTML = score;
+              // Calculate Scores
+              const score = calculateScore(lastScanResult);
+              const el = document.querySelector("#score-value");
 
-							// After a scan result is available, e.g. after renderResults(lastScanResult)
-							const severityCounts = getSeverityCounts(lastScanResult);
-							console.log("Severity counts:", severityCounts);
-						}
-					});
-				}, 500);
-			}, 500);
-		}
-	}
+              
+              if (window.Odometer && el) {
+                el.innerHTML = score;
 
-	nextStage();
+                const gradeEl = document.querySelector(".grade");
+                let gradeText = "";
+
+                if (score >= 80) gradeText = "Excellent";
+                else if (score >= 60) gradeText = "Good";
+                else if (score >= 40) gradeText = "Moderate";
+                else if (score >= 20) gradeText = "Weak";
+                else gradeText = "Critical";
+
+                if (gradeEl) {
+                  gradeEl.textContent = gradeText;
+                }
+              } else {
+                console.error("Odometer or score element missing");
+              }
+
+            }
+          });
+        }, 500);
+      }, 500);
+    }
+  }
+
+  nextStage();
 }
 
 function loadScoreHtml() {
-	return fetch("maincontent/score.html")
-		.then(res => res.text())
-		.then(html => {
-			document.getElementById("scoreFile").innerHTML = html;
-			const script = document.createElement("script");
-			script.src = "odometer/odometer.js";
-			script.onload = () => {
-				const el = document.querySelector("#score-value");
-				new Odometer({ el });
-				el.innerHTML = 100;
-			};
-			document.body.appendChild(script);
-		});
+  return fetch("maincontent/score.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("scoreFile").innerHTML = html;
+
+      return new Promise(resolve => {
+        const script = document.createElement("script");
+        script.src = "odometer/odometer.js";
+        script.onload = () => {
+          const el = document.querySelector("#score-value");
+          if (el) {
+            new Odometer({ el });
+          }
+          resolve(); 
+        };
+        document.body.appendChild(script);
+      });
+    });
 }
 
 function loadSummaryReportHtml() {

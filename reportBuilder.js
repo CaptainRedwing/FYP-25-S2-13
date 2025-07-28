@@ -1,3 +1,4 @@
+
 function buildFullReportHtml(scanResult) {
   const date  = new Date().toLocaleString();
   const url   = document.getElementById('current-url')?.textContent || '';
@@ -5,7 +6,6 @@ function buildFullReportHtml(scanResult) {
                  ?.textContent.replace('Plan:', '').trim() || 'Free';
   const score = document.querySelector('#score-value')?.textContent || 'N/A';
 
-  // Define each scan type and its display title
   const sections = [
     { key: 'libraries', title: 'JS Library Vulnerabilities' },
     { key: 'xss',       title: 'XSS Vulnerabilities' },
@@ -15,24 +15,30 @@ function buildFullReportHtml(scanResult) {
     { key: 'trackers',  title: 'Trackers Detected' }
   ];
 
-  // Render each section, always show heading
   let contentHtml = '';
   sections.forEach(({ key, title }) => {
     contentHtml += `<h2>${title}</h2>`;
     const items = scanResult[key] || [];
+
     if (!items.length) {
       contentHtml += `<p>No issues detected in ${title.toLowerCase()}.</p>`;
     } else {
       items.forEach(i => {
         contentHtml += `<div class="entry">`;
+
         switch (key) {
           case 'libraries':
             contentHtml += `
               <p><strong>Library:</strong> ${i.library} v${i.version}</p>
-              <p><strong>Severity:</strong> ${i.severity?.toUpperCase()}</p>
+              <p><strong>Severity:</strong> <span class="severity-${i.severity.toLowerCase()}">${i.severity.toUpperCase()}</span></p>
             `;
             i.identifiers.forEach((id, idx) => {
-              contentHtml += `<p>${id}<br><em>Suggestion:</em> ${i.suggestions[idx]}</p>`;
+              contentHtml += `
+                <div>
+                  <strong>${id}</strong>
+                  <div class="suggestion"><strong>Suggestion:</strong> ${i.suggestions[idx]}</div>
+                </div>
+              `;
             });
             break;
 
@@ -40,26 +46,28 @@ function buildFullReportHtml(scanResult) {
             contentHtml += `
               <p><strong>Type:</strong> ${i.type}</p>
               <p><strong>Tag:</strong> ${i.tag}</p>
-              <p><strong>Attribute:</strong> ${i.attr}</p>
               ${i.snippet ? `<pre>${i.snippet}</pre>` : ''}
-              <p><strong>Severity:</strong> ${i.severity?.toUpperCase()}</p>
+              <p><strong>Severity:</strong> <span class="severity-${i.severity.toLowerCase()}">${i.severity.toUpperCase()}</span></p>
+              <div class="suggestion"><strong>Suggestion:</strong> ${i.suggestion}</div>
             `;
             if (i.references?.length) {
-              contentHtml += `<p><strong>References:</strong><ul>`;
-              i.references.forEach(r => contentHtml += `<li>${r}</li>`);
-              contentHtml += `</ul></p>`;
+              i.references.forEach(ref => {
+                contentHtml += `<p><strong>Reference:</strong> <a href="${ref}" target="_blank">${ref}</a></p>`;
+              });
             }
-            contentHtml += `<p><strong>Suggestion:</strong> ${i.suggestion}</p>`;
             break;
 
           case 'header':
             contentHtml += `
-              <p><strong>Issue:</strong> ${i.type}</p>
+              <p><strong>Type:</strong> ${i.type}</p>
               ${i.detail ? `<p><strong>Detail:</strong> ${i.detail}</p>` : ''}
-              <p><strong>Severity:</strong> ${i.severity?.toUpperCase()}</p>
-              <p><strong>Suggestion:</strong> ${i.suggestion}</p>
+              <p><strong>Severity:</strong> <span class="severity-${i.severity?.toLowerCase()}">${i.severity?.toUpperCase()}</span></p>
+              <div class="suggestion"><strong>Suggestion:</strong> ${i.suggestion}</div>
             `;
-            if (i.reference) contentHtml += `<p><strong>Reference:</strong> ${i.reference}</p>`;
+            if (i.reference) {
+              const isUrl = /^https?:\/\//i.test(i.reference);
+              contentHtml += `<p><strong>Reference:</strong> ${isUrl ? `<a href="${i.reference}" target="_blank">${i.reference}</a>` : i.reference}</p>`;
+            }
             break;
 
           case 'csrf':
@@ -67,41 +75,44 @@ function buildFullReportHtml(scanResult) {
               <p><strong>Type:</strong> ${i.type}</p>
               <p><strong>Tag:</strong> ${i.tag}</p>
               ${i.detail ? `<p><strong>Detail:</strong> ${i.detail}</p>` : ''}
-              <p><strong>Severity:</strong> ${i.severity?.toUpperCase()}</p>
-              <p><strong>Suggestion:</strong> ${i.suggestion}</p>
+              <p><strong>Severity:</strong> <span class="severity-${i.severity.toLowerCase()}">${i.severity.toUpperCase()}</span></p>
+              <div class="suggestion"><strong>Suggestion:</strong> ${i.suggestion}</div>
             `;
-            if (i.reference) contentHtml += `<p><strong>Reference:</strong> ${i.reference}</p>`;
+            if (i.reference) {
+              const isUrl = /^https?:\/\//i.test(i.reference);
+              contentHtml += `<p><strong>Reference:</strong> ${isUrl ? `<a href="${i.reference}" target="_blank">${i.reference}</a>` : i.reference}</p>`;
+            }
             break;
 
           case 'csp':
             contentHtml += `
               <p><strong>Enforced:</strong> ${i.exists ? 'Yes' : 'No'}</p>
               ${i.exists ? `<p><strong>Method:</strong> ${i.method}</p>` : ''}
-              <p><strong>Severity:</strong> ${i.exists ? 'N/A' : 'LOW'}</p>
+              <p><strong>Severity:</strong> ${i.exists ? 'N/A' : '<span class="severity-low">LOW</span>'}</p>
             `;
             break;
 
           case 'trackers':
             contentHtml += `
               <p><strong>Tracker:</strong> ${i.tracker}</p>
-              <p><strong>URL:</strong> ${i.url}</p>
-              <p><strong>Severity:</strong> ${i.severity?.toUpperCase()}</p>
+              <p><strong>URL:</strong> <a href="${i.url}" target="_blank">${i.url}</a></p>
+              <p><strong>Severity:</strong> <span class="severity-${i.severity.toLowerCase()}">${i.severity.toUpperCase()}</span></p>
               <p><strong>Summary:</strong> ${i.summary}</p>
-              <p><strong>Suggestion:</strong> ${i.suggestion}</p>
+              <div class="suggestion"><strong>Suggestion:</strong> ${i.suggestion}</div>
             `;
             if (i.references?.length) {
-              contentHtml += `<p><strong>References:</strong><ul>`;
-              i.references.forEach(r => contentHtml += `<li>${r}</li>`);
-              contentHtml += `</ul></p>`;
+              i.references.forEach(ref => {
+                contentHtml += `<p><strong>Reference:</strong> <a href="${ref}" target="_blank">${ref}</a></p>`;
+              });
             }
             break;
         }
+
         contentHtml += `</div>`;
       });
     }
   });
 
-  // Assemble full HTML
   return `<!doctype html>
 <html>
 <head>
@@ -109,8 +120,19 @@ function buildFullReportHtml(scanResult) {
   <style>
     body { font-family: sans-serif; margin: 20px; }
     h1, h2 { color: #333; margin-top: 30px; }
-    .entry { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
-    pre { background: #f4f4f4; padding: 8px; white-space: pre-wrap; }
+    .entry { border: 1px solid #ccc; padding: 10px; margin-bottom: 14px; border-radius: 6px; background: #fff; }
+    pre { background: #f4f4f4; padding: 8px; white-space: pre-wrap; border-radius: 4px; }
+
+    .suggestion {
+      background: #f0f9f0;
+      padding: 8px;
+      border-radius: 4px;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+    .severity-high { color: red; font-weight: bold; }
+    .severity-medium, .severity-moderate { color: orange; font-weight: bold; }
+    .severity-low { color: green; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -124,53 +146,30 @@ function buildFullReportHtml(scanResult) {
 </html>`;
 }
 
-/**
- * Export the full HTML report to PDF.
- */
 async function exportReportAsPdf() {
-  if (typeof lastScanResult === 'undefined' || !lastScanResult) {
-    alert('No scan results available. Please run a scan first.');
+  if (!lastScanResult) {
+    alert('No scan results available.');
     return;
   }
 
   const html = buildFullReportHtml(lastScanResult);
+
   const container = document.createElement('div');
-  Object.assign(container.style, {
-    position: 'fixed', top: '-10000px', left: '0', width: '800px', overflow: 'visible'
-  });
   container.innerHTML = html;
   document.body.appendChild(container);
-  await new Promise(r => setTimeout(r, 100));
 
-  const canvas = await html2canvas(container, {
-    scale: 2,
-    windowWidth: container.scrollWidth,
-    windowHeight: container.scrollHeight,
-    scrollY: -window.scrollY
-  });
-  document.body.removeChild(container);
+  await new Promise(r => setTimeout(r, 100)); // Wait for render
 
-  const imgData   = canvas.toDataURL('image/png');
-  const { jsPDF } = window.jspdf;
-  const pdf       = new jsPDF('p', 'pt', 'a4');
+  const opt = {
+    margin:       0.5,
+    filename:     'vulneye-report.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
 
-  const pageW  = pdf.internal.pageSize.getWidth();
-  const pageH  = pdf.internal.pageSize.getHeight();
-  const imgW   = pageW;
-  const imgH   = (canvas.height * imgW) / canvas.width;
-  let   remH   = imgH;
-  let   posY   = 0;
-
-  pdf.addImage(imgData, 'PNG', 0, 0, imgW, imgH);
-  remH -= pageH;
-  while (remH > 0) {
-    posY -= pageH;
-    pdf.addPage();
-    pdf.addImage(imgData, 'PNG', 0, posY, imgW, imgH);
-    remH -= pageH;
-  }
-
-  pdf.save('vulneye-report.pdf');
+  await html2pdf().from(container).set(opt).save();
+  container.remove();
 }
 
 // Hook export button
