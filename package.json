@@ -10,5 +10,8 @@
   },
   "dependencies": {
     "astro": "^5.9.2"
+  },
+  "devDependencies": {
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }

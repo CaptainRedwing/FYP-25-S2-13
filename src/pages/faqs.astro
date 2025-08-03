@@ -1,0 +1,131 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+    <section class="content-box faq-section">
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq-categories">
+            <button class="faq-category active" data-category="all">All</button>
+            <button class="faq-category" data-category="general">General</button>
+            <button class="faq-category" data-category="privacy">Privacy</button>
+            <button class="faq-category" data-category="technical">Technical</button>
+        </div>
+
+        <div class="faq-list">
+            <!-- GENERAL -->
+            <div class="faq-item" data-category="general">
+                <button class="faq-question">
+                    What is VulnEye?
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9.4 16.6L14 12L9.4 7.4L8 8.8L11.2 12L8 15.2L9.4 16.6Z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                VulnEye is a free, open-source browser extension that scans for client-side security issues like XSS, CSRF, insecure headers, tracker scripts, and more — directly in your browser.
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="general">
+                <button class="faq-question">
+                    Is VulnEye free to use?
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9.4 16.6L14 12L9.4 7.4L8 8.8L11.2 12L8 15.2L9.4 16.6Z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                Yes, VulnEye is entirely free and open-source. There are no locked features or paid tiers.
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="general">
+                <button class="faq-question">
+                    Who is VulnEye for?
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9.4 16.6L14 12L9.4 7.4L8 8.8L11.2 12L8 15.2L9.4 16.6Z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                VulnEye is for developers, students, and privacy-conscious users who want quick insights into the security posture of websites — without giving up data.
+                </div>
+            </div>
+
+            <!-- PRIVACY -->
+            <div class="faq-item" data-category="privacy">
+                <button class="faq-question">
+                    Does VulnEye collect any data?
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9.4 16.6L14 12L9.4 7.4L8 8.8L11.2 12L8 15.2L9.4 16.6Z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                No. VulnEye performs all scans client-side. Nothing is stored or sent — ever.
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="privacy">
+                <button class="faq-question">
+                    Why doesn’t VulnEye use analytics?
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9.4 16.6L14 12L9.4 7.4L8 8.8L11.2 12L8 15.2L9.4 16.6Z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                Because your privacy matters. We don’t use cookies, fingerprinting, or tracking scripts. What happens in your browser stays in your browser.
+                </div>
+            </div>
+
+            <!-- TECHNICAL -->
+            <div class="faq-item" data-category="technical">
+                <button class="faq-question">
+                    What types of vulnerabilities does it detect?
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9.4 16.6L14 12L9.4 7.4L8 8.8L11.2 12L8 15.2L9.4 16.6Z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                VulnEye detects XSS, CSRF, insecure HTTP headers, missing CSP, missing CSRF tokens, suspicious trackers, and risky JavaScript sources.
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="technical">
+                <button class="faq-question">
+                    How does VulnEye detect trackers?
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9.4 16.6L14 12L9.4 7.4L8 8.8L11.2 12L8 15.2L9.4 16.6Z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                It flags known tracker domains, scripts loading from third-party analytics or advertising networks, and suspicious behavioral patterns in network activity.
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="technical">
+                <button class="faq-question">
+                    Can I contribute to the project?
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9.4 16.6L14 12L9.4 7.4L8 8.8L11.2 12L8 15.2L9.4 16.6Z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                Yes! VulnEye is open source on GitHub. You can contribute code, file issues, suggest improvements, or support with a donation.
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="technical">
+                <button class="faq-question">
+                    Is VulnEye suitable for production pentests?
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9.4 16.6L14 12L9.4 7.4L8 8.8L11.2 12L8 15.2L9.4 16.6Z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                While useful for frontend checks, VulnEye is not a full pentesting suite. For full audits, combine it with backend and infrastructure security tools.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/scripts/faq.js" is:inline></script>
+</BaseLayout>

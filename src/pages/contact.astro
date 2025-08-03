@@ -1,0 +1,62 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <section class="content-box contact-form-section">
+    <h1>Contact Us</h1>
+    <p>If you have feedback, questions, or anything you'd like to share about VulnEye &mdash; we’d love to hear from you.</p>
+
+    <form action="https://formspree.io/f/mkgzvpdb" method="POST" class="contact-form">
+      <!-- Category -->
+      <h2 class="form-section-title">Your Inquiry</h2>
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="">Select a category</option>
+        <option value="issue">Report an Issue</option>
+        <option value="feedback">Feature Request / Feedback</option>
+        <option value="review">Leave a Review</option>
+        <option value="donation">Donation Support</option>
+        <option value="other">Other</option>
+      </select>
+
+      <!-- Subject -->
+      <label for="subject">Subject:</label>
+      <input type="text" id="subject" name="subject" required placeholder="Brief summary of your message" />
+
+      <!-- Name + Email -->
+      <h3 class="h3-form-section-title">Details</h3>
+      <div class="contact-grid">
+        <div class="field-group">
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="name" required placeholder="Jane Doe" />
+        </div>
+        <div class="field-group">
+          <label for="email">Your Email:</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com" />
+        </div>
+      </div>
+
+      <!-- Message -->
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="6" required placeholder="Write your enquiry here..."></textarea>
+
+      <input type="text" name="_gotcha" style="display:none">
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+      <!-- Disclaimer -->
+      <p class="contact-disclaimer">
+        Please allow 3–5 business days for us to get back to you. Thank you for your patience!
+      </p>
+    </form>
+
+    <!-- Popup Message -->
+    <div id="popup" class="popup-message hidden">
+        Inquiry submitted!
+    </div>
+  </section>
+
+   <script src="/scripts/interactivity.js" is:inline></script>
+</BaseLayout>

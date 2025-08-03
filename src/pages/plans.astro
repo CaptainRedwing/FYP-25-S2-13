@@ -1,0 +1,64 @@
+---
+layout: "@layouts/BaseLayout.astro"
+---
+
+<section id="pricing" class="pricing-section content-box">
+  <h2 class="text-3xl font-semibold text-primary mb-8">Plans & Pricing</h2>
+
+  <div class="grid gap-8 md:grid-cols-3">
+    <!-- Free Plan -->
+    <div class="rounded-2xl bg-surface p-6 text-primary shadow-md">
+      <h3 class="text-xl font-semibold mb-2">Free</h3>
+      <p class="text-secondary mb-4">VulnEye Free</p>
+      <ul class="text-sm leading-relaxed list-disc list-inside mb-4">
+        <li>Basic scans for common client-side security issues</li>
+        <li>Instant on-screen security report</li>
+        <li>No sign-up required</li>
+        <li>Scans performed entirely within the browser</li>
+      </ul>
+      <button class="bg-surface border border-secondary text-secondary rounded-xl px-4 py-2 cursor-default">Your Current Plan</button>
+    </div>
+
+    <!-- Pro Plan -->
+    <div class="rounded-2xl bg-surface p-6 text-primary shadow-md relative">
+      <div class="absolute top-0 right-0 bg-accent-pink text-xs font-semibold px-2 py-1 rounded-bl-xl">POPULAR!</div>
+      <h3 class="text-xl font-semibold mb-2">$7.99 <span class="text-base font-normal">per month</span></h3>
+      <p class="text-secondary mb-4">VulnEye Pro</p>
+      <ul class="text-sm leading-relaxed list-disc list-inside mb-4">
+        <li>Everything in Free</li>
+        <li>Additional advanced scanning capabilities</li>
+        <li>AI-generated solutions</li>
+        <li>Real-time alerts</li>
+        <li>Export detailed reports</li>
+        <li>Priority access to updates and new features</li>
+      </ul>
+      <button id="getProBtn" class="bg-accent-blue text-white rounded-xl px-4 py-2 w-full">Get Pro</button>
+
+      <!-- Hidden slider + button container -->
+      <div id="proOptions" class="mt-4 hidden">
+        <label for="userSlider" class="text-sm block mb-1">Select number of users</label>
+        <input type="range" id="userSlider" min="1" max="21" value="1" class="w-full mb-2">
+        <p id="userCount" class="text-sm">1 user</p>
+        <p id="price" class="text-sm font-semibold">$7.99/month</p>
+        <p id="note" class="text-xs text-secondary hidden">For more than 20 users, please contact us for a quote</p>
+        <button id="subscribeBtn" class="bg-accent-red text-white rounded-xl px-4 py-2 mt-2 w-full">Continue to Payment</button>
+      </div>
+    </div>
+
+    <!-- Enterprise Plan -->
+    <div class="rounded-2xl bg-surface p-6 text-primary shadow-md">
+      <h3 class="text-xl font-semibold mb-2">VulnEye Enterprise</h3>
+      <p class="text-secondary mb-4">Supercharge your team's secure workflow</p>
+      <ul class="text-sm leading-relaxed list-disc list-inside mb-4">
+        <li>Everything in Pro</li>
+        <li>Custom security integration</li>
+        <li>Dedicated account manager</li>
+        <li>24/7 enterprise support</li>
+      </ul>
+      <button class="bg-accent-blue text-white rounded-xl px-4 py-2 w-full">Contact Sales</button>
+      <p class="text-xs text-secondary mt-2">For 21+ users, billed annually</p>
+    </div>
+  </div>
+</section>
+
+<script src="/scripts/interactivity.js" is:inline></script>

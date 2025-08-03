@@ -1,0 +1,20 @@
+---
+const { icon = "fa-shield-halved", title = "Your Feature", description = "", pro = false } = Astro.props;
+---
+
+<div class="feature-card" onclick="this.classList.toggle('expanded')">
+  <div class="feature-title">
+    <div class="feature-left">
+      <i class={`fas ${icon}`}></i>
+      <span class="feature-name">{title}</span>
+      <!--{pro && <span class="badge-pro">Pro</span>}-->
+    </div>
+    <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 6 15 12 9 18"></polyline>
+    </svg>
+  </div>
+
+  <div class="feature-description-wrapper">
+    <p class="feature-description">{description}</p>
+  </div>
+</div>
