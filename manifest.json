@@ -38,7 +38,8 @@
                     "content/scanners/trackers.json",
                     "content/scanners/headerRules.json",                   
                     "content/scanners/csrfRules.json",
-                    "maincontent/chart.js"
+                    "maincontent/chart.js",
+                    "icons/*.png"
                   ],
       "matches": ["<all_urls>"]
     }

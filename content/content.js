@@ -1,79 +1,148 @@
-// To merge the scanners + realtime etc
-
 // Default scanner settings (all true)
-const DEFAULT_SCANNERS = { js: true, xss: true, header: true, csrf: true, csp: true, trackers: true };
+const DEFAULT_SCANNERS = {
+  js: true,
+  xss: true,
+  header: true,
+  csrf: true,
+  csp: true,
+  trackers: true
+};
 
-// Automatically run on page load
+// Whitelist skip
+function shouldSkipScan(host) {
+  return new Promise(resolve => {
+    chrome.storage.local.get({ whitelist: [] }, ({ whitelist }) => {
+      const skip = whitelist.includes(host);
+      console.log(`[VulnEye] shouldSkipScan("${host}") → ${skip}`);
+      resolve(skip);
+    });
+  });
+}
+
+
+function runAllScans(scannersEnabled) {
+  const f = window;
+  const scans = [
+    scannersEnabled.js       ? f.runLibraryScan() : Promise.resolve([]),
+    scannersEnabled.xss      ? f.runXSSScan()     : Promise.resolve([]),
+    scannersEnabled.header   ? f.runHeaderScan()  : Promise.resolve([]),
+    scannersEnabled.csrf     ? f.runCSRFScan()    : Promise.resolve([]),
+    scannersEnabled.csp      ? f.runCSPScan()     : Promise.resolve([]),
+    scannersEnabled.trackers ? f.runTrackerScan(): Promise.resolve([])
+  ];
+  console.log('[VulnEye] runAllScans with settings:', scannersEnabled);
+  return Promise.all(scans);
+}
+
+// auto scan
 chrome.storage.local.get(
   { realtimeEnabled: true, scannersEnabled: DEFAULT_SCANNERS },
-  ({ realtimeEnabled, scannersEnabled }) => {
-    console.log('[VulnEye] real-time enabled?', realtimeEnabled);
-    // If real-time scanning is enabled, run only the enabled scanners
-    if (realtimeEnabled) {
-      const scans = [];
-      if (scannersEnabled.js) scans.push(window.runLibraryScan());
-      else scans.push(Promise.resolve([]));
-      if (scannersEnabled.xss) scans.push(window.runXSSScan());
-      else scans.push(Promise.resolve([]));
-      if (scannersEnabled.header) scans.push(window.runHeaderScan());
-      else scans.push(Promise.resolve([]));
-      if (scannersEnabled.csrf) scans.push(window.runCSRFScan());
-      else scans.push(Promise.resolve([]));
-      if (scannersEnabled.csp) scans.push(window.runCSPScan());
-      else scans.push(Promise.resolve([]));
-      if (scannersEnabled.trackers) scans.push(window.runTrackerScan());
-      else scans.push(Promise.resolve([]));
+  async ({ realtimeEnabled, scannersEnabled }) => {
+    const host = window.location.hostname;
+    console.log(`[VulnEye] Auto-scan check for "${host}", realtimeEnabled=${realtimeEnabled}`);
+    
+    if (!realtimeEnabled) {
+      console.log(`[VulnEye] Auto-scan skipped: realtimeEnabled=false`);
+      return;
+    }
+    
+    if (await shouldSkipScan(host)) {
+      console.log(`[VulnEye] Auto-scan skipped: "${host}" is whitelisted`);
+      return;
+    }
 
+    console.log(`[VulnEye] Starting auto-scan on "${host}"`);
+    runAllScans(scannersEnabled)
+      .then(([ lib, xss, hdr, csrf, csp, trk ]) => {
+        console.log('[VulnEye] Auto-scan results:', { lib, xss, hdr, csrf, csp, trk });
+        chrome.storage.local.set({
+          lastScanResult: { libraries: lib, xss, header: hdr, csrf, csp, trackers: trk }
+        }, () => {
+                
+          const result = { libraries: lib, xss, header: hdr, csrf, csp, trackers: trk };
+          const score  = calculateScore(result);
+          const issues = Object.values(result)
+            .reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
+          const url    = window.location.href;
+          const date   = new Date().toISOString();
 
-      Promise.all(scans)
-        .then(([libFindings, xssFindings, headerFindings, csrfFindings, cspFindings, trackerFindings]) => {
-          console.log('[VulnEye] auto-scan results', libFindings, xssFindings, headerFindings, csrfFindings, cspFindings, trackerFindings);
-          chrome.storage.local.set({
-            lastScanResult: { libraries: libFindings, xss: xssFindings, header: headerFindings, csrf: csrfFindings, csp: cspFindings, trackers: trackerFindings }
+          chrome.storage.local.set({ lastScanResult: result }, () => {
+            chrome.storage.local.get({ scanHistory: [] }, ({ scanHistory }) => {
+              scanHistory.push({ date, url, score, issues, mode: "auto" });
+              chrome.storage.local.set({ scanHistory });
+            });
           });
-        })
-        .catch(err => {
-          console.error('[VulnEye] auto-scan error', err);
-        });
-    }
-  }
-);
+      })
+  });
+});
 
-// On click run manual scan
+// Manual scan 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-  console.log('[VulnEye] message received in content.js', msg);
   if (msg.action !== 'runScan') return;
+  const host = window.location.hostname;
+  console.log(`[VulnEye] Manual scan requested for "${host}"`);
 
-  // Load scanner toggles and run only the enabled scanners
-  chrome.storage.local.get(
-    { scannersEnabled: DEFAULT_SCANNERS },
-    ({ scannersEnabled }) => {
-      const scans = [];
-      if (scannersEnabled.js) scans.push(window.runLibraryScan());
-      else scans.push(Promise.resolve([]));
-      if (scannersEnabled.xss) scans.push(window.runXSSScan());
-      else scans.push(Promise.resolve([]));
-      if (scannersEnabled.header) scans.push(window.runHeaderScan());
-      else scans.push(Promise.resolve([]));
-      if (scannersEnabled.csrf) scans.push(window.runCSRFScan());
-      else scans.push(Promise.resolve([]));
-      if (scannersEnabled.csp) scans.push(window.runCSPScan());
-      else scans.push(Promise.resolve([]));
-      if (scannersEnabled.trackers) scans.push(window.runTrackerScan());
-      else scans.push(Promise.resolve([]));
-
-      Promise.all(scans)
-        .then(([libraryFindings, xssFindings, headerFindings, csrfFindings, cspFindings, trackerFindings]) => {
-          console.log('[VulnEye] manual-scan results', libraryFindings, xssFindings, headerFindings, csrfFindings, cspFindings, trackerFindings);
-          sendResponse({ libraries: libraryFindings, xss: xssFindings, header: headerFindings, csrf: csrfFindings, csp: cspFindings, trackers: trackerFindings });
-        })
-        .catch(error => {
-          console.error('Error running scanners:', error);
-          sendResponse({ error: error.message });
-        });
+  shouldSkipScan(host).then(skip => {
+    if (skip) {
+      console.log(`[VulnEye] Manual scan skipped: "${host}" is whitelisted`);
+      return sendResponse({
+        libraries: [],
+        xss: [],
+        header: [],
+        csrf: [],
+        csp: [],
+        trackers: []
+      });
     }
-  );
 
-  // Keep the message channel open for sendResponse
+    chrome.storage.local.get(
+      { scannersEnabled: DEFAULT_SCANNERS },
+      ({ scannersEnabled }) => {
+        console.log('[VulnEye] Running manual scan with settings:', scannersEnabled);
+        runAllScans(scannersEnabled)
+          .then(([ lib, xss, hdr, csrf, csp, trk ]) => {
+            console.log('[VulnEye] Manual-scan results:', { lib, xss, hdr, csrf, csp, trk });
+            sendResponse({
+              libraries: lib,
+              xss,
+              header: hdr,
+              csrf,
+              csp,
+              trackers: trk
+            });
+          })
+          .catch(error => {
+            console.error('[VulnEye] Manual-scan error:', error);
+            sendResponse({ error: error.message });
+          });
+      }
+    );
+  });
+
+
   return true;
 });
+
+// Score calculator (from popup.js)
+function calculateScore(results) {
+  let score = 100;
+  const severityPoints = { critical: 25, high: 10, medium: 5, low: 3 };
+  const typeWeights     = { xss:1.0, libraries:1.0, header:1.0, csrf:1.2, csp:1.0, trackers:1.0 };
+
+  for (const type in results) {
+    const issues = results[type];
+    if (!Array.isArray(issues)) continue;
+    issues.forEach(issue => {
+      let severity = (issue.severity || 'low').toLowerCase();
+      if (!issue.severity && type==='csp' && issue.exists===false) severity = 'low';
+
+      const points    = severityPoints[severity] || 0;
+      const weight    = typeWeights[type]    || 1.0;
+      const deduction = points * weight;
+      score -= deduction;
+    });
+  }
+  
+  const finalScore = Math.max(0, Math.round(score));
+  return finalScore;
+}

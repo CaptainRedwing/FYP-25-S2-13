@@ -1,3 +1,12 @@
+// Helper
+function escapeHtml(str = '') {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 function buildFullReportHtml(scanResult) {
   const date  = new Date().toLocaleString();
@@ -44,18 +53,28 @@ function buildFullReportHtml(scanResult) {
 
           case 'xss':
             contentHtml += `
-              <p><strong>Type:</strong> ${i.type}</p>
-              <p><strong>Tag:</strong> ${i.tag}</p>
-              ${i.snippet ? `<pre>${i.snippet}</pre>` : ''}
-              <p><strong>Severity:</strong> <span class="severity-${i.severity.toLowerCase()}">${i.severity.toUpperCase()}</span></p>
-              <div class="suggestion"><strong>Suggestion:</strong> ${i.suggestion}</div>
+              <p><strong>Type:</strong> ${ escapeHtml(i.type) }</p>
+              <p><strong>Tag:</strong> ${ escapeHtml(i.tag) }</p>
+              ${ i.snippet
+                  ? `<pre>${ escapeHtml(i.snippet) }</pre>`
+                  : '' }
+              <p><strong>Severity:</strong> ${ escapeHtml(i.severity) }</p>
+              <div class="suggestion">
+                <strong>Suggestion:</strong> ${ escapeHtml(i.suggestion) }
+              </div>
             `;
             if (i.references?.length) {
               i.references.forEach(ref => {
-                contentHtml += `<p><strong>Reference:</strong> <a href="${ref}" target="_blank">${ref}</a></p>`;
+                contentHtml += `
+                  <p><strong>Reference:</strong>
+                    <a href="${ escapeHtml(ref) }" target="_blank">
+                      ${ escapeHtml(ref) }
+                    </a>
+                  </p>`;
               });
             }
             break;
+
 
           case 'header':
             contentHtml += `
@@ -158,7 +177,7 @@ async function exportReportAsPdf() {
   container.innerHTML = html;
   document.body.appendChild(container);
 
-  await new Promise(r => setTimeout(r, 100)); // Wait for render
+  await new Promise(r => setTimeout(r, 100)); 
 
   const opt = {
     margin:       0.5,

@@ -15,22 +15,49 @@ window.renderVulnChart = function () {
 		severityCounts = getSeverityCounts(lastScanResult);
 	}
 
+	// Check if there are no issues
+	const totalIssues = severityCounts.reduce((a, b) => a + b, 0);
+	let backgroundColors;
+	let hoverBackgroundColors;
+
+	if (totalIssues === 0) {
+	// Base color: 73% opacity
+	backgroundColors = [
+		'#689D76',
+		'#689D76',
+		'#689D76',
+		'#689D76'
+	];
+
+	// Hover color: 50% opacity
+	hoverBackgroundColors = [
+		'rgba(104, 157, 118, 0.50)',
+		'rgba(104, 157, 118, 0.50)',
+		'rgba(104, 157, 118, 0.50)',
+		'rgba(104, 157, 118, 0.50)'
+	];
+	} else {
+	// Normal severity colors
+	backgroundColors = ['#611C19', '#962E2A', '#e3967d', '#A1D6E2'];
+	hoverBackgroundColors = backgroundColors;
+	}
+
 	// Severity order: Critical, High, Medium, Low
 	const data = {
-		labels: ['Critical', 'High', 'Medium', 'Low'],
-		datasets: [{
-			data: severityCounts,
-			backgroundColor: ['#611C19', '#962E2A', '#e3967d', '#A1D6E2'],
-			borderWidth: 0,
-			hoverBackgroundColor: ['#611C19', '#962E2A', '#e3967d', '#A1D6E2'],
-			hoverBorderColor: [
-				'rgba(97, 28, 25, 0.71)', // Critical
-				'rgba(150, 46, 42, 0.71)', // High
-				'rgba(227, 134, 125, 0.71)', // Medium
-				'rgba(161, 214, 226, 0.71)' // Low
-			],
-			hoverBorderWidth: 6
-		}]
+	labels: ['Critical', 'High', 'Medium', 'Low'],
+	datasets: [{
+		data: severityCounts,
+		backgroundColor: backgroundColors,
+		borderWidth: 0,
+		hoverBackgroundColor: hoverBackgroundColors,
+		hoverBorderColor: [
+		'rgba(97, 28, 25, 0.71)',
+		'rgba(150, 46, 42, 0.71)',
+		'rgba(227, 134, 125, 0.71)',
+		'rgba(161, 214, 226, 0.71)'
+		],
+		hoverBorderWidth: 6
+	}]
 	};
 
 	const centerText = {

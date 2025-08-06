@@ -29,7 +29,6 @@
 
 .totalScore{
   text-align: center;
-  color: #A1D6E2;
   font-size: 55px;
   font-weight: 600;
   margin-top: -10px;
@@ -38,8 +37,11 @@
 .totalScore100{
   text-align: center;
   color: #A1D6E2;
-  font-size: 10px;
+  font-weight: 600;
+  font-family: 'Fira Sans Condensed', sans-serif;
+  font-size: 14px;
   margin-top: -15px;
+  letter-spacing: 1px;
 }
 
 .grade{

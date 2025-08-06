@@ -1,10 +1,4 @@
 (function () {
-  const WHITELIST = new Set([
-    'youtube.com',
-    'www.youtube.com',
-    'mail.google.com',
-    'accounts.google.com'
-  ]);
 
   // Load header rules from JSON
   const rulesPromise = fetch(chrome.runtime.getURL('content/scanners/headerRules.json'))
@@ -15,9 +9,6 @@
     });
 
   function runHeaderScan() {
-    if (WHITELIST.has(window.location.hostname)) {
-      return Promise.resolve([]);
-    }
 
     const issues = [];
 
@@ -27,7 +18,7 @@
           const checks = [
             {
               header: "strict-transport-security",
-              type: "missing-hsts",
+              type: "Missing Strict-Transport-Security",
               check: value => {
                 if (!value) return { valid: false, detail: "Missing header: Strict-Transport-Security" };
                 if (!/max-age=\d+/.test(value)) return { valid: false, detail: `Weak HSTS config: ${value}` };
@@ -36,7 +27,7 @@
             },
             {
               header: "x-frame-options",
-              type: "missing-xfo",
+              type: "Missing X-Frame-Options",
               check: value => {
                 if (!value) return { valid: false, detail: "Missing header: X-Frame-Options" };
                 if (!/^(DENY|SAMEORIGIN)$/i.test(value)) return { valid: false, detail: `Insecure value: ${value}` };
@@ -45,7 +36,7 @@
             },
             {
               header: "x-content-type-options",
-              type: "missing-xcto",
+              type: "Missing X-Content-Type-Options",
               check: value => {
                 return value?.toLowerCase() === 'nosniff'
                   ? { valid: true }
@@ -54,7 +45,7 @@
             },
             {
               header: "referrer-policy",
-              type: "missing-referrer-policy",
+              type: "Missing Referrer-Policy",
               check: value => {
                 return value
                   ? { valid: true }
@@ -63,7 +54,7 @@
             },
             {
               header: "permissions-policy",
-              type: "missing-permissions-policy",
+              type: "Missing Permissions-Policy",
               check: value => {
                 return value
                   ? { valid: true }
@@ -72,7 +63,7 @@
             },
             {
               header: "x-xss-protection",
-              type: "missing-xss-protection",
+              type: "Missing XSS-Protection",
               check: value => {
                 return value?.includes("1")
                   ? { valid: true }

@@ -1,10 +1,5 @@
 (function () {
-  const WHITELIST = new Set([
-    'youtube.com',
-    'www.youtube.com',
-    'mail.google.com',
-    'accounts.google.com'
-  ]);
+
 
   const rulesPromise = fetch(chrome.runtime.getURL('content/scanners/csrfRules.json'))
     .then(res => res.json())
@@ -14,9 +9,6 @@
     });
 
   function runCSRFScan() {
-    if (WHITELIST.has(window.location.hostname)) {
-      return Promise.resolve([]);
-    }
 
     return rulesPromise.then(CSRF_RULES => {
       const issues = [];

@@ -1,13 +1,13 @@
 {
   "inline-event-handler": {
-    "severity": "medium",
+    "severity": "moderate",
     "suggestion": "Move inline event handlers into external JS and use addEventListener().",
     "references": [
       "OWASP XSS Prevention Cheat Sheet: Avoid inline event handlers"
     ]
   },
   "javascript-uri": {
-    "severity": "medium",
+    "severity": "moderate",
     "suggestion": "Avoid `javascript:` URLs. Use event listeners or proper link URLs instead.",
     "references": [
       "OWASP XSS Prevention Cheat Sheet: Don’t use javascript: URIs"

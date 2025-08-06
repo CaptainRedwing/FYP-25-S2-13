@@ -1,6 +1,6 @@
 // XSS scanner + rules from the json referencing OWASP XSS cheatsheet and DOMPurify
 (function() {
-  // 1. Load XSS rule metadata
+
   const rulesPromise = fetch(chrome.runtime.getURL('content/scanners/xssRules.json'))
     .then(res => res.json())
     .catch(err => {
@@ -8,9 +8,8 @@
       return {};
     });
 
-  // 2. Main scan function
   function runXSSScan() {
-    // Ensure rules are loaded before scanning
+
     return rulesPromise.then(rules => {
       
       const issues = [];
@@ -18,7 +17,7 @@
       document.querySelectorAll('*').forEach(el => {
         const tag = el.tagName;
 
-        // ** Rule: inline-event-handler **
+        // inline-event-handler
         for (const attr of el.attributes) {
           if (/^on\w+/i.test(attr.name)) {
             const rule = rules['inline-event-handler'] || {};
@@ -33,7 +32,7 @@
           }
         }
 
-        // ** Rule: javascript-uri **
+        // javascript-uri
         if (el.matches('a[href^="javascript:"], area[href^="javascript:"]')) {
           const rule = rules['javascript-uri'] || {};
           issues.push({
@@ -46,7 +45,7 @@
           });
         }
 
-        // ** Rule: inline-script **
+        // inline-script
         if (tag === 'SCRIPT' && el.innerHTML.trim()) {
           const t = el.getAttribute('type') || 'text/javascript';
           if (t.includes('javascript')) {
@@ -62,7 +61,7 @@
           }
         }
 
-        // ** Rule: css-javascript **
+        // css-javascript
         if (el.hasAttribute('style') &&
             el.getAttribute('style').toLowerCase().includes('javascript:')) {
           const rule = rules['css-javascript'] || {};
@@ -76,7 +75,7 @@
           });
         }
 
-        // ** Rule: iframe-srcdoc **
+        // iframe-srcdoc
         if (tag === 'IFRAME' && el.hasAttribute('srcdoc')) {
           const rule = rules['iframe-srcdoc'] || {};
           issues.push({

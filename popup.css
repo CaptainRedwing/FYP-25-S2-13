@@ -398,6 +398,7 @@ body.mode-on #onoff2 {
 #loading-text {
   font-weight: bold;
   font-family: 'Fira Sans Condensed', sans-serif;
+  transition: all 0.4s ease;
 }
 
 .body-container {
@@ -542,4 +543,20 @@ body.mode-off .body2 {
 .switch-toggle.off .switch-knob {
   left: 5px;
   right: auto;
+}
+
+.footer-btn {
+  display: none; /* Hide all footer buttons by default */
+}
+
+.footer-btn.active {
+  display: block; /* Only show the active one */
+}
+
+#scan-now.footer-btn {
+  background-color: #8B2C2C; 
+}
+
+#add-whitelist.footer-btn {
+  background-color: #e3867d; 
 }

@@ -15,7 +15,7 @@
     "reference": "OWASP Meta Tags: https://owasp.org/www-community/attacks/csrf"
   },
   "csrf-token-cookie": {
-    "severity": "MEDIUM",
+    "severity": "MODERATE",
     "suggestion": "CSRF token stored in cookie. Ensure it is HttpOnly and SameSite.",
     "reference": "OWASP Cookie Flags: https://owasp.org/www-community/HttpOnly"
   },
@@ -25,7 +25,7 @@
     "reference": "OWASP Sensitive Actions: https://owasp.org/www-community/attacks/csrf"
   },
   "scanner-error": {
-    "severity": "MEDIUM",
+    "severity": "MODERATE",
     "suggestion": "Scanner encountered an error. Check console for details.",
     "reference": "Scanner internal error"
   }
