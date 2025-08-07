@@ -13,8 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const scanBtn = document.getElementById("scan-now");
   const switchToggle = document.querySelector(".switch-toggle");
   const switchToggle2 = document.querySelector(".switch-toggle2");
-  const exportBtn = document.getElementById("export-pdf");
   const scanHistoryButton = document.getElementById("scanHistoryButton");
+  const shareButton = document.getElementById("share-button");
+  const shareModal = document.getElementById("shareModal");
+  const shareTextEl = document.getElementById("shareText");
+  const copyShareBtn = document.getElementById("copyShareBtn");
+  const openLinkBtn = document.getElementById("openLinkBtn");
+  const closeShareBtn = document.getElementById("closeShareBtn");
 
   // Menu toggle
   menuButton?.addEventListener("click", () => {
@@ -81,6 +86,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const urlEl = document.getElementById("current-url");
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     urlEl.innerText = tabs[0]?.url || "Unknown URL";
+  });
+
+  // SHARE button
+  shareButton?.addEventListener("click", () => {
+    if (!lastScanResult) {
+      alert("No scan data available.");
+      return;
+    }
+
+    const url = document.getElementById("current-url")?.innerText || "Unknown URL";
+    const score = calculateScore(lastScanResult);
+    const [critical, high, medium, low] = getSeverityCounts(lastScanResult);
+    const totalIssues = critical + high + medium + low;
+
+    let severity = "Safe";
+    if (critical > 0) severity = "Critical";
+    else if (high > 0) severity = "High";
+    else if (medium > 0) severity = "Moderate";
+    else if (low > 0) severity = "Low";
+
+    const previewText =
+    `🔐 Scan Summary
+    🌐 URL: ${url}
+    🪲 Issues: ${totalIssues}
+    📊 Score: ${score}/100
+    ⚠️ Severity: ${severity}`;
+
+    shareTextEl.innerHTML = previewText.replace(/\n/g, "<br>");
+    openLinkBtn.setAttribute("data-url", url);
+    shareModal.classList.remove("hidden");
+  });
+
+  copyShareBtn?.addEventListener("click", () => {
+    const text = shareTextEl.textContent;
+    navigator.clipboard.writeText(text)
+      .then(() => alert("Copied to clipboard!"))
+      .catch(err => alert("Failed to copy."));
+  });
+
+  openLinkBtn?.addEventListener("click", () => {
+    const url = openLinkBtn.getAttribute("data-url");
+    if (url && url.startsWith("http")) {
+      chrome.tabs.create({ url });
+    }
+  });
+
+  closeShareBtn?.addEventListener("click", () => {
+    shareModal.classList.add("hidden");
   });
 
   // On/Off toggle

@@ -37,7 +37,7 @@
     </div>
 
     <div class="dropdown-menu" id="dropdownMenu">
-      <button class="dropdownItem">
+      <button class="dropdownItem" id="share-button">
         <img src="icons/share.png" class="dropdown-icon" /> Share
       </button>
       <button class="dropdownItem" id="export-pdf">
@@ -136,6 +136,18 @@
         <button id="scan-now" class="footer-btn active">SCAN LATEST LINK</button>
 
         <button id="add-whitelist" class="footer-btn">ADD CURRENT LINK TO WHITELIST</button>
+      </div>
+    </div>
+<!--Share button's modal-->
+    <div id="shareModal" class="modal hidden">
+      <div class="modal-content">
+        <button id="closeShareBtn" class="modal-close-btn">✖</button>
+        <h3>Shareable Scan Summary<br>By VulnEye</h3>
+        <p id="shareText" class="share-preview-text"></p>
+        <div class="share-buttons">
+          <button id="copyShareBtn">Copy</button>
+          <button id="openLinkBtn">Open</button>
+        </div>
       </div>
     </div>
 

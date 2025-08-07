@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "My Extension:Han",
+  "name": "VulnEye",
   "version": "1.0",
-  "description": "Test Extension",
+  "description": "Client-Side Script Security Inspector",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
