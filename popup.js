@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const onoffBtn2 = document.getElementById("onoff2");
   const offExtension = document.getElementById("offExtension");
   const scanBtn = document.getElementById("scan-now");
-  const switchToggle = document.querySelector(".switch-toggle");
-  const switchToggle2 = document.querySelector(".switch-toggle2");
   const scanHistoryButton = document.getElementById("scanHistoryButton");
   const shareButton = document.getElementById("share-button");
   const shareModal = document.getElementById("shareModal");
@@ -69,15 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 0);
       });
   });
-
-  // Switch toggles
-  switchToggle?.addEventListener("click", () => {
-    switchToggle.classList.toggle("off");
-  });
-  switchToggle2?.addEventListener("click", () => {
-    switchToggle2.classList.toggle("off");
-  });
-
+  
   // Current Date and URL
   const currentDate = document.getElementById("current-date");
   const today = new Date();
@@ -416,11 +406,9 @@ function showLoadingAndScan(scanFunction) {
 						if (lastScanResult) {
               renderResults(lastScanResult);
 
-              // Calculate Scores
               const score = calculateScore(lastScanResult);
               const el = document.querySelector("#score-value");
 
-              
 		  	  if (window.Odometer && el) {
 				el.innerHTML = score;
 
@@ -660,11 +648,10 @@ function calculateScore(results) {
 
 	const finalScore = Math.max(0, Math.round(score));
 	console.log(`Final Security Score: ${finalScore}`);
-	console.log("=========================================");
-
 	return finalScore;
 }
 
+//Scan options toggle
 function initConfigurationToggles() {
 
 	console.log("[Config] initConfigurationToggles() called");

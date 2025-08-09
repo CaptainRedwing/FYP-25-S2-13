@@ -1,6 +1,5 @@
 (function () {
-
-
+  //rules from json
   const rulesPromise = fetch(chrome.runtime.getURL('content/scanners/csrfRules.json'))
     .then(res => res.json())
     .catch(err => {

@@ -1,4 +1,4 @@
-
+//rules from json
 const trackerDBPromise = fetch(
   chrome.runtime.getURL('content/scanners/trackers.json')
 )
@@ -53,7 +53,7 @@ function runTrackerScan() {
             }
           }
         });
-      } catch (_) { /* ignore invalid URLs */ }
+      } catch (_) {}
     });
 
     return Array.from(findings.values());

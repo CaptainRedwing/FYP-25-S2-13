@@ -92,6 +92,5 @@
     });
   }
 
-  // Expose to content.js
   window.runXSSScan = runXSSScan;
 })();

@@ -1,5 +1,3 @@
-// detail_modal.js
-
 //Styling for the modal
 function injectModalStyles() {
   if (document.getElementById('vuln-modal-style')) return;
@@ -396,7 +394,7 @@ function escapeHtml(str = '') {
 
 // The Modal
 function showSiteModal(type, items) {
-  injectModalStyles();  // <-- apply styling
+  injectModalStyles(); 
 
   // Remove any existing modal
   const existing = document.getElementById('vuln-modal');
@@ -532,7 +530,7 @@ function showSiteModal(type, items) {
 
       // Title (Header vulnerability name)
       const h3 = document.createElement('h3');
-      h3.textContent = escapeHtml(i.type); // same as XSS
+      h3.textContent = escapeHtml(i.type); 
       entry.appendChild(h3);
 
       // Meta (Tag + Severity)
@@ -593,7 +591,7 @@ function showSiteModal(type, items) {
 
       // Title (CSRF vulnerability name)
       const h3 = document.createElement('h3');
-      h3.textContent = escapeHtml(i.type); // same as HTTP Header
+      h3.textContent = escapeHtml(i.type); 
       entry.appendChild(h3);
 
       // Meta (Tag + Severity)
@@ -654,7 +652,7 @@ function showSiteModal(type, items) {
       const entry = document.createElement('div');
       entry.className = 'xss-vuln-entry';
 
-      // Title (Tracker name, e.g., googleapis.com)
+      // Title 
       const h3 = document.createElement('h3');
       h3.textContent = escapeHtml(i.tracker);
       entry.appendChild(h3);
