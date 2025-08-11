@@ -21,7 +21,7 @@
         <img src="icons/rightarrow.png" alt="right" class="rightArrow" />
       </button>
       <div class="icons">
-        <button id="onoff">
+        <button id="offExtension">
           <img src="icons/onoffs.png" alt="Toggle" class="offon" />
         </button>
         <button id="setting">
@@ -46,9 +46,6 @@
     </div>
 
     <div class="dropdown-menu2" id="dropdownMenu2">
-      <button class="dropdownItem">
-        <img src="icons/profile.png" class="dropdown-icon" /> Profile
-      </button>
       <button class="dropdownItem" id="scanHistoryButton">
         <img src="icons/history.png" class="dropdown-icon" /> Scan History
       </button>
@@ -61,13 +58,6 @@
       <button class="dropdownItem" id="appSetting">
         <img src="icons/wrench.png" class="dropdown-icon" /> Settings
       </button>
-      <button class="dropdownItem">
-        <img src="icons/logout.png" class="dropdown-icon" /> Logout
-      </button>
-    </div>
-
-    <div class="dropdown-menu3" id="dropdownMenu3">
-      <div class="dropdownItem" id="offExtension">Off Extension</div>
     </div>
 
     <div class="body-container-wrapper">
@@ -88,8 +78,6 @@
               <div id="summaryReportFile"></div>
               <div id="passedChecks"></div>
               <div id="vulnerability-list"></div>
-              <div id="suggestedFixes"></div>
-
             </div>
           </div>
         </div>
@@ -111,15 +99,19 @@
         <button id="add-whitelist" class="footer-btn">ADD CURRENT LINK TO WHITELIST</button>
       </div>
     </div>
-<!--Share button's modal-->
     <div id="shareModal" class="modal hidden">
       <div class="modal-content">
         <button id="closeShareBtn" class="modal-close-btn">✖</button>
-        <h3>Shareable Scan Summary<br>By VulnEye</h3>
         <p id="shareText" class="share-preview-text"></p>
         <div class="share-buttons">
-          <button id="copyShareBtn">Copy</button>
-          <button id="openLinkBtn">Open</button>
+          <button id="copyShareBtn">
+            <img src="icons/export.png" class="dropdown-icon" />
+            Copy
+          </button>
+          <button id="openLinkBtn"> 
+            <img src="icons/expand-text-input.png" class="dropdown-icon" />
+            Open
+          </button>
         </div>
       </div>
     </div>

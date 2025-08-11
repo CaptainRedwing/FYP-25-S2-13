@@ -1,4 +1,5 @@
 let lastScanResult = null;
+let activeFilterDate = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   const menuButton = document.getElementById("menuButton");
@@ -96,14 +97,41 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (medium > 0) severity = "Moderate";
     else if (low > 0) severity = "Low";
 
-    const previewText =
-    `🔐 Scan Summary
-    🌐 URL: ${url}
-    🪲 Issues: ${totalIssues}
-    📊 Score: ${score}/100
-    ⚠️ Severity: ${severity}`;
+	const iconURL = (f) => chrome.runtime.getURL('icons/' + f);
+	const row = (file, alt, html, extraClass = '') => `
+	<div class="share-row ${!file ? 'no-icon' : ''} ${extraClass}">
+		${file ? `<img src="${iconURL(file)}" class="share-icon" alt="${alt}">` : ''}
+		<span class="${extraClass === 'is-url' ? 'share-text' : ''}">${html}</span>
+	</div>`;
 
-    shareTextEl.innerHTML = previewText.replace(/\n/g, "<br>");
+	const fileRow = (file, alt, label, value) => `
+	<div class="share-row file ${!file ? 'no-icon' : ''}">
+		${file ? `<img src="${iconURL(file)}" class="share-icon" alt="${alt}">` : ''}
+		<div class="share-label">${label}</div>
+		<div class="share-value">${value}</div>
+	</div>`;
+
+	const bar = (title, sub) => `
+	<div class="share-title">
+		<div class="share-title-main">${title}</div>
+		${sub ? `<div class="share-title-sub">${sub}</div>` : ""}
+	</div>`;
+
+	const todayStr = new Intl.DateTimeFormat('en-GB', {
+	day: '2-digit', month: 'long', year: 'numeric'
+	}).format(new Date());
+
+	const previewHTML = [
+	row('', '', 'Scan Summary'),                
+	row('', '', `URL: <span class="url-highlight">${url}</span>`, 'is-url'),          
+	fileRow('chart-histogram.png','issues','Issues:', totalIssues),
+	fileRow('warning.png','score','Score:', `${score}/100`),
+	fileRow('wrench.png','severity','Severity:', severity),
+	bar('Scan Summary by VulnEye', `Date: ${todayStr}`)
+	].join('');
+
+	shareTextEl.innerHTML = previewHTML;
+
     openLinkBtn.setAttribute("data-url", url);
     shareModal.classList.remove("hidden");
   });
@@ -235,6 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 0);
       });
   });
+
 });
 
 document.addEventListener("click", (event) => {
@@ -401,7 +430,6 @@ function showLoadingAndScan(scanFunction) {
 						loadSummaryReportHtml(),
 						loadPassedCheckHtml(),
 						loadVulnerabilitiesDetectedHtml(),
-						loadSuggestionFixesHtml()
 					]).then(() => {
 						if (lastScanResult) {
               renderResults(lastScanResult);
@@ -498,14 +526,6 @@ function loadVulnerabilitiesDetectedHtml() {
 		.then(res => res.text())
 		.then(html => {
 			document.getElementById("vulnerability-list").innerHTML = html;
-		});
-}
-
-function loadSuggestionFixesHtml() {
-	return fetch("maincontent/suggestedfixes.html")
-		.then(res => res.text())
-		.then(html => {
-			document.getElementById("suggestedFixes").innerHTML = html;
 		});
 }
 
@@ -858,46 +878,62 @@ function initScanHistoryUI() {
     });
   }
 
-  // SEARCH BY DATE HANDLER
   const searchBtn = document.getElementById("searchByDate");
   const dateWrapper = document.getElementById("datePickerWrapper");
   const centeredDatePicker = document.getElementById("centeredDatePicker");
 
   if (searchBtn && dateWrapper && centeredDatePicker) {
-    // Show centered date picker modal
     searchBtn.addEventListener("click", () => {
-      dateWrapper.classList.remove("hidden");
-      centeredDatePicker.value = ""; // reset previous selection
-      centeredDatePicker.focus();    // focus to show native picker
+		dateWrapper.classList.remove("hidden");
+		centeredDatePicker.value = ""; 
+		centeredDatePicker.focus();    
     });
 
-    // Handle date selection
-    centeredDatePicker.addEventListener("change", () => {
-      const selectedDate = centeredDatePicker.value;
-      dateWrapper.classList.add("hidden");
+	centeredDatePicker.addEventListener("change", () => {
+		const selectedDate = centeredDatePicker.value; // "YYYY-MM-DD"
+		dateWrapper.classList.add("hidden");
+		if (!selectedDate) return;
 
-      if (!selectedDate) return;
+		activeFilterDate = selectedDate; // ✅ remember filter
 
-      chrome.storage.local.get({ scanHistory: [] }, ({ scanHistory }) => {
-        const filtered = scanHistory.filter(item =>
-          new Date(item.date).toISOString().split("T")[0] === selectedDate
-        );
-        renderScanHistory(filtered);
-      });
-    });
+		chrome.storage.local.get({ scanHistory: [] }, ({ scanHistory }) => {
+			const filtered = scanHistory.filter(item => {
+			const d = new Date(item.date); // convert stored UTC to local
+			const yyyy = d.getFullYear();
+			const mm = String(d.getMonth() + 1).padStart(2, "0");
+			const dd = String(d.getDate()).padStart(2, "0");
+			return `${yyyy}-${mm}-${dd}` === activeFilterDate;
+			});
+
+			document.querySelector("#scan-history-table tbody").innerHTML = "";
+			renderScanHistory(filtered);
+		});
+	});
+
+
 
     // Close modal if clicking outside
     dateWrapper.addEventListener("click", (e) => {
-      if (e.target === dateWrapper) {
-        dateWrapper.classList.add("hidden");
-      }
+		if (e.target === dateWrapper) {
+			dateWrapper.classList.add("hidden");
+		}
     });
   }
 
-  // INITIAL RENDER (no filter)
-  chrome.storage.local.get({ scanHistory: [] }, ({ scanHistory }) => {
-    renderScanHistory(scanHistory);
-  });
+
+	chrome.storage.local.get({ scanHistory: [] }, ({ scanHistory }) => {
+	const data = activeFilterDate
+		? scanHistory.filter(item => {
+			const d = new Date(item.date);
+			const yyyy = d.getFullYear();
+			const mm = String(d.getMonth() + 1).padStart(2, "0");
+			const dd = String(d.getDate()).padStart(2, "0");
+			return `${yyyy}-${mm}-${dd}` === activeFilterDate;
+		})
+		: scanHistory;
+
+	renderScanHistory(data);
+	});
 }
 
 
@@ -980,10 +1016,23 @@ function renderScanHistory(scanHistory) {
             const updatedHistory = scanHistory.filter(
               item => !(item.date === date.toISOString() && item.url === url)
             );
-            chrome.storage.local.set({ scanHistory: updatedHistory }, () => {
-              initScanHistoryUI(); // Refresh
-              modal.classList.add("hidden");
-            });
+			chrome.storage.local.set({ scanHistory: updatedHistory }, () => {
+				chrome.storage.local.get({ scanHistory: [] }, ({ scanHistory }) => {
+					const data = activeFilterDate
+					? scanHistory.filter(item => {
+						const d = new Date(item.date);
+						const yyyy = d.getFullYear();
+						const mm = String(d.getMonth() + 1).padStart(2, "0");
+						const dd = String(d.getDate()).padStart(2, "0");
+						return `${yyyy}-${mm}-${dd}` === activeFilterDate;
+						})
+					: scanHistory;
+
+					document.querySelector("#scan-history-table tbody").innerHTML = "";
+					renderScanHistory(data);
+					modal.classList.add("hidden");
+				});
+			});
           });
         };
         noBtn.onclick = () => modal.classList.add("hidden");
