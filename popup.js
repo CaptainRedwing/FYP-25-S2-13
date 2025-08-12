@@ -1,6 +1,6 @@
 let lastScanResult = null;
 let activeFilterDate = null;
-
+OPENAI_API_KEY = "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";
 document.addEventListener("DOMContentLoaded", () => {
 	const menuButton = document.getElementById("menuButton");
 	const dropdownMenu = document.getElementById("dropdownMenu");
@@ -588,7 +588,7 @@ function loadVulnerabilitiesDetectedHtml() {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json",
-								"Authorization": "Bearer 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"
+								"Authorization": "Bearer " + OPENAI_API_KEY // Use your OpenAI API key here
 							},
 							body: JSON.stringify({
 								model: "gpt-3.5-turbo",
