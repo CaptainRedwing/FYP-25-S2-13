@@ -1,12 +1,8 @@
 let lastScanResult = null;
 let activeFilterDate = null;
-<<<<<<< HEAD
 
-OPENAI_API_KEY = "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";
+OPENAI_API_KEY = //"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";
 
-=======
-OPENAI_API_KEY = "";
->>>>>>> 8a39375be6bc9868477f3ad80353473eb804edb9
 document.addEventListener("DOMContentLoaded", () => {
   const menuButton = document.getElementById("menuButton");
   const dropdownMenu = document.getElementById("dropdownMenu");
