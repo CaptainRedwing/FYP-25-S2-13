@@ -29,7 +29,7 @@
             ]
     }
   ],
-  "permissions": ["scripting", "activeTab", "tabs", "storage"
+  "permissions": ["scripting", "activeTab", "tabs", "storage", "notifications"
   ], 
   "web_accessible_resources": [
     {
