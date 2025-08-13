@@ -1,7 +1,7 @@
 let lastScanResult = null;
 let activeFilterDate = null;
 
-OPENAI_API_KEY = //"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";
+OPENAI_API_KEY = "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";
 
 document.addEventListener("DOMContentLoaded", () => {
   const menuButton = document.getElementById("menuButton");
@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const shareModal = document.getElementById("shareModal");
   const shareTextEl = document.getElementById("shareText");
   const copyShareBtn = document.getElementById("copyShareBtn");
-  const openLinkBtn = document.getElementById("openLinkBtn");
   const closeShareBtn = document.getElementById("closeShareBtn");
 
   menuButton?.addEventListener("click", () => {
@@ -171,7 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ].join('');
 
     shareTextEl.innerHTML = previewHTML;
-    openLinkBtn.setAttribute("data-url", url);
     shareModal.classList.remove("hidden");
   });
 
@@ -180,11 +178,6 @@ document.addEventListener("DOMContentLoaded", () => {
     navigator.clipboard.writeText(text)
       .then(() => alert("Copied to clipboard!"))
       .catch(() => alert("Failed to copy."));
-  });
-
-  openLinkBtn?.addEventListener("click", () => {
-    const url = openLinkBtn.getAttribute("data-url");
-    if (url && url.startsWith("http")) openExternal(url);
   });
 
   closeShareBtn?.addEventListener("click", () => {
@@ -517,7 +510,6 @@ function showLoadingAndScan(scanFunction) {
       }, 500);
     }
   }
-
   nextStage();
 }
 
