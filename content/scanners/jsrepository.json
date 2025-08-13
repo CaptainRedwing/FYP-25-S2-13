@@ -42,7 +42,7 @@
       "vulnerabilities": [
         {
           "below": "1.6.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -65,7 +65,7 @@
             "CWE-64",
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Selector interpreted as HTML",
             "CVE": [
@@ -86,7 +86,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Versions of jquery prior to 1.9.0 are vulnerable to Cross-Site Scripting. The load method fails to recognize and remove \"<script>\" HTML tags that contain a whitespace character, i.e: \"</script >\", which results in the enclosed script logic to be executed. This allows attackers to execute arbitrary JavaScript in a victim's browser.\n\n\n## Recommendation\n\nUpgrade to version 1.9.0 or later.",
             "CVE": [
@@ -106,7 +106,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "3rd party CORS request may execute",
             "issue": "2432",
@@ -129,7 +129,7 @@
           "cwe": [
             "CWE-1104"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "jQuery 1.x and 2.x are End-of-Life and no longer receiving security updates",
             "retid": "73",
@@ -145,7 +145,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "3rd party CORS request may execute",
             "issue": "2432",
@@ -170,7 +170,7 @@
             "CWE-400",
             "CWE-674"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Denial of Service in jquery",
             "CVE": [
@@ -189,7 +189,7 @@
             "CWE-1321",
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "jQuery before 3.4.0, as used in Drupal, Backdrop CMS, and other products, mishandles jQuery.extend(true, {}, ...) because of Object.prototype pollution",
             "CVE": [
@@ -210,7 +210,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "passing HTML containing <option> elements from untrusted sources - even after sanitizing it - to one of jQuery's DOM manipulation methods (i.e. .html(), .append(), and others) may execute untrusted code.",
             "CVE": [
@@ -229,7 +229,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Regex in its jQuery.htmlPrefilter sometimes may introduce XSS",
             "CVE": [
@@ -277,7 +277,7 @@
       "vulnerabilities": [
         {
           "below": "1.2.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -293,7 +293,7 @@
         },
         {
           "below": "1.2.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -326,7 +326,7 @@
       "vulnerabilities": [
         {
           "below": "1.19.3",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-400"
           ],
@@ -343,7 +343,7 @@
         },
         {
           "below": "1.19.4",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-1333"
           ],
@@ -361,7 +361,7 @@
         },
         {
           "below": "1.19.5",
-          "severity": "high",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1333"
           ],
@@ -379,7 +379,7 @@
         },
         {
           "below": "1.20.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -421,7 +421,7 @@
       "vulnerabilities": [
         {
           "below": "1.0.1",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -436,7 +436,7 @@
         },
         {
           "below": "1.0RC2",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -459,7 +459,7 @@
         },
         {
           "below": "1.1.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -475,7 +475,7 @@
         },
         {
           "below": "1.2.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -490,7 +490,7 @@
         },
         {
           "below": "1.3.0",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -504,7 +504,7 @@
         },
         {
           "below": "100.0.0",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -546,7 +546,7 @@
       "vulnerabilities": [
         {
           "below": "1.13.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -564,7 +564,7 @@
         },
         {
           "below": "1.13.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -582,7 +582,7 @@
         },
         {
           "below": "1.13.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -601,7 +601,7 @@
         },
         {
           "below": "1.13.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -645,7 +645,7 @@
         {
           "atOrAbove": "1.7.0",
           "below": "1.10.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -664,7 +664,7 @@
         },
         {
           "below": "1.12.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -726,7 +726,7 @@
         {
           "atOrAbove": "1.9.2",
           "below": "1.10.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -764,7 +764,7 @@
       "vulnerabilities": [
         {
           "below": "3.1.5",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -779,7 +779,7 @@
         },
         {
           "below": "3.1.6",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -811,7 +811,7 @@
       "vulnerabilities": [
         {
           "below": "1.21.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -826,7 +826,7 @@
         },
         {
           "below": "2.31.1",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79",
             "CWE-80"
@@ -858,7 +858,7 @@
       "vulnerabilities": [
         {
           "below": "0.5.4",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -889,7 +889,7 @@
       "vulnerabilities": [
         {
           "below": "1.25.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -924,7 +924,7 @@
       "vulnerabilities": [
         {
           "below": "2.2.20",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -942,7 +942,7 @@
         },
         {
           "below": "2.3.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -960,7 +960,7 @@
         },
         {
           "below": "2.3.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -992,7 +992,7 @@
       "vulnerabilities": [
         {
           "below": "3.5.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1029,7 +1029,7 @@
       "vulnerabilities": [
         {
           "below": "1.01",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -1060,7 +1060,7 @@
       "vulnerabilities": [
         {
           "below": "2.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1092,7 +1092,7 @@
       "vulnerabilities": [
         {
           "below": "1.4.2",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-94"
           ],
@@ -1108,7 +1108,7 @@
         },
         {
           "below": "4.2.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1122,7 +1122,7 @@
         },
         {
           "below": "4.2.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1136,7 +1136,7 @@
         },
         {
           "below": "4.7.12",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1150,7 +1150,7 @@
         },
         {
           "below": "4.9.7",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -1168,7 +1168,7 @@
         },
         {
           "below": "4.9.7",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -1183,7 +1183,7 @@
         },
         {
           "below": "4.9.10",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1201,7 +1201,7 @@
         },
         {
           "below": "4.9.11",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1220,7 +1220,7 @@
         {
           "atOrAbove": "5.0.0",
           "below": "5.1.4",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -1239,7 +1239,7 @@
         {
           "atOrAbove": "5.0.0",
           "below": "5.1.4",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -1254,7 +1254,7 @@
         },
         {
           "below": "5.1.6",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1268,7 +1268,7 @@
         },
         {
           "below": "5.2.2",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -1283,7 +1283,7 @@
         {
           "atOrAbove": "5.0.0",
           "below": "5.2.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1301,7 +1301,7 @@
         },
         {
           "below": "5.4.0",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -1316,7 +1316,7 @@
         {
           "atOrAbove": "5.0.0",
           "below": "5.4.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1334,7 +1334,7 @@
         },
         {
           "below": "5.6.0",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-400"
           ],
@@ -1348,7 +1348,7 @@
         },
         {
           "below": "5.6.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1366,7 +1366,7 @@
         },
         {
           "below": "5.7.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1381,7 +1381,7 @@
         },
         {
           "below": "5.9.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1399,7 +1399,7 @@
         },
         {
           "below": "5.10.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-64",
             "CWE-79"
@@ -1418,7 +1418,7 @@
         },
         {
           "below": "5.10.7",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1437,7 +1437,7 @@
         },
         {
           "below": "5.10.8",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1456,7 +1456,7 @@
         },
         {
           "below": "5.10.8",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1477,7 +1477,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "TinyMCE vulnerable to mutation Cross-site Scripting via special characters in unescaped text nodes",
             "CVE": [
@@ -1502,7 +1502,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noneditable_regexp option",
             "CVE": [
@@ -1529,7 +1529,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noscript elements",
             "CVE": [
@@ -1552,7 +1552,7 @@
         {
           "atOrAbove": "6.0.0",
           "below": "6.3.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1572,7 +1572,7 @@
         {
           "atOrAbove": "6.0.0",
           "below": "6.7.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1592,7 +1592,7 @@
         {
           "atOrAbove": "6.0.0",
           "below": "6.7.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1613,7 +1613,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "TinyMCE vulnerable to mutation Cross-site Scripting via special characters in unescaped text nodes",
             "CVE": [
@@ -1638,7 +1638,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability in handling iframes",
             "CVE": [
@@ -1662,7 +1662,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noneditable_regexp option",
             "CVE": [
@@ -1689,7 +1689,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noscript elements",
             "CVE": [
@@ -1715,7 +1715,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability in handling external SVG files through Object or Embed elements",
             "CVE": [
@@ -1739,7 +1739,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noneditable_regexp option",
             "CVE": [
@@ -1766,7 +1766,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noscript elements",
             "CVE": [
@@ -1814,7 +1814,7 @@
         {
           "atOrAbove": "2.4.0",
           "below": "2.8.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1830,7 +1830,7 @@
         {
           "atOrAbove": "2.5.0",
           "below": "2.8.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1846,7 +1846,7 @@
         {
           "atOrAbove": "2.8.0",
           "below": "2.8.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1861,7 +1861,7 @@
         },
         {
           "below": "2.9.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1877,7 +1877,7 @@
         {
           "atOrAbove": "2.4.0",
           "below": "2.9.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1893,7 +1893,7 @@
         {
           "atOrAbove": "2.5.0",
           "below": "2.9.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1909,7 +1909,7 @@
         {
           "atOrAbove": "2.8.0",
           "below": "2.9.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1925,7 +1925,7 @@
         {
           "atOrAbove": "3.2.0",
           "below": "3.9.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1941,7 +1941,7 @@
         {
           "atOrAbove": "3.5.0",
           "below": "3.9.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1957,7 +1957,7 @@
         {
           "atOrAbove": "3.0.0",
           "below": "3.10.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -1975,7 +1975,7 @@
         {
           "atOrAbove": "3.0.0",
           "below": "3.10.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2013,7 +2013,7 @@
       "vulnerabilities": [
         {
           "below": "1.5.1.2",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-942"
           ],
@@ -2030,7 +2030,7 @@
         {
           "atOrAbove": "1.6.0",
           "below": "1.6.0.2",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-942"
           ],
@@ -2066,7 +2066,7 @@
       "vulnerabilities": [
         {
           "below": "0.9.7",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -2080,7 +2080,7 @@
         },
         {
           "below": "0.9.7.1",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -2095,7 +2095,7 @@
         {
           "atOrAbove": "1.0.0-rc.1",
           "below": "1.0.0-rc.1.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2111,7 +2111,7 @@
         {
           "atOrAbove": "1.0.0-rc.2",
           "below": "1.0.0-rc.2.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2127,7 +2127,7 @@
         {
           "atOrAbove": "1.0.0-rc.3",
           "below": "1.0.0-rc.3.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2143,7 +2143,7 @@
         {
           "atOrAbove": "1.0.0-rc.4",
           "below": "1.0.0-rc.4.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2159,7 +2159,7 @@
         {
           "atOrAbove": "1.0.0-rc.5",
           "below": "1.0.0-rc.5.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2175,7 +2175,7 @@
         {
           "atOrAbove": "1.0.0-rc.6",
           "below": "1.0.0-rc.6.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2191,7 +2191,7 @@
         {
           "atOrAbove": "1.0.0",
           "below": "1.0.1",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -2209,7 +2209,7 @@
         {
           "atOrAbove": "1.1.0",
           "below": "1.1.3",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -2227,7 +2227,7 @@
         {
           "atOrAbove": "1.2.0",
           "below": "1.2.1",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -2245,7 +2245,7 @@
         {
           "atOrAbove": "1.2.0",
           "below": "1.2.2",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -2263,7 +2263,7 @@
         {
           "atOrAbove": "1.3.0",
           "below": "1.3.1",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -2281,7 +2281,7 @@
         {
           "atOrAbove": "1.3.0",
           "below": "1.3.2",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -2299,7 +2299,7 @@
         {
           "atOrAbove": "1.4.0",
           "below": "1.4.0-beta.2",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -2316,7 +2316,7 @@
         },
         {
           "below": "1.5.0",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -2334,7 +2334,7 @@
         {
           "atOrAbove": "1.8.0",
           "below": "1.11.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2350,7 +2350,7 @@
         {
           "atOrAbove": "1.12.0",
           "below": "1.12.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2366,7 +2366,7 @@
         {
           "atOrAbove": "1.13.0",
           "below": "1.13.12",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2382,7 +2382,7 @@
         {
           "atOrAbove": "2.0.0",
           "below": "2.0.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2398,7 +2398,7 @@
         {
           "atOrAbove": "2.1.0",
           "below": "2.1.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2414,7 +2414,7 @@
         {
           "atOrAbove": "2.2.0",
           "below": "2.2.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2429,7 +2429,7 @@
         },
         {
           "below": "3.24.7",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -2444,7 +2444,7 @@
         {
           "atOrAbove": "3.25.0",
           "below": "3.28.10",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -2459,7 +2459,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.4.4",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -2474,7 +2474,7 @@
         {
           "atOrAbove": "4.5.0",
           "below": "4.8.1",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -2489,7 +2489,7 @@
         {
           "atOrAbove": "4.9.0-alpha.1",
           "below": "4.9.0-beta.3",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -2531,7 +2531,7 @@
         {
           "atOrAbove": "0.4",
           "below": "0.4.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2557,7 +2557,7 @@
         {
           "atOrAbove": "1.0",
           "below": "1.0.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2582,7 +2582,7 @@
         },
         {
           "below": "1.1.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2600,7 +2600,7 @@
         {
           "atOrAbove": "1.1",
           "below": "1.1.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2625,7 +2625,7 @@
         },
         {
           "below": "1.2.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2643,7 +2643,7 @@
         {
           "atOrAbove": "1.2",
           "below": "1.2.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2669,7 +2669,7 @@
         {
           "atOrAbove": "1.3",
           "below": "1.3.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2694,7 +2694,7 @@
         },
         {
           "below": "1.4.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2711,7 +2711,7 @@
         {
           "atOrAbove": "1.4",
           "below": "1.4.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2737,7 +2737,7 @@
         {
           "atOrAbove": "1.10.0",
           "below": "1.10.10",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2763,7 +2763,7 @@
         {
           "atOrAbove": "1.11.0",
           "below": "1.11.6",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2788,7 +2788,7 @@
         },
         {
           "below": "1.11.10",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321",
             "CWE-74",
@@ -2809,7 +2809,7 @@
         {
           "atOrAbove": "1.12.0",
           "below": "1.12.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2835,7 +2835,7 @@
         {
           "atOrAbove": "1.12.0",
           "below": "1.12.8",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321",
             "CWE-74",
@@ -2856,7 +2856,7 @@
         {
           "atOrAbove": "1.13.0",
           "below": "1.13.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -2882,7 +2882,7 @@
         {
           "atOrAbove": "1.13.0",
           "below": "1.13.7",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321",
             "CWE-74",
@@ -2902,7 +2902,7 @@
         },
         {
           "below": "1.14",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -2920,7 +2920,7 @@
         {
           "atOrAbove": "1.14.0",
           "below": "1.14.6",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321",
             "CWE-74",
@@ -2941,7 +2941,7 @@
         {
           "atOrAbove": "1.15.0",
           "below": "1.15.3",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321",
             "CWE-74",
@@ -2962,7 +2962,7 @@
         {
           "atOrAbove": "1.16.0",
           "below": "1.16.2",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321",
             "CWE-74",
@@ -2982,7 +2982,7 @@
         },
         {
           "below": "1.17.0",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -3035,7 +3035,7 @@
         {
           "atOrAbove": "1.0.0",
           "below": "1.2.30",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3049,7 +3049,7 @@
         },
         {
           "below": "1.5.0-beta.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3068,7 +3068,7 @@
         {
           "atOrAbove": "1.3.0",
           "below": "1.5.0-rc2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3082,7 +3082,7 @@
         },
         {
           "below": "1.6.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3096,7 +3096,7 @@
         },
         {
           "below": "1.6.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-400"
           ],
@@ -3111,7 +3111,7 @@
         },
         {
           "below": "1.6.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-942"
           ],
@@ -3126,7 +3126,7 @@
         },
         {
           "below": "1.6.5",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -3141,7 +3141,7 @@
         {
           "atOrAbove": "1.5.0",
           "below": "1.6.9",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -3156,7 +3156,7 @@
         },
         {
           "below": "1.7.9",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321",
             "CWE-20",
@@ -3177,7 +3177,7 @@
         },
         {
           "below": "1.8.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3191,7 +3191,7 @@
         },
         {
           "below": "1.8.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3209,7 +3209,7 @@
         },
         {
           "below": "1.8.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1333"
           ],
@@ -3226,7 +3226,7 @@
         },
         {
           "below": "1.8.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1333"
           ],
@@ -3243,7 +3243,7 @@
         },
         {
           "below": "1.8.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3260,7 +3260,7 @@
         },
         {
           "below": "1.8.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1333"
           ],
@@ -3281,7 +3281,7 @@
           "cwe": [
             "CWE-791"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "AngularJS allows attackers to bypass common image source restrictions",
             "CVE": [
@@ -3303,7 +3303,7 @@
           "cwe": [
             "CWE-1333"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "angular vulnerable to super-linear runtime due to backtracking",
             "CVE": [
@@ -3327,7 +3327,7 @@
           "cwe": [
             "CWE-1289"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "AngularJS allows attackers to bypass common image source restrictions",
             "CVE": [
@@ -3345,7 +3345,7 @@
         },
         {
           "below": "1.999",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-1104"
           ],
@@ -3360,7 +3360,7 @@
         {
           "atOrAbove": "1.7.0",
           "below": "999",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1333",
             "CWE-770"
@@ -3402,7 +3402,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Cross site scripting in Angular",
             "CVE": [
@@ -3428,7 +3428,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Cross site scripting in Angular",
             "CVE": [
@@ -3454,7 +3454,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Cross site scripting in Angular",
             "CVE": [
@@ -3492,7 +3492,7 @@
       "vulnerabilities": [
         {
           "below": "0.5.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3538,7 +3538,7 @@
       "vulnerabilities": [
         {
           "below": "0.3.1",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -3552,7 +3552,7 @@
         },
         {
           "below": "2.2.1",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -3597,7 +3597,7 @@
       "vulnerabilities": [
         {
           "below": "1.0.0.beta.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3611,7 +3611,7 @@
         },
         {
           "below": "3.0.7",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-471"
           ],
@@ -3629,7 +3629,7 @@
         },
         {
           "below": "3.0.8",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-94"
           ],
@@ -3644,7 +3644,7 @@
         },
         {
           "below": "3.0.8",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-94"
           ],
@@ -3662,7 +3662,7 @@
         },
         {
           "below": "3.0.8",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -3678,7 +3678,7 @@
         },
         {
           "below": "3.0.8",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -3693,7 +3693,7 @@
         },
         {
           "below": "3.0.8",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321",
             "CWE-74"
@@ -3712,7 +3712,7 @@
         },
         {
           "below": "4.0.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3731,7 +3731,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.0.13",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -3747,7 +3747,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.0.14",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-471"
           ],
@@ -3766,7 +3766,7 @@
         {
           "atOrAbove": "4.1.0",
           "below": "4.1.2",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-471"
           ],
@@ -3785,7 +3785,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.3.0",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321",
             "CWE-74"
@@ -3805,7 +3805,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.4.5",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-400"
           ],
@@ -3823,7 +3823,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.4.5",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-400"
           ],
@@ -3839,7 +3839,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.5.2",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-94"
           ],
@@ -3855,7 +3855,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.5.3",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-94"
           ],
@@ -3874,7 +3874,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.5.3",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -3891,7 +3891,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.5.3",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -3906,7 +3906,7 @@
         },
         {
           "below": "4.6.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-400"
           ],
@@ -3920,7 +3920,7 @@
         },
         {
           "below": "4.7.7",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -3938,7 +3938,7 @@
         },
         {
           "below": "4.7.7",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-94"
           ],
@@ -3981,7 +3981,7 @@
       "vulnerabilities": [
         {
           "below": "2.4.18",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -3997,7 +3997,7 @@
         },
         {
           "below": "2.4.19",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4013,7 +4013,7 @@
         },
         {
           "below": "2.4.20",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4027,7 +4027,7 @@
         },
         {
           "below": "2.5.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-942"
           ],
@@ -4064,7 +4064,7 @@
       "vulnerabilities": [
         {
           "below": "1.5.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4079,7 +4079,7 @@
         },
         {
           "below": "1.5.5",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4094,7 +4094,7 @@
         },
         {
           "below": "2.1.9",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4109,7 +4109,7 @@
         },
         {
           "below": "2.3.7",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-434"
           ],
@@ -4123,7 +4123,7 @@
         },
         {
           "below": "2.3.8",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4137,7 +4137,7 @@
         },
         {
           "below": "2.3.9",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-434",
             "CWE-75"
@@ -4157,7 +4157,7 @@
         {
           "atOrAbove": "3.0.0",
           "below": "3.1.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-434"
           ],
@@ -4172,7 +4172,7 @@
         {
           "atOrAbove": "3.0.0",
           "below": "3.1.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4187,7 +4187,7 @@
         {
           "atOrAbove": "3.0.0",
           "below": "3.1.5",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-434"
           ],
@@ -4226,7 +4226,7 @@
       "vulnerabilities": [
         {
           "below": "0.6.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4239,7 +4239,7 @@
         },
         {
           "below": "0.8.6",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4252,7 +4252,7 @@
         },
         {
           "below": "0.8.9",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -4267,7 +4267,7 @@
         },
         {
           "below": "0.9.0",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -4285,7 +4285,7 @@
           "cwe": [
             "CWE-601"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "DOMPurify Open Redirect vulnerability",
             "CVE": [
@@ -4304,7 +4304,7 @@
         },
         {
           "below": "2.0.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4321,7 +4321,7 @@
         },
         {
           "below": "2.0.7",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -4335,7 +4335,7 @@
         },
         {
           "below": "2.0.16",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -4349,7 +4349,7 @@
         },
         {
           "below": "2.0.17",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4367,7 +4367,7 @@
         },
         {
           "below": "2.1.1",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -4381,7 +4381,7 @@
         },
         {
           "below": "2.2.0",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -4395,7 +4395,7 @@
         },
         {
           "below": "2.2.2",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -4409,7 +4409,7 @@
         },
         {
           "below": "2.2.3",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -4423,7 +4423,7 @@
         },
         {
           "below": "2.2.4",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -4441,7 +4441,7 @@
           "cwe": [
             "CWE-1321"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "DOMPurify vulnerable to tampering by prototype polution",
             "CVE": [
@@ -4463,7 +4463,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "DOMpurify has a nesting-based mXSS",
             "CVE": [
@@ -4488,7 +4488,7 @@
             "CWE-1321",
             "CWE-1333"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "DOMPurify allows tampering by prototype pollution",
             "CVE": [
@@ -4511,7 +4511,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "DOMpurify has a nesting-based mXSS",
             "CVE": [
@@ -4536,7 +4536,7 @@
             "CWE-1321",
             "CWE-1333"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "DOMPurify allows tampering by prototype pollution",
             "CVE": [
@@ -4559,7 +4559,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "DOMPurify allows Cross-site Scripting (XSS)",
             "CVE": [
@@ -4597,7 +4597,7 @@
         {
           "atOrAbove": "0.4.0",
           "below": "0.4.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4616,7 +4616,7 @@
         {
           "atOrAbove": "0.5.0",
           "below": "0.5.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4635,7 +4635,7 @@
         {
           "atOrAbove": "0.0.1",
           "below": "0.14.0",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -4652,7 +4652,7 @@
         {
           "atOrAbove": "16.0.0",
           "below": "16.0.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4670,7 +4670,7 @@
         {
           "atOrAbove": "16.1.0",
           "below": "16.1.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4688,7 +4688,7 @@
         {
           "atOrAbove": "16.2.0",
           "below": "16.2.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4706,7 +4706,7 @@
         {
           "atOrAbove": "16.3.0",
           "below": "16.3.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4724,7 +4724,7 @@
         {
           "atOrAbove": "16.4.0",
           "below": "16.4.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4760,7 +4760,7 @@
         {
           "atOrAbove": "16.0.0",
           "below": "16.0.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4780,7 +4780,7 @@
         {
           "atOrAbove": "16.1.0",
           "below": "16.1.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4800,7 +4800,7 @@
         {
           "atOrAbove": "16.2.0",
           "below": "16.2.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4820,7 +4820,7 @@
         {
           "atOrAbove": "16.3.0",
           "below": "16.3.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4840,7 +4840,7 @@
         {
           "atOrAbove": "16.4.0",
           "below": "16.4.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4888,7 +4888,7 @@
       "vulnerabilities": [
         {
           "below": "5.4.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4915,7 +4915,7 @@
       "vulnerabilities": [
         {
           "below": "1.1.4",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -4931,7 +4931,7 @@
         },
         {
           "below": "2.0.11",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4948,7 +4948,7 @@
         {
           "atOrAbove": "3",
           "below": "3.0.RC3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -4982,7 +4982,7 @@
       "vulnerabilities": [
         {
           "below": "2.11.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-400"
           ],
@@ -5000,7 +5000,7 @@
         },
         {
           "below": "2.15.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1333"
           ],
@@ -5014,7 +5014,7 @@
         },
         {
           "below": "2.19.3",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1333",
             "CWE-400"
@@ -5034,7 +5034,7 @@
         },
         {
           "below": "2.29.2",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-22",
             "CWE-27"
@@ -5053,7 +5053,7 @@
         {
           "atOrAbove": "2.18.0",
           "below": "2.29.4",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1333",
             "CWE-400"
@@ -5102,7 +5102,7 @@
         {
           "atOrAbove": "1.3.2",
           "below": "1.12.1",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-94"
           ],
@@ -5135,7 +5135,7 @@
       "vulnerabilities": [
         {
           "below": "2.1.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -5152,7 +5152,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "In Bootstrap before 3.4.0, XSS is possible in the tooltip data-viewport attribute.",
             "issue": "27044",
@@ -5170,7 +5170,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS in data-container property of tooltip",
             "issue": "20184",
@@ -5185,7 +5185,7 @@
         },
         {
           "below": "3.4.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -5205,7 +5205,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS in data-target property of scrollspy",
             "issue": "20184",
@@ -5222,7 +5222,7 @@
         {
           "atOrAbove": "3.0.0",
           "below": "3.4.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -5243,7 +5243,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability for data-* attributes",
             "CVE": [
@@ -5264,7 +5264,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS in data-template, data-content and data-title properties of tooltip/popover",
             "issue": "28236",
@@ -5284,7 +5284,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
             "CVE": [
@@ -5303,7 +5303,7 @@
         },
         {
           "below": "3.999.999",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-1104"
           ],
@@ -5318,7 +5318,7 @@
         {
           "atOrAbove": "4.0.0-beta",
           "below": "4.0.0-beta.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -5339,7 +5339,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS in collapse data-parent attribute",
             "issue": "20184",
@@ -5358,7 +5358,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS in data-container property of tooltip",
             "issue": "20184",
@@ -5377,7 +5377,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS in data-target property of scrollspy",
             "issue": "20184",
@@ -5397,7 +5397,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS in data-template, data-content and data-title properties of tooltip/popover",
             "issue": "28236",
@@ -5417,7 +5417,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
             "CVE": [
@@ -5455,7 +5455,7 @@
       "vulnerabilities": [
         {
           "below": "1.13.6",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -5472,7 +5472,7 @@
         },
         {
           "below": "1.13.6",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -5505,7 +5505,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS",
             "retid": "13"
@@ -5519,7 +5519,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS",
             "retid": "14"
@@ -5533,7 +5533,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS",
             "retid": "15"
@@ -5547,7 +5547,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS",
             "retid": "16"
@@ -5562,7 +5562,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS if the enhanced image plugin is installed",
             "retid": "17"
@@ -5578,7 +5578,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS vulnerability in the HTML parser",
             "retid": "18",
@@ -5597,7 +5597,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "XSS",
             "retid": "20"
@@ -5611,7 +5611,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS-type attack inside CKEditor 4 by persuading a victim to paste a specially crafted HTML code into the Color Button dialog",
             "retid": "19"
@@ -5625,7 +5625,7 @@
           "cwe": [
             "CWE-1333"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "ReDoS vulnerability in Autolink plugin and Advanced Tab for Dialogs plugin",
             "retid": "21"
@@ -5639,7 +5639,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "XSS vulnerability in the Widget plugin",
             "CVE": [
@@ -5655,7 +5655,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "XSS vulnerability in the Clipboard plugin",
             "CVE": [
@@ -5671,7 +5671,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS vulnerability in the Fake Objects plugin",
             "CVE": [
@@ -5687,7 +5687,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "XSS vulnerabilities in the core module",
             "CVE": [
@@ -5705,7 +5705,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "Inject malformed URL to bypass content sanitization for XSS",
             "CVE": [
@@ -5718,7 +5718,7 @@
         },
         {
           "below": "4.21.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -5759,7 +5759,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "XSS in the link package",
             "CVE": [
@@ -5775,7 +5775,7 @@
           "cwe": [
             "CWE-1333"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "ReDos in several packages",
             "CVE": [
@@ -5791,7 +5791,7 @@
           "cwe": [
             "CWE-1333"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "ReDos in several packages",
             "CVE": [
@@ -5807,7 +5807,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "security fix for the Markdown GFM, HTML support and HTML embed packages",
             "CVE": [
@@ -5825,7 +5825,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Cross-site scripting (XSS) in the clipboard package",
             "CVE": [
@@ -5863,7 +5863,7 @@
       "vulnerabilities": [
         {
           "below": "2.4.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -5877,7 +5877,7 @@
         },
         {
           "below": "2.5.17",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -5891,7 +5891,7 @@
         },
         {
           "below": "2.6.11",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-94"
           ],
@@ -5909,7 +5909,7 @@
           "cwe": [
             "CWE-1333"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "ReDoS vulnerability in vue package that is exploitable through inefficient regex evaluation in the parseHTML function",
             "CVE": [
@@ -5957,7 +5957,7 @@
         {
           "atOrAbove": "3.0.0",
           "below": "4.0.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -5976,7 +5976,7 @@
         },
         {
           "below": "6.0.0",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -5995,7 +5995,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "6.6.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -6035,7 +6035,7 @@
       "vulnerabilities": [
         {
           "below": "2.9.8",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -6049,7 +6049,7 @@
         },
         {
           "below": "3.46.5",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -6063,7 +6063,7 @@
         },
         {
           "below": "3.49.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -6084,7 +6084,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Svelte has a potential mXSS vulnerability due to improper HTML escaping",
             "CVE": [
@@ -6124,7 +6124,7 @@
       "vulnerabilities": [
         {
           "below": "0.18.1",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-20",
             "CWE-755"
@@ -6143,7 +6143,7 @@
         },
         {
           "below": "0.21.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-918"
           ],
@@ -6161,7 +6161,7 @@
         },
         {
           "below": "0.21.3",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1333",
             "CWE-400"
@@ -6184,7 +6184,7 @@
           "cwe": [
             "CWE-352"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Axios Cross-Site Request Forgery Vulnerability",
             "CVE": [
@@ -6209,7 +6209,7 @@
           "cwe": [
             "CWE-352"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Axios Cross-Site Request Forgery Vulnerability",
             "CVE": [
@@ -6230,7 +6230,7 @@
         },
         {
           "below": "1.6.8",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-200"
           ],
@@ -6248,7 +6248,7 @@
           "cwe": [
             "CWE-918"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Server-Side Request Forgery in axios",
             "CVE": [
@@ -6275,7 +6275,7 @@
           "cwe": [
             "CWE-918"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "axios Requests Vulnerable To Possible SSRF and Credential Leakage via Absolute URL",
             "CVE": [
@@ -6316,7 +6316,7 @@
       "vulnerabilities": [
         {
           "below": "3.0.0",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1333"
           ],
@@ -6333,7 +6333,7 @@
         },
         {
           "below": "4.1.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -6352,7 +6352,7 @@
         {
           "atOrAbove": "4.0.0",
           "below": "4.3.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -6367,7 +6367,7 @@
         },
         {
           "below": "10.0.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1333"
           ],
@@ -6382,7 +6382,7 @@
         },
         {
           "below": "12.3.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1333",
             "CWE-400"
@@ -6402,7 +6402,7 @@
         },
         {
           "below": "13.0.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-400"
           ],
@@ -6433,7 +6433,7 @@
       "vulnerabilities": [
         {
           "below": "2.7.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1321"
           ],
@@ -6453,7 +6453,7 @@
         {
           "atOrAbove": "3.0.0",
           "below": "3.7.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1321"
           ],
@@ -6472,7 +6472,7 @@
         },
         {
           "below": "3.8.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-22"
           ],
@@ -6509,7 +6509,7 @@
       "vulnerabilities": [
         {
           "below": "0.7.0",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-94"
           ],
@@ -6542,7 +6542,7 @@
       "vulnerabilities": [
         {
           "below": "1.10.10",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -6560,7 +6560,7 @@
         },
         {
           "below": "1.10.22",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -6577,7 +6577,7 @@
         },
         {
           "below": "1.10.22",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-1321"
           ],
@@ -6591,7 +6591,7 @@
         },
         {
           "below": "1.10.23",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321"
           ],
@@ -6606,7 +6606,7 @@
         },
         {
           "below": "1.11.3",
-          "severity": "low",
+          "severity": "Low",
           "cwe": [
             "CWE-79"
           ],
@@ -6621,7 +6621,7 @@
         },
         {
           "below": "1.11.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -6660,7 +6660,7 @@
         {
           "atOrAbove": "1.0.0",
           "below": "2.4.1",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-22"
           ],
@@ -6681,7 +6681,7 @@
           "cwe": [
             "CWE-22"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Directory traversal vulnerability in Next.js",
             "CVE": [
@@ -6699,7 +6699,7 @@
           "cwe": [
             "CWE-20"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Remote Code Execution in next",
             "githubID": "GHSA-5vj8-3v2h-h38v"
@@ -6714,7 +6714,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Next.js has cross site scripting (XSS) vulnerability via the 404 or 500 /_error page",
             "CVE": [
@@ -6728,7 +6728,7 @@
         },
         {
           "below": "9.3.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-23"
           ],
@@ -6746,7 +6746,7 @@
         {
           "atOrAbove": "9.5.0",
           "below": "9.5.4",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-601"
           ],
@@ -6764,7 +6764,7 @@
         {
           "atOrAbove": "0.9.9",
           "below": "11.1.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-601"
           ],
@@ -6782,7 +6782,7 @@
         {
           "atOrAbove": "10.0.0",
           "below": "11.1.1",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -6800,7 +6800,7 @@
         {
           "atOrAbove": "0.9.9",
           "below": "11.1.3",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-20"
           ],
@@ -6819,7 +6819,7 @@
         {
           "atOrAbove": "12.0.0",
           "below": "12.0.5",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-20"
           ],
@@ -6838,7 +6838,7 @@
         {
           "atOrAbove": "12.0.0",
           "below": "12.0.9",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-20",
             "CWE-400"
@@ -6857,7 +6857,7 @@
         {
           "atOrAbove": "10.0.0",
           "below": "12.1.0",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-451"
           ],
@@ -6879,7 +6879,7 @@
             "CWE-248",
             "CWE-754"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Unexpected server crash in Next.js",
             "githubID": "GHSA-wff4-fpwg-qqv3",
@@ -6897,7 +6897,7 @@
           "cwe": [
             "CWE-525"
           ],
-          "severity": "low",
+          "severity": "Low",
           "identifiers": {
             "summary": "Next.js missing cache-control header may lead to CDN caching empty reply",
             "CVE": [
@@ -6915,7 +6915,7 @@
           "cwe": [
             "CWE-400"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Next.js Denial of Service (DoS) condition",
             "CVE": [
@@ -6936,7 +6936,7 @@
           "cwe": [
             "CWE-444"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Next.js Vulnerable to HTTP Request Smuggling",
             "CVE": [
@@ -6960,7 +6960,7 @@
             "CWE-349",
             "CWE-639"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Next.js Cache Poisoning",
             "CVE": [
@@ -6983,7 +6983,7 @@
           "cwe": [
             "CWE-770"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Next.js Allows a Denial of Service (DoS) with Server Actions",
             "CVE": [
@@ -7004,7 +7004,7 @@
           "cwe": [
             "CWE-918"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Next.js Server-Side Request Forgery in Server Actions",
             "CVE": [
@@ -7027,7 +7027,7 @@
           "cwe": [
             "CWE-674"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Denial of Service condition in Next.js image optimization",
             "CVE": [
@@ -7050,7 +7050,7 @@
             "CWE-349",
             "CWE-639"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Next.js Cache Poisoning",
             "CVE": [
@@ -7073,7 +7073,7 @@
           "cwe": [
             "CWE-285"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Next.js authorization bypass vulnerability",
             "CVE": [
@@ -7096,7 +7096,7 @@
           "cwe": [
             "CWE-770"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Next.js Allows a Denial of Service (DoS) with Server Actions",
             "CVE": [
@@ -7117,7 +7117,7 @@
           "cwe": [
             "CWE-770"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Next.js Allows a Denial of Service (DoS) with Server Actions",
             "CVE": [
@@ -7148,7 +7148,7 @@
       "vulnerabilities": [
         {
           "below": "2.9.4",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1321",
             "CWE-915"
@@ -7182,7 +7182,7 @@
       "vulnerabilities": [
         {
           "below": "3.2.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -7196,7 +7196,7 @@
         },
         {
           "below": "3.2.2",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -7210,7 +7210,7 @@
         },
         {
           "below": "3.2.3",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -7227,7 +7227,7 @@
         },
         {
           "below": "3.2.7",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -7243,7 +7243,7 @@
         },
         {
           "below": "3.2.7",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -7260,7 +7260,7 @@
         },
         {
           "below": "4.0.11",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -7279,7 +7279,7 @@
         {
           "below": "4.1.4",
           "atOrAbove": "4.0.1",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -7301,7 +7301,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Froala WYSIWYG editor allows cross-site scripting (XSS)",
             "CVE": [
@@ -7335,7 +7335,7 @@
       "vulnerabilities": [
         {
           "below": "2.15.18",
-          "severity": "medium",
+          "severity": "Moderate",
           "cwe": [
             "CWE-79"
           ],
@@ -7361,7 +7361,7 @@
       "vulnerabilities": [
         {
           "below": "6.1.0",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-1333"
           ],
@@ -7378,7 +7378,7 @@
         },
         {
           "below": "7.2.2",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -7394,7 +7394,7 @@
         {
           "atOrAbove": "8.0.0",
           "below": "8.1.1",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -7409,7 +7409,7 @@
         },
         {
           "below": "9.0.0",
-          "severity": "high",
+          "severity": "High",
           "cwe": [
             "CWE-79"
           ],
@@ -7443,7 +7443,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Improper Neutralization of Input During Web Page Generation in Select2",
             "CVE": [
@@ -7478,7 +7478,7 @@
           "cwe": [
             "CWE-434"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Unrestricted Upload of File with Dangerous Type in blueimp-file-upload",
             "CVE": [
@@ -7516,7 +7516,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Cross-Site Scripting in c3",
             "CVE": [
@@ -7552,7 +7552,7 @@
             "CWE-471",
             "CWE-1321"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Prototype Pollution in lodash",
             "CVE": [
@@ -7575,7 +7575,7 @@
           "cwe": [
             "CWE-400"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Prototype Pollution in lodash",
             "CVE": [
@@ -7598,7 +7598,7 @@
           "cwe": [
             "CWE-400"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
             "CVE": [
@@ -7622,7 +7622,7 @@
             "CWE-1321",
             "CWE-20"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Prototype Pollution in lodash",
             "CVE": [
@@ -7650,7 +7650,7 @@
             "CWE-1321",
             "CWE-770"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Prototype Pollution in lodash",
             "CVE": [
@@ -7678,7 +7678,7 @@
             "CWE-1333",
             "CWE-400"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
             "CVE": [
@@ -7714,7 +7714,7 @@
             "CWE-77",
             "CWE-94"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Command Injection in lodash",
             "CVE": [
@@ -7766,7 +7766,7 @@
           "cwe": [
             "CWE-400"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Regular Expression Denial of Service in ua-parser-js",
             "CVE": [
@@ -7790,7 +7790,7 @@
           "cwe": [
             "CWE-400"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Regular Expression Denial of Service in ua-parser-js",
             "CVE": [
@@ -7814,7 +7814,7 @@
           "cwe": [
             "CWE-400"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "ua-parser-js Regular Expression Denial of Service vulnerability",
             "CVE": [
@@ -7838,7 +7838,7 @@
           "cwe": [
             "CWE-400"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Regular Expression Denial of Service (ReDoS) in ua-parser-js",
             "CVE": [
@@ -7861,7 +7861,7 @@
             "CWE-829",
             "CWE-912"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Embedded malware in ua-parser-js",
             "CVE": [],
@@ -7882,7 +7882,7 @@
             "CWE-1333",
             "CWE-400"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "ReDoS Vulnerability in ua-parser-js version",
             "CVE": [
@@ -7906,7 +7906,7 @@
             "CWE-829",
             "CWE-912"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Embedded malware in ua-parser-js",
             "CVE": [],
@@ -7927,7 +7927,7 @@
             "CWE-829",
             "CWE-912"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Embedded malware in ua-parser-js",
             "CVE": [],
@@ -7948,7 +7948,7 @@
             "CWE-1333",
             "CWE-400"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "ReDoS Vulnerability in ua-parser-js version",
             "CVE": [
@@ -7993,7 +7993,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "medium",
+          "severity": "Moderate",
           "identifiers": {
             "summary": "Macro in MathJax running untrusted Javascript within a web browser",
             "CVE": [
@@ -8016,7 +8016,7 @@
           "cwe": [
             "CWE-1333"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "MathJax Regular expression Denial of Service (ReDoS)",
             "CVE": [
@@ -8059,7 +8059,7 @@
           "cwe": [
             "CWE-94"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Malicious PDF can inject JavaScript into PDF Viewer",
             "CVE": [
@@ -8092,7 +8092,7 @@
           "cwe": [
             "CWE-94"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "Malicious PDF can inject JavaScript into PDF Viewer",
             "CVE": [
@@ -8125,7 +8125,7 @@
           "cwe": [
             "CWE-79"
           ],
-          "severity": "high",
+          "severity": "High",
           "identifiers": {
             "summary": "PDF.js vulnerable to arbitrary JavaScript execution upon opening a malicious PDF",
             "CVE": [

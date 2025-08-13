@@ -1,11 +1,9 @@
-//Styling for the modal
 function injectModalStyles() {
   if (document.getElementById('vuln-modal-style')) return;
 
   const style = document.createElement('style');
   style.id = 'vuln-modal-style';
   style.textContent = `
-    /* Modal backdrop */
     #vuln-modal {
       position: fixed;
       top: 0;
@@ -19,7 +17,6 @@ function injectModalStyles() {
       align-items: center;
     }
 
-    /* Modal content box */
     .vuln-modal-box {
       background: #cee6f2;
       color: #222;
@@ -51,7 +48,6 @@ function injectModalStyles() {
       text-indent: 10px;
     }
 
-    /* Close button */
     #close-vuln-modal {
       color: #CEE6F2;
       position: absolute;
@@ -63,7 +59,6 @@ function injectModalStyles() {
       cursor: pointer;
     }
 
-    /* Card container for each vulnerability */
     .vuln-entry,
     .tracker-entry {
       background: #ffffff;
@@ -74,7 +69,6 @@ function injectModalStyles() {
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
 
-    /* Card header (title) */
     .vuln-entry h3,
     .tracker-entry h3 {
       background: #f1f1f2;
@@ -87,28 +81,25 @@ function injectModalStyles() {
       font-family: 'Inter', sans-serif; 
     }
 
-    /* Generic rows inside cards (Tag, Severity, etc.) */
     .vuln-entry .meta,
     .tracker-entry .meta {
       display: flex;
       align-items: center;
-      gap: 16px; /* <-- adds space between Tag and Severity */
+      gap: 16px; 
       padding: 8px 12px;
       font-size: 14px;
       border-bottom: 1px solid #f0f0f0;
     }
 
     .vuln-entry > div:first-of-type {
-      margin-left: 12px; /* Shift severity text inward */
+      margin-left: 12px;
     }
       
-    /* Remove border from last row */
     .vuln-entry > div:last-child,
     .tracker-entry > div:last-child {
       border-bottom: none;
     }
 
-    /* Code snippet styling */
     .vuln-entry code {
       display: block;
       background: #f7f7f7;
@@ -120,7 +111,6 @@ function injectModalStyles() {
       font-size: 13px;
     }
 
-    /* Suggestion section styling */
     .vuln-entry .suggestion,
     .tracker-entry .suggestion {
       background: #f0f9f0;
@@ -131,7 +121,6 @@ function injectModalStyles() {
       font-size: 13px;
     }
 
-    /* References list inside cards */
     .vuln-entry ul,
     .tracker-entry ul {
       margin: 8px 16px;
@@ -139,7 +128,6 @@ function injectModalStyles() {
       padding-left: 16px;
     }
 
-    /* New meta row (Tag + Severity) */
     .meta-row {
       display: flex;
       align-items: center;
@@ -154,7 +142,6 @@ function injectModalStyles() {
       color: #666;
     }
 
-    /* Section labels like Code Snippet / Suggestions */
     .section-label {
       background: #f1f1f2;
       color: #333;
@@ -165,7 +152,6 @@ function injectModalStyles() {
       border-right: 1px solid #ccc;
     }
 
-    /* Row container for label + content */
     .labeled-row {
       display: flex;
       border-bottom: 1px solid #ddd;
@@ -178,17 +164,15 @@ function injectModalStyles() {
       flex: 1;
     }
 
-    /* Scrollable container for vulnerabilities (XSS, etc.) */
     .vuln-scroll-container {
-      max-height: 60vh;           /* Adjust scrollable area height */
-      overflow-y: auto;           /* Enable vertical scroll */
-      margin-top: 10px;           /* Space below header */
-      padding-right: 15px;         /* Prevent content hiding behind scrollbar */
+      max-height: 60vh;       
+      overflow-y: auto;       
+      margin-top: 10px;        
+      padding-right: 15px;        
       margin-right: -5px;
       margin-left: 8px;
     }
 
-    /* Ensure scrollbar only inside, not full modal */
     .vuln-scroll-container::-webkit-scrollbar {
       width: 8px;
     }
@@ -202,7 +186,6 @@ function injectModalStyles() {
       background: transparent;
     }
 
-    /* Suggestion styling greenish */
     .suggestion {
       background: #f1f1f2;
       border-left: 4px solid #85BAC6;
@@ -212,7 +195,6 @@ function injectModalStyles() {
       font-size: 13px;
     }
 
-    /* Title box (Name) */
     .xss-vuln-entry h3 {
       background: #f1f1f2;
       color: #384247;
@@ -225,7 +207,6 @@ function injectModalStyles() {
       letter-spacing: 1.35px
     }
 
-    /* Meta box (Tag + Severity) */
     .xss-vuln-entry .xss-meta-box {
       display: flex;
       align-items: center;
@@ -270,14 +251,15 @@ function injectModalStyles() {
       padding: 10px 30px 10px 10px;
       font-size: 13px;
       font-weight: 600;
-      white-space: pre-wrap;      
-      word-wrap: break-word;      
-      overflow-wrap: break-word;   
+      box-sizing: border-box;   
+      white-space: normal;     
+      word-break: keep-all;    
+      overflow-wrap: normal;
       margin: 0;
       line-height: 1.4;
       display: block;    
       letter-spacing: 1.05px;  
-
+      hyphens: auto;         
     }
 
     .xss-labeled-row div:not(.xss-section-label) {
@@ -306,17 +288,34 @@ function injectModalStyles() {
 
     .xss-labeled-row ul li {
       position: relative;
-      padding-left: 0; /* Remove space for bullet */
+      padding-left: 0;
     }
 
-    /* Remove the ::before bullet completely */
     .xss-labeled-row ul li::before {
       content: none;
     }
 
-
     .xss-vuln-entry + .xss-vuln-entry {
-      margin-top: 30px; /* adds gap between consecutive XSS vulnerabilities */
+      margin-top: 30px; 
+    }
+
+    .xss-labeled-row .xss-url-box {
+      display: block;
+      max-width: 100%;
+      border: 1px solid #cfd8dc;
+      border-radius: 4px;
+      padding: 10px 12px;
+      background: #f1f1f2;
+      white-space: normal !important;
+      overflow-wrap: anywhere !important;
+      word-break: break-all !important;
+      box-sizing: border-box;
+    }
+
+    .xss-labeled-row ul a {
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      text-decoration: underline;
     }
 
     .severity-high {
@@ -378,11 +377,25 @@ function injectModalStyles() {
       display: inline-block;
       margin-right: 8px !important;
     }
+
+    .xss-pair {
+      margin: 8px 0 8px;        
+      padding-bottom: 4px;   
+    }
+    .xss-pair:last-of-type {
+      border-bottom: none;        
+      margin-bottom: 3px;
+    }
+    .xss-pair .xss-labeled-row {
+      margin: 0;                 
+    }
+    .xss-pair .xss-labeled-row + .xss-labeled-row {
+      border-top: 2px solid #c3c1c1; /* divider line */
+    }
   `;
   document.head.appendChild(style);
 }
 
-// Escapes HTML special characters in a string to prevent injection.
 function escapeHtml(str = '') {
   return str
     .replace(/&/g, '&amp;')
@@ -392,30 +405,24 @@ function escapeHtml(str = '') {
     .replace(/'/g, '&#39;');
 }
 
-// The Modal
 function showSiteModal(type, items) {
   injectModalStyles(); 
 
-  // Remove any existing modal
   const existing = document.getElementById('vuln-modal');
   if (existing) existing.remove();
 
-  // Overlay backdrop
   const modal = document.createElement('div');
   modal.id = 'vuln-modal';
 
-  // Content box
   const box = document.createElement('div');
   box.className = 'vuln-modal-box';
 
-  // Close button
   const closeBtn = document.createElement('button');
   closeBtn.id = 'close-vuln-modal';
   closeBtn.textContent = '✖';
   closeBtn.onclick = () => modal.remove();
   box.appendChild(closeBtn);
 
-  // Dynamic header
   const header = document.createElement('h2');
   let titleText;
   switch (type) {
@@ -429,11 +436,9 @@ function showSiteModal(type, items) {
   header.textContent = titleText;
   box.appendChild(header);
 
-  // Scrollable container for vulnerability entries
   const scrollWrapper = document.createElement('div');
   scrollWrapper.className = 'vuln-scroll-container';
 
-  // No-results message
   if (!items || items.length === 0) {
     const none = document.createElement('p');
     none.textContent = 'No issues detected on this page.';
@@ -443,35 +448,63 @@ function showSiteModal(type, items) {
   } else if (type === 'libraries') {
     items.forEach(i => {
       const entry = document.createElement('div');
-      entry.className = 'vuln-entry';
+      entry.className = 'xss-vuln-entry';
 
+      // Issue name (title)
       const h3 = document.createElement('h3');
-      h3.textContent = `${i.library} v${i.version}`;
+      h3.textContent = escapeHtml(`${i.library} v${i.version}`);
       entry.appendChild(h3);
 
-      const sev = document.createElement('div');
-      sev.innerHTML = `<strong>Severity:</strong> <span class="severity-${i.severity.toLowerCase()}">${escapeHtml(i.severity.toUpperCase())}</span>`;
-      entry.appendChild(sev);
+      // Meta: Tag <> | Severity (with icon)
+      const metaBox = document.createElement('div');
+      metaBox.className = 'xss-meta-box';
+      metaBox.innerHTML = `
+        Tag: ${escapeHtml('<>')}
+        <span class="xss-separator">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        Severity: <span class="severity-${i.severity.toLowerCase()}">
+          <img src="${chrome.runtime.getURL('icons/' + i.severity.toLowerCase() + '.png')}">
+          ${escapeHtml(i.severity.charAt(0).toUpperCase() + i.severity.slice(1).toLowerCase())}
+        </span>
+      `;
+      entry.appendChild(metaBox);
 
-      const ul = document.createElement('ul');
-      i.identifiers.forEach((sum, idx) => {
-        const li = document.createElement('li');
+      // Detail / Suggestion rows
+      const details = Array.isArray(i.identifiers) ? i.identifiers : [];
+      details.forEach((detailText, idx) => {
+        // NEW: wrapper for each pair
+        const pair = document.createElement('div');
+        pair.className = 'xss-pair';
 
-        const txt = document.createElement('div');
-        txt.innerHTML = `<strong>${escapeHtml(sum)}</strong>`;
-        li.appendChild(txt);
+        // Detail
+        const detailRow = document.createElement('div');
+        detailRow.className = 'xss-labeled-row';
+        detailRow.innerHTML = `
+          <div class="xss-section-label">Detail</div>
+          <div>${escapeHtml(detailText)}</div>
+        `;
+        pair.appendChild(detailRow);
 
-        const sugg = document.createElement('div');
-        sugg.className = 'suggestion';
-        sugg.innerHTML = `<strong>Suggestion:</strong> ${escapeHtml(i.suggestions[idx])}`;
-        li.appendChild(sugg);
+        // Suggestion (only if present)
+        const suggestionText =
+          (i.suggestions && i.suggestions[idx]) ? i.suggestions[idx] : '';
+        if (suggestionText) {
+          const suggestionRow = document.createElement('div');
+          suggestionRow.className = 'xss-labeled-row';
+          suggestionRow.innerHTML = `
+            <div class="xss-section-label">Suggestion</div>
+            <div>${escapeHtml(suggestionText)}</div>
+          `;
+          pair.appendChild(suggestionRow);
+        }
 
-        ul.appendChild(li);
+        // Append the pair to the entry
+        entry.appendChild(pair);
       });
-      entry.appendChild(ul);
+
 
       scrollWrapper.appendChild(entry);
     });
+
 
   // XSS
   } else if (type === 'xss') {
@@ -674,10 +707,11 @@ function showSiteModal(type, items) {
         urlRow.className = 'xss-labeled-row';
         urlRow.innerHTML = `
           <div class="xss-section-label">URL</div>
-          <pre>${escapeHtml(i.url)}</pre>
+          <pre class="xss-url-box">${escapeHtml(i.url)}</pre>
         `;
         entry.appendChild(urlRow);
       }
+
 
       // Details (Summary)
       if (i.summary) {
@@ -717,10 +751,6 @@ function showSiteModal(type, items) {
 
       scrollWrapper.appendChild(entry);
     });
-
-
-
-  // Fallback
   } else {
     const pre = document.createElement('pre');
     pre.textContent = JSON.stringify(items, null, 2);
@@ -733,7 +763,6 @@ function showSiteModal(type, items) {
 }
 
 
-// Listener to show the details modal
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.action === 'showDetails') {
     showSiteModal(msg.dataType, msg.data);

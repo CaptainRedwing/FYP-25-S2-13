@@ -1,4 +1,3 @@
-// Default scanner settings (all true)
 const DEFAULT_SCANNERS = {
   js: true,
   xss: true,
@@ -8,7 +7,6 @@ const DEFAULT_SCANNERS = {
   trackers: true
 };
 
-// Whitelist skip
 function shouldSkipScan(host) {
   return new Promise(resolve => {
     chrome.storage.local.get({ whitelist: [] }, ({ whitelist }) => {
@@ -34,7 +32,6 @@ function runAllScans(scannersEnabled) {
   return Promise.all(scans);
 }
 
-// auto scan
 chrome.storage.local.get(
   { realtimeEnabled: true, scannersEnabled: DEFAULT_SCANNERS },
   async ({ realtimeEnabled, scannersEnabled }) => {
@@ -76,7 +73,6 @@ chrome.storage.local.get(
   });
 });
 
-// Manual scan 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.action !== 'runScan') return;
   const host = window.location.hostname;
@@ -123,10 +119,9 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   return true;
 });
 
-// Score calculator (from popup.js)
 function calculateScore(results) {
   let score = 100;
-  const severityPoints = { critical: 25, high: 10, medium: 5, low: 3 };
+  const severityPoints = { critical: 25, high: 10, moderate: 5, low: 3 };
   const typeWeights     = { xss:1.0, libraries:1.0, header:1.0, csrf:1.2, csp:1.0, trackers:1.0 };
 
   for (const type in results) {

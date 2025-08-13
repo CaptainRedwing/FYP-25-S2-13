@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     trackers: "toggle-trackers"
   };
 
-  // Load current saved settings
   chrome.storage.local.get({ scannersEnabled: defaultSettings }, ({ scannersEnabled }) => {
     console.log("[Config] Loaded settings from storage:", scannersEnabled);
 
@@ -40,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Save button handler
   const saveBtn = document.getElementById("save-btn");
   if (!saveBtn) {
     console.error("[Config] Save button NOT found");

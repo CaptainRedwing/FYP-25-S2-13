@@ -7,7 +7,6 @@ window.renderVulnChart = function () {
 
 	const ctx = canvas.getContext('2d');
 
-	// Get severity counts from popup.js (assumes lastScanResult and getSeverityCounts are globally accessible)
 	let severityCounts = [0, 0, 0, 0];
 	if (window.lastScanResult && typeof window.getSeverityCounts === 'function') {
 		severityCounts = window.getSeverityCounts(window.lastScanResult);
@@ -15,13 +14,11 @@ window.renderVulnChart = function () {
 		severityCounts = getSeverityCounts(lastScanResult);
 	}
 
-	// Check if there are no issues
 	const totalIssues = severityCounts.reduce((a, b) => a + b, 0);
 	let backgroundColors;
 	let hoverBackgroundColors;
 
 	if (totalIssues === 0) {
-	// Base color: 73% opacity
 	backgroundColors = [
 		'#689D76',
 		'#689D76',
@@ -29,7 +26,6 @@ window.renderVulnChart = function () {
 		'#689D76'
 	];
 
-	// Hover color: 50% opacity
 	hoverBackgroundColors = [
 		'rgba(104, 157, 118, 0.50)',
 		'rgba(104, 157, 118, 0.50)',
@@ -37,12 +33,10 @@ window.renderVulnChart = function () {
 		'rgba(104, 157, 118, 0.50)'
 	];
 	} else {
-	// Normal severity colors
 	backgroundColors = ['#611C19', '#962E2A', '#e3967d', '#A1D6E2'];
 	hoverBackgroundColors = backgroundColors;
 	}
 
-	// Severity order: Critical, High, Medium, Low
 	const data = {
 	labels: ['Critical', 'High', 'Medium', 'Low'],
 	datasets: [{
