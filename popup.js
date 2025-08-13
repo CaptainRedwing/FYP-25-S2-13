@@ -1,7 +1,7 @@
 let lastScanResult = null;
 let activeFilterDate = null;
 
-OPENAI_API_KEY = "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";
+//OPENAI_API_KEY = "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";
 
 document.addEventListener("DOMContentLoaded", () => {
   const menuButton = document.getElementById("menuButton");
