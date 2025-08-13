@@ -230,6 +230,9 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           lastScanResult = response;
+          const score = calculateScore(lastScanResult);
+          notifyLowScore(score);
+          
           chrome.storage.local.set({ lastScanResult: response }, () => {
             chrome.storage.local.get({ scanHistory: [] }, ({ scanHistory }) => {
               const score = calculateScore(response);
@@ -478,6 +481,7 @@ function showLoadingAndScan(scanFunction) {
 
               const score = calculateScore(lastScanResult);
               const el = document.querySelector("#score-value");
+              notifyLowScore(score);
 
               if (window.Odometer && el) {
                 el.innerHTML = score;
@@ -1365,5 +1369,36 @@ function renderScanHistory(scanHistory) {
         noBtn.onclick = () => modal.classList.add("hidden");
       });
     });
+  });
+}
+
+//Notification
+function notifyLowScore(score) {
+  if (score >= 20) return;
+
+  const iconUrl = chrome.runtime.getURL("icons/icon128.png");
+ 
+  if (chrome?.notifications?.create) {
+    try {
+      chrome.notifications.create({
+        type: "basic",
+        iconUrl,
+        title: "Low Security Score",
+        message: `⚠️ Security score is ${score}/100. This site may be unsafe.`,
+        priority: 2
+      }, () => void chrome.runtime.lastError);
+      return;
+    } catch (_) {  }
+  }
+
+  // Fallback: ask the background service worker to create it
+  chrome.runtime.sendMessage({
+    type: "CREATE_NOTIFICATION",
+    payload: {
+      iconUrl,
+      title: "Low Security Score",
+      message: `⚠️ Security score is ${score}/100. This site may be unsafe.`,
+      priority: 2
+    }
   });
 }
