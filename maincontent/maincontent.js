@@ -1,134 +1,126 @@
 window.renderVulnChart = function () {
-	const canvas = document.getElementById('vulnChart');
-	if (!canvas) {
-		console.error("vulnChart not found when trying to render chart");
-		return;
-	}
+  const canvas = document.getElementById('vulnChart');
+  if (!canvas) {
+    console.error("vulnChart not found when trying to render chart");
+    return;
+  }
+  const ctx = canvas.getContext('2d');
 
-	const ctx = canvas.getContext('2d');
+  // --- real counts -----------------------------------------------------------
+  let severityCounts = [0, 0, 0, 0];
+  if (window.lastScanResult && typeof window.getSeverityCounts === 'function') {
+    severityCounts = window.getSeverityCounts(window.lastScanResult);
+  } else if (typeof getSeverityCounts === 'function' && typeof lastScanResult !== 'undefined') {
+    severityCounts = getSeverityCounts(lastScanResult);
+  }
 
-	let severityCounts = [0, 0, 0, 0];
-	if (window.lastScanResult && typeof window.getSeverityCounts === 'function') {
-		severityCounts = window.getSeverityCounts(window.lastScanResult);
-	} else if (typeof getSeverityCounts === 'function' && typeof lastScanResult !== 'undefined') {
-		severityCounts = getSeverityCounts(lastScanResult);
-	}
+  const trueTotal = severityCounts.reduce((a, b) => a + b, 0);
+  const zeroState = trueTotal === 0;
 
-	const totalIssues = severityCounts.reduce((a, b) => a + b, 0);
-	let backgroundColors;
-	let hoverBackgroundColors;
+  // --- what we feed to Chart.js ---------------------------------------------
+  const displayData   = zeroState ? [1] : severityCounts;
+  const displayLabels = zeroState ? ['No issues'] : ['Critical', 'High', 'Moderate', 'Low'];
 
-	if (totalIssues === 0) {
-	backgroundColors = [
-		'#689D76',
-		'#689D76',
-		'#689D76',
-		'#689D76'
-	];
+  const backgroundColors = zeroState
+    ? ['#689D76']
+    : ['#611C19', '#962E2A', '#e3967d', '#A1D6E2'];
 
-	hoverBackgroundColors = [
-		'rgba(104, 157, 118, 0.50)',
-		'rgba(104, 157, 118, 0.50)',
-		'rgba(104, 157, 118, 0.50)',
-		'rgba(104, 157, 118, 0.50)'
-	];
-	} else {
-	backgroundColors = ['#611C19', '#962E2A', '#e3967d', '#A1D6E2'];
-	hoverBackgroundColors = backgroundColors;
-	}
+  const hoverBackgroundColors = zeroState ? ['rgba(104,157,118,0.50)'] : backgroundColors;
+  const hoverBorderColor = zeroState
+    ? ['rgba(104,157,118,0.5)']
+    : ['rgba(97, 28, 25, 0.71)', 'rgba(150, 46, 42, 0.71)', 'rgba(227, 134, 125, 0.71)', 'rgba(161, 214, 226, 0.71)'];
 
-	const data = {
-	labels: ['Critical', 'High', 'Moderate', 'Low'],
-	datasets: [{
-		data: severityCounts,
-		backgroundColor: backgroundColors,
-		borderWidth: 0,
-		hoverBackgroundColor: hoverBackgroundColors,
-		hoverBorderColor: [
-		'rgba(97, 28, 25, 0.71)',
-		'rgba(150, 46, 42, 0.71)',
-		'rgba(227, 134, 125, 0.71)',
-		'rgba(161, 214, 226, 0.71)'
-		],
-		hoverBorderWidth: 6
-	}]
-	};
+  const data = {
+    labels: displayLabels,
+    datasets: [{
+      data: displayData,
+      backgroundColor: backgroundColors,
+      borderWidth: 0,
+      hoverBackgroundColor: hoverBackgroundColors,
+      hoverBorderColor: hoverBorderColor,
+      hoverBorderWidth: 6
+    }]
+  };
 
-	const centerText = {
-		id: 'centerText',
-		beforeDraw(chart) {
-			const { ctx, chartArea } = chart;
-			const centerX = (chartArea.left + chartArea.right) / 2;
-			const centerY = (chartArea.top + chartArea.bottom) / 2;
+  // --- center text plugin (always shows true total) -------------------------
+  const centerText = {
+    id: 'centerText',
+    beforeDraw(chart) {
+      const { ctx, chartArea } = chart;
+      const cx = (chartArea.left + chartArea.right) / 2;
+      const cy = (chartArea.top + chartArea.bottom) / 2;
 
-			ctx.save();
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(1.1, 0.9);
+      ctx.translate(-cx, -cy);
 
-			ctx.translate(centerX, centerY);
-			ctx.scale(1.1, 0.9);
-			ctx.translate(-centerX, -centerY);
+      ctx.font = 'bold 66px "Fira Sans Condensed", sans-serif';
+      ctx.fillStyle = '#962E2A';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(trueTotal.toString().padStart(2, '0'), cx, cy - 20);
 
-			ctx.font = 'bold 66px "Fira Sans Condensed", sans-serif';
-			ctx.fillStyle = '#962E2A';
-			ctx.textAlign = 'center';
-			ctx.textBaseline = 'middle';
-			
-			const totalIssues = severityCounts.reduce((a, b) => a + b, 0);
-			ctx.fillText(totalIssues.toString().padStart(2, '0'), centerX, centerY - 20);
+      ctx.font = 'bold 24px "Fira Sans Condensed", sans-serif';
+      ctx.fillStyle = '#384247';
+      ctx.fillText('issues found', cx, cy + 30);
 
-			ctx.font = 'bold 24px "Fira Sans Condensed", sans-serif';
-			ctx.fillStyle = '#384247';
-			ctx.fillText('issues found', centerX, centerY + 30);
+      ctx.restore();
+    }
+  };
 
-			ctx.restore();
-		}
-	};
+  // --- destroy previous instance --------------------------------------------
+  if (canvas._vulnChartInstance) {
+    try { canvas._vulnChartInstance.destroy(); } catch (_) {}
+  }
 
-
+  // --- create chart ----------------------------------------------------------
   const chartInstance = new Chart(ctx, {
     type: 'doughnut',
-    data: data,
+    data,
     options: {
       cutout: '65%',
       radius: '65%',
-      plugins: {
-        legend: { display: false },
-        tooltip: { enabled: false } 
-      },
-
-      interaction: {
-        mode: 'nearest',
-        intersect: true
-      }
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      interaction: { mode: 'nearest', intersect: true }
     },
     plugins: [centerText]
   });
+  canvas._vulnChartInstance = chartInstance;
 
+  // --- custom hover label under the chart -----------------------------------
   const labelText = document.querySelector('#chartLabel .label-text');
-  const colorBox = document.querySelector('#chartLabel .color-box');
+  const colorBox  = document.querySelector('#chartLabel .color-box');
 
-  canvas.addEventListener('mousemove', function (event) {
+  const setNeutral = () => {
+    labelText.style.color = '#384247';
+    labelText.textContent = 'hover to see details';
+    colorBox.style.backgroundColor = 'transparent';
+  };
+  setNeutral();
+
+  canvas.addEventListener('mousemove', (event) => {
     const points = chartInstance.getElementsAtEventForMode(
-      event,
-      'nearest',
-      { intersect: true },
-      true
+      event, 'nearest', { intersect: true }, true
     );
 
-    if (points.length) {
-      const index = points[0].index;
-      const label = data.labels[index];
-      const value = data.datasets[0].data[index];
-      const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-      const percent = total ? Math.round((value / total) * 100) : 0;
+    if (!points.length) { setNeutral(); return; }
 
-      labelText.style.color = '#384247';
-      labelText.textContent = `${label} ${percent}%`;
+    const idx = points[0].index;
+    colorBox.style.backgroundColor = data.datasets[0].backgroundColor[idx];
 
-      colorBox.style.backgroundColor = data.datasets[0].backgroundColor[index];
-    } else {
-      labelText.style.color = '#384247';
-      labelText.textContent = 'hover to see details';
-      colorBox.style.backgroundColor = 'transparent';
+    if (zeroState) {
+      labelText.textContent = 'No issues found';
+      return;
     }
+
+    const label = data.labels[idx];       // e.g., "Moderate"
+    const count = severityCounts[idx] || 0;
+    const percent = Math.round((count / trueTotal) * 100);
+
+    // >>> Your requested format:
+    labelText.textContent = `${label} Severity   ${percent}%`;
   });
+
+  canvas.addEventListener('mouseleave', setNeutral);
 };
