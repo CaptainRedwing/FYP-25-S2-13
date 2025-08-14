@@ -995,8 +995,8 @@ function showDetails(type) {
 
 function calculateScore(results) {
   let score = 100;
-  const severityPoints = { critical: 25, high: 10, medium: 5, low: 3 };
-  const typeWeights = { xss: 1.0, libraries: 1.0, header: 1.0, csrf: 1.2, csp: 1.0, trackers: 1.0 };
+  const severityPoints = { critical: 15, high: 10, moderate: 5, low: 2 };
+  const typeWeights     = { xss:1.0, libraries:1.2, header:1.0, csrf:1.0, csp:1.0, trackers:1.0 };
 
   console.log("===== Vulnerability Score Breakdown =====");
 
@@ -1074,7 +1074,7 @@ function initConfigurationToggles() {
 }
 
 function getSeverityCounts(results) {
-  const counts = { critical: 0, high: 0, medium: 0, low: 0 };
+  const counts = { critical: 0, high: 0, moderate: 0, low: 0 };
 
   for (const type in results) {
     const issues = results[type];
@@ -1082,12 +1082,13 @@ function getSeverityCounts(results) {
 
     issues.forEach(issue => {
       let severity = (issue.severity || 'low').toLowerCase();
+      if (severity === 'medium') sev = 'moderate';
       if (!issue.severity && type === 'csp' && issue.exists === false) severity = 'low';
       if (counts.hasOwnProperty(severity)) counts[severity]++;
     });
   }
 
-  return [counts.critical, counts.high, counts.medium, counts.low];
+  return [counts.critical, counts.high, counts.moderate, counts.low];
 }
 
 /* ------------------------------------------------------------------

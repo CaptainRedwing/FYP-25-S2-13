@@ -121,8 +121,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
 function calculateScore(results) {
   let score = 100;
-  const severityPoints = { critical: 25, high: 10, moderate: 5, low: 3 };
-  const typeWeights     = { xss:1.0, libraries:1.0, header:1.0, csrf:1.2, csp:1.0, trackers:1.0 };
+  const severityPoints = { critical: 15, high: 10, moderate: 5, low: 2 };
+  const typeWeights     = { xss:1.0, libraries:1.2, header:1.0, csrf:1.0, csp:1.0, trackers:1.0 };
 
   for (const type in results) {
     const issues = results[type];
