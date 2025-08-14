@@ -38,7 +38,7 @@ window.renderVulnChart = function () {
 	}
 
 	const data = {
-	labels: ['Critical', 'High', 'Medium', 'Low'],
+	labels: ['Critical', 'High', 'Moderate', 'Low'],
 	datasets: [{
 		data: severityCounts,
 		backgroundColor: backgroundColors,
