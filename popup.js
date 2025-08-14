@@ -481,6 +481,15 @@ function showLoadingAndScan(scanFunction) {
               renderResults(lastScanResult);
 
               const score = calculateScore(lastScanResult);
+              const issues = Object.values(lastScanResult)
+              .reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
+              const url = document.getElementById("current-url").innerText;
+              const date = new Date().toISOString();
+
+              chrome.storage.local.get({ scanHistory: [] }, ({ scanHistory }) => {
+                scanHistory.push({ date, url, score, issues, mode: "auto" });
+                chrome.storage.local.set({ scanHistory });
+              });
               const el = document.querySelector("#score-value");
               notifyLowScore(score);
 
