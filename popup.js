@@ -4,6 +4,7 @@ let activeFilterDate = null;
 OPENAI_API_KEY = "";
 
 document.addEventListener("DOMContentLoaded", () => {
+  refreshAndScan();
   const menuButton = document.getElementById("menuButton");
   const dropdownMenu = document.getElementById("dropdownMenu");
   const setting = document.getElementById("setting");
@@ -1400,5 +1401,39 @@ function notifyLowScore(score) {
       message: `⚠️ Security score is ${score}/100. This site may be unsafe.`,
       priority: 2
     }
+  });
+}
+
+function refreshAndScan() {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    const activeTabId = tabs[0]?.id;
+    if (!activeTabId) return;
+
+    // Listen once for the tab to finish loading
+    const listener = (tabId, changeInfo) => {
+      if (tabId === activeTabId && changeInfo.status === 'complete') {
+        chrome.tabs.onUpdated.removeListener(listener);
+
+        // Now run your scan
+        chrome.tabs.sendMessage(activeTabId, { action: "runScan" }, (response) => {
+          if (!response) {
+            console.error("No response from content script.");
+            return;
+          }
+          if (response.error) {
+            console.error("Scan error:", response.error);
+            return;
+          }
+          lastScanResult = response;
+          chrome.storage.local.set({ lastScanResult: response });
+          console.log("Scan complete after refresh");
+        });
+      }
+    };
+
+    chrome.tabs.onUpdated.addListener(listener);
+
+    // Reload with cache bypass
+    chrome.tabs.reload(activeTabId, { bypassCache: true });
   });
 }
