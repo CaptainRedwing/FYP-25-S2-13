@@ -52,11 +52,11 @@ VulnEye is a browser extension that scans webpages for common client-side securi
 
 **Tech Stack**
 
-JavaScript (Vanilla JS)
+1. JavaScript (Vanilla JS)
 
-HTML/CSS (Custom popup and modal styling)
+2. HTML/CSS (Custom popup and modal styling)
 
-Data Sources: JSON vulnerability definitions for libraries, headers, CSRF, XSS, and trackers.
+3. Data Sources: JSON vulnerability definitions for libraries, headers, CSRF, XSS, and trackers.
 
 **Disclaimer**
 
