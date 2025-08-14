@@ -34,15 +34,11 @@ VulnEye is a browser extension that scans webpages for common client-side securi
 
 1. Clone or download this repository.
 
-2. Open file 'popup.js' using any editor.
+2. Open your browser’s extensions page (chrome://extensions/ for Chrome).
 
-3. Add this at Line 4 for OpenAI's API key = "" 
+3. Enable Developer Mode.
 
-4. Open your browser’s extensions page (chrome://extensions/ for Chrome).
-
-5. Enable Developer Mode.
-
-6. Click Load unpacked and select the project folder.
+4. Click Load unpacked and select the project folder.
 
 **Usage**
 
