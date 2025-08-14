@@ -1,88 +1,85 @@
 window.renderVulnChart = function () {
-	const canvas = document.getElementById('vulnChart');
-	if (!canvas) {
-		console.error("vulnChart not found when trying to render chart");
-		return;
-	}
+  const canvas = document.getElementById('vulnChart');
+  if (!canvas) {
+    console.error("vulnChart not found when trying to render chart");
+    return;
+  }
 
-	const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d');
 
-	let severityCounts = [0, 0, 0, 0];
-	if (window.lastScanResult && typeof window.getSeverityCounts === 'function') {
-		severityCounts = window.getSeverityCounts(window.lastScanResult);
-	} else if (typeof getSeverityCounts === 'function' && typeof lastScanResult !== 'undefined') {
-		severityCounts = getSeverityCounts(lastScanResult);
-	}
+  let severityCounts = [0, 0, 0, 0];
+  if (window.lastScanResult && typeof window.getSeverityCounts === 'function') {
+    severityCounts = window.getSeverityCounts(window.lastScanResult);
+  } else if (typeof getSeverityCounts === 'function' && typeof lastScanResult !== 'undefined') {
+    severityCounts = getSeverityCounts(lastScanResult);
+  }
 
-	const totalIssues = severityCounts.reduce((a, b) => a + b, 0);
-	let backgroundColors;
-	let hoverBackgroundColors;
+  const totalIssues = severityCounts.reduce((a, b) => a + b, 0);
+  const zeroState = totalIssues === 0;
 
-	if (totalIssues === 0) {
-	backgroundColors = [
-		'#689D76',
-		'#689D76',
-		'#689D76',
-		'#689D76'
-	];
 
-	hoverBackgroundColors = [
-		'rgba(104, 157, 118, 0.50)',
-		'rgba(104, 157, 118, 0.50)',
-		'rgba(104, 157, 118, 0.50)',
-		'rgba(104, 157, 118, 0.50)'
-	];
-	} else {
-	backgroundColors = ['#611C19', '#962E2A', '#e3967d', '#A1D6E2'];
-	hoverBackgroundColors = backgroundColors;
-	}
+  const labels = zeroState
+    ? ['No issues']
+    : ['Critical', 'High', 'Moderate', 'Low'];
+//green circle
+  const values = zeroState
+    ? [1]                          
+    : severityCounts;
 
-	const data = {
-	labels: ['Critical', 'High', 'Moderate', 'Low'],
-	datasets: [{
-		data: severityCounts,
-		backgroundColor: backgroundColors,
-		borderWidth: 0,
-		hoverBackgroundColor: hoverBackgroundColors,
-		hoverBorderColor: [
-		'rgba(97, 28, 25, 0.71)',
-		'rgba(150, 46, 42, 0.71)',
-		'rgba(227, 134, 125, 0.71)',
-		'rgba(161, 214, 226, 0.71)'
-		],
-		hoverBorderWidth: 6
-	}]
-	};
+  const backgroundColors = zeroState
+    ? ['#689D76']                 
+    : ['#611C19', '#962E2A', '#e3967d', '#A1D6E2'];
 
-	const centerText = {
-		id: 'centerText',
-		beforeDraw(chart) {
-			const { ctx, chartArea } = chart;
-			const centerX = (chartArea.left + chartArea.right) / 2;
-			const centerY = (chartArea.top + chartArea.bottom) / 2;
+  const hoverBackgroundColors = zeroState
+    ? ['rgba(104, 157, 118, 0.50)']
+    : ['rgba(97, 28, 25, 0.71)', 'rgba(150, 46, 42, 0.71)', 'rgba(227, 134, 125, 0.71)', 'rgba(161, 214, 226, 0.71)'];
 
-			ctx.save();
+  const data = {
+    labels,
+    datasets: [{
+      data: values,
+      backgroundColor: backgroundColors,
+      borderWidth: 0,
+      hoverBackgroundColor: hoverBackgroundColors,
+      hoverBorderColor: zeroState ? ['#ffffff'] : [
+        'rgba(97, 28, 25, 0.71)',
+        'rgba(150, 46, 42, 0.71)',
+        'rgba(227, 134, 125, 0.71)',
+        'rgba(161, 214, 226, 0.71)'
+      ],
+      hoverBorderWidth: 6
+    }]
+  };
 
-			ctx.translate(centerX, centerY);
-			ctx.scale(1.1, 0.9);
-			ctx.translate(-centerX, -centerY);
+  // green when zero
+  const centerText = {
+    id: 'centerText',
+    beforeDraw(chart) {
+      const { ctx, chartArea } = chart;
+      const centerX = (chartArea.left + chartArea.right) / 2;
+      const centerY = (chartArea.top + chartArea.bottom) / 2;
 
-			ctx.font = 'bold 66px "Fira Sans Condensed", sans-serif';
-			ctx.fillStyle = '#962E2A';
-			ctx.textAlign = 'center';
-			ctx.textBaseline = 'middle';
-			
-			const totalIssues = severityCounts.reduce((a, b) => a + b, 0);
-			ctx.fillText(totalIssues.toString().padStart(2, '0'), centerX, centerY - 20);
+      ctx.save();
 
-			ctx.font = 'bold 24px "Fira Sans Condensed", sans-serif';
-			ctx.fillStyle = '#384247';
-			ctx.fillText('issues found', centerX, centerY + 30);
+      ctx.translate(centerX, centerY);
+      ctx.scale(1.1, 0.9);
+      ctx.translate(-centerX, -centerY);
 
-			ctx.restore();
-		}
-	};
+      ctx.font = 'bold 66px "Fira Sans Condensed", sans-serif';
+      ctx.fillStyle = zeroState ? '#689D76' : '#962E2A';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
 
+      const numText = zeroState ? '0' : totalIssues.toString().padStart(2, '0');
+      ctx.fillText(numText, centerX, centerY - 20);
+
+      ctx.font = 'bold 24px "Fira Sans Condensed", sans-serif';
+      ctx.fillStyle = '#384247';
+      ctx.fillText(zeroState ? 'Issues' : 'issues found', centerX, centerY + 30);
+
+      ctx.restore();
+    }
+  };
 
   const chartInstance = new Chart(ctx, {
     type: 'doughnut',
@@ -92,9 +89,8 @@ window.renderVulnChart = function () {
       radius: '65%',
       plugins: {
         legend: { display: false },
-        tooltip: { enabled: false } 
+        tooltip: { enabled: false }
       },
-
       interaction: {
         mode: 'nearest',
         intersect: true
@@ -105,6 +101,13 @@ window.renderVulnChart = function () {
 
   const labelText = document.querySelector('#chartLabel .label-text');
   const colorBox = document.querySelector('#chartLabel .color-box');
+
+  const setNeutral = () => {
+    if (!labelText || !colorBox) return;
+    labelText.style.color = '#384247';
+    labelText.textContent = zeroState ? 'No issues found' : 'hover to see details';
+    colorBox.style.backgroundColor = zeroState ? backgroundColors[0] : 'transparent';
+  };
 
   canvas.addEventListener('mousemove', function (event) {
     const points = chartInstance.getElementsAtEventForMode(
@@ -118,17 +121,16 @@ window.renderVulnChart = function () {
       const index = points[0].index;
       const label = data.labels[index];
       const value = data.datasets[0].data[index];
-      const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-      const percent = total ? Math.round((value / total) * 100) : 0;
+      const total = zeroState ? 1 : data.datasets[0].data.reduce((a, b) => a + b, 0);
+      const percent = Math.round((value / total) * 100);
 
       labelText.style.color = '#384247';
-      labelText.textContent = `${label} ${percent}%`;
-
+      labelText.textContent = zeroState ? 'No issues • 100%' : `${label} ${percent}%`;
       colorBox.style.backgroundColor = data.datasets[0].backgroundColor[index];
     } else {
-      labelText.style.color = '#384247';
-      labelText.textContent = 'hover to see details';
-      colorBox.style.backgroundColor = 'transparent';
+      setNeutral();
     }
   });
+
+  setNeutral();
 };
