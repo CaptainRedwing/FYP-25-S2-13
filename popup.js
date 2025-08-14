@@ -4,6 +4,7 @@ let activeFilterDate = null;
 OPENAI_API_KEY = "";
 
 document.addEventListener("DOMContentLoaded", () => {
+  refreshAndScan();
   const menuButton = document.getElementById("menuButton");
   const dropdownMenu = document.getElementById("dropdownMenu");
   const setting = document.getElementById("setting");
@@ -480,6 +481,15 @@ function showLoadingAndScan(scanFunction) {
               renderResults(lastScanResult);
 
               const score = calculateScore(lastScanResult);
+              const issues = Object.values(lastScanResult)
+              .reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
+              const url = document.getElementById("current-url").innerText;
+              const date = new Date().toISOString();
+
+              chrome.storage.local.get({ scanHistory: [] }, ({ scanHistory }) => {
+                scanHistory.push({ date, url, score, issues, mode: "auto" });
+                chrome.storage.local.set({ scanHistory });
+              });
               const el = document.querySelector("#score-value");
               notifyLowScore(score);
 
@@ -994,8 +1004,8 @@ function showDetails(type) {
 
 function calculateScore(results) {
   let score = 100;
-  const severityPoints = { critical: 25, high: 10, medium: 5, low: 3 };
-  const typeWeights = { xss: 1.0, libraries: 1.0, header: 1.0, csrf: 1.2, csp: 1.0, trackers: 1.0 };
+  const severityPoints = { critical: 15, high: 10, moderate: 5, low: 2 };
+  const typeWeights     = { xss:1.0, libraries:1.2, header:1.0, csrf:1.0, csp:1.0, trackers:1.0 };
 
   console.log("===== Vulnerability Score Breakdown =====");
 
@@ -1073,7 +1083,7 @@ function initConfigurationToggles() {
 }
 
 function getSeverityCounts(results) {
-  const counts = { critical: 0, high: 0, medium: 0, low: 0 };
+  const counts = { critical: 0, high: 0, moderate: 0, low: 0 };
 
   for (const type in results) {
     const issues = results[type];
@@ -1081,12 +1091,13 @@ function getSeverityCounts(results) {
 
     issues.forEach(issue => {
       let severity = (issue.severity || 'low').toLowerCase();
+      if (severity === 'medium') sev = 'moderate';
       if (!issue.severity && type === 'csp' && issue.exists === false) severity = 'low';
       if (counts.hasOwnProperty(severity)) counts[severity]++;
     });
   }
 
-  return [counts.critical, counts.high, counts.medium, counts.low];
+  return [counts.critical, counts.high, counts.moderate, counts.low];
 }
 
 /* ------------------------------------------------------------------
@@ -1400,5 +1411,39 @@ function notifyLowScore(score) {
       message: `⚠️ Security score is ${score}/100. This site may be unsafe.`,
       priority: 2
     }
+  });
+}
+
+function refreshAndScan() {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    const activeTabId = tabs[0]?.id;
+    if (!activeTabId) return;
+
+    // Listen once for the tab to finish loading
+    const listener = (tabId, changeInfo) => {
+      if (tabId === activeTabId && changeInfo.status === 'complete') {
+        chrome.tabs.onUpdated.removeListener(listener);
+
+        // Now run your scan
+        chrome.tabs.sendMessage(activeTabId, { action: "runScan" }, (response) => {
+          if (!response) {
+            console.error("No response from content script.");
+            return;
+          }
+          if (response.error) {
+            console.error("Scan error:", response.error);
+            return;
+          }
+          lastScanResult = response;
+          chrome.storage.local.set({ lastScanResult: response });
+          console.log("Scan complete after refresh");
+        });
+      }
+    };
+
+    chrome.tabs.onUpdated.addListener(listener);
+
+    // Reload with cache bypass
+    chrome.tabs.reload(activeTabId, { bypassCache: true });
   });
 }

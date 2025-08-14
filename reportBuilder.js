@@ -1,4 +1,4 @@
-/************  VULNEYE PDF EXPORT — COVER + LIBRARIES LIKE MODAL; NO ORPHANS  ************/
+//PDF export
 
 /* Safe escape */
 function _escapeHtml(s = '') {
